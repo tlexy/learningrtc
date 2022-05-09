@@ -13,7 +13,7 @@
 * pc_client 客户端相关，windows客户端，使用Qt+SDL实现
 * learnsvr 服务器
 * net_base 封装的跨平台网络接口
-* netrate 带宽预测、拥塞控制相碰
+* netrate 带宽预测、拥塞控制相关
 * qos Qos相关
 * rtp_base rtp低层实现
 * video windows平台的视频采集
