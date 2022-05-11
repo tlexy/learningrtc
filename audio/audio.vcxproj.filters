@@ -10,4 +10,20 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\audio_player.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="common\audio_buffer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\audio_player.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="common\audio_buffer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
