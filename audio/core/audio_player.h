@@ -20,6 +20,7 @@ public:
 
 	static void init();
 
+	//只有返回0才代表初始化成功
 	int init_play(int device_idx);
 	int init_play();
 
@@ -36,6 +37,7 @@ public:
 
 	uint32_t format();
 	int sample_rate();
+	void set_sample_rate(int sample_rate);
 	int channel_count();
 
 	//获取设备id及设备名称

@@ -8,8 +8,10 @@ std::unordered_map<int, const PaDeviceInfo*> AudioPlayer::_device_list;
 bool AudioPlayer::_is_init = false;
 
 AudioPlayer::AudioPlayer()
-	:_stream(NULL)
-{}
+	:_stream(NULL),
+	_sample_rate(SAMPLE_RATE)
+{
+}
 
 void AudioPlayer::init()
 {
@@ -21,7 +23,7 @@ void AudioPlayer::init()
 	for (int i = 0; i < hostCnt; ++i)
 	{
 		const PaHostApiInfo* hinfo = Pa_GetHostApiInfo(i);
-		if (hinfo->type == paWASAPI/* || hinfo->type == paDirectSound*/)
+		if (hinfo->type == paWASAPI || hinfo->type == paDirectSound)
 		{
 			for (PaDeviceIndex hostDevice = 0; hostDevice < hinfo->deviceCount; ++hostDevice)
 			{
@@ -37,6 +39,11 @@ void AudioPlayer::init()
 		}
 	}
 	_is_init = true;
+}
+
+void AudioPlayer::set_sample_rate(int sample_rate)
+{
+	_sample_rate = sample_rate;
 }
 
 uint32_t AudioPlayer::format()
@@ -137,7 +144,7 @@ int AudioPlayer::init_play(int device_idx)
 		_stream = NULL;
 	}
 	//默认参数
-	_sample_rate = SAMPLE_RATE;
+	
 	_format = paInt16;
 	_deps = 2;
 
@@ -183,4 +190,5 @@ int AudioPlayer::init_play(int device_idx)
 		return -2;
 	}
 	_stream = out_stream;
+	return 0;
 }
