@@ -8,6 +8,8 @@
 #include "../common/audio_buffer.h"
 #include <mutex>
 
+#pragma execution_character_set("utf-8")
+
 using AudioPlayerCallBack = std::function<void(void* output, unsigned long frameCount)>;
 
 /// <summary>

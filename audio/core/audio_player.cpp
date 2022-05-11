@@ -4,6 +4,8 @@
 #define SAMPLE_RATE         (44100)
 #define FRAMES_PER_BUFFER   (1024)
 
+#pragma execution_character_set("utf-8")
+
 std::unordered_map<int, const PaDeviceInfo*> AudioPlayer::_device_list;
 bool AudioPlayer::_is_init = false;
 
