@@ -15,7 +15,7 @@
 * net_base 封装的跨平台网络接口
 * netrate 带宽预测、拥塞控制相关
 * qos Qos相关
-* rtp_base rtp低层实现
+* rtp_base rtp底层实现
 * video windows平台的视频采集
 * endec 音视频编解码相关
 
