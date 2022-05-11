@@ -142,10 +142,13 @@
   <ItemGroup>
     <ClCompile Include="common\audio_buffer.cpp" />
     <ClCompile Include="core\audio_player.cpp" />
+    <ClCompile Include="core\port_recorder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\audio_buffer.h" />
     <ClInclude Include="core\audio_player.h" />
+    <ClInclude Include="core\iport_callback.h" />
+    <ClInclude Include="core\port_recorder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
