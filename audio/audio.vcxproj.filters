@@ -23,6 +23,9 @@
     <ClCompile Include="common\mid_buf.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="common\audio_common.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\audio_player.h">
@@ -38,6 +41,9 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="common\mid_buf.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\audio_common.h">
       <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
