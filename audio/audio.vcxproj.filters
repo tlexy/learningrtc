@@ -20,6 +20,9 @@
     <ClCompile Include="core\port_recorder.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="common\mid_buf.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\audio_player.h">
@@ -33,6 +36,9 @@
     </ClInclude>
     <ClInclude Include="core\port_recorder.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="common\mid_buf.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
