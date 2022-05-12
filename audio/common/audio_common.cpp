@@ -50,6 +50,10 @@ void AudioCommon::init_device()
 				AudioPlayer::add_pa_device(deviceNum, dinfo);
 			}
 		}
-		
 	}
+}
+
+void AudioCommon::destory()
+{
+	Pa_Terminate();
 }

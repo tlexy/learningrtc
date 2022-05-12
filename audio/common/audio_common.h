@@ -13,6 +13,7 @@ class AudioCommon
 {
 public:
 	static void init_device();
+	static void destory();
 
 public:
 	static std::unordered_map<int, const PaDeviceInfo*> bgm_device_list;
