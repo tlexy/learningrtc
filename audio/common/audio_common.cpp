@@ -2,6 +2,12 @@
 #include "../core/audio_player.h"
 #include "../core/port_recorder.h"
 
+#pragma execution_character_set("utf-8")
+
+std::unordered_map<int, const PaDeviceInfo*> AudioCommon::bgm_device_list;
+std::unordered_map<int, const PaDeviceInfo*> AudioCommon::mic_device_list;
+std::unordered_map<int, const PaDeviceInfo*> AudioCommon::speaker_device_list;
+
 void AudioCommon::init_device()
 {
 	PaError err = Pa_Initialize();

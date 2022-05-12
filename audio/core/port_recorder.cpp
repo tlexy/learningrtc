@@ -120,7 +120,7 @@ int port_record_cb(
 	recorder->record_mid->push((const uint8_t*)input, framesize);
 	if (!recorder->cb)
 	{
-		return;
+		return paContinue;
 	}
 	while (recorder->record_mid->usable_count() >= recorder->tem_mill_size)
 	{

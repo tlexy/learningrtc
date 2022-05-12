@@ -2,6 +2,9 @@
 
 #include <stdint.h>
 #include <unordered_map>
+#include <portaudio.h>
+
+#pragma execution_character_set("utf-8")
 
 /// <summary>
 /// 音频设置初始化相关，只会检索双通道设备
