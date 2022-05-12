@@ -32,14 +32,16 @@ public:
 	~PortRecorder();
 	
 	void set_target_rate(int sample_rate);
-	bool startRecord(int paDeviceIndex);
-	void stopRecord();
+
+	bool start_record();
+	bool start_record(int paDeviceIndex);
+	void stop_record();
 
 	void thread_record(int index);
 
 	static struct SwrContext* init_swr(int src_rate, int src_channels, int src_fmt, int dst_rate, int dst_channels, int dst_fmt);
 	static int do_swr(struct SwrContext* swr, void* in_data, int nb_in_samples, int src_rate, void* out_data, int out_len, int dst_rate);
-	static void addPaDevice(int, const PaDeviceInfo*);
+	static void add_pa_device(int, const PaDeviceInfo*);
 public:
 	mid_buf* record_mid{NULL};
 	static std::map<int, const PaDeviceInfo*> device_list;

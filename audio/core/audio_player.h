@@ -20,7 +20,7 @@ class AudioPlayer
 public:
 	AudioPlayer();
 
-	static void init();
+	static void add_pa_device(int deviceIdx, const PaDeviceInfo* dinfo);
 
 	//只有返回0才代表初始化成功
 	int init_play(int device_idx);
@@ -49,7 +49,6 @@ private:
 	static std::unordered_map<int, const PaDeviceInfo*> _device_list;
 	PaStream* _stream;
 	bool _is_stop{ true };
-	static bool _is_init;
 	AudioPlayerCallBack _cb{nullptr};
 	int _sample_rate;
 	uint32_t _format;

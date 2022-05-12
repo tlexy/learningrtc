@@ -71,7 +71,12 @@ int PortRecorder::do_swr(struct SwrContext* swr, void* in_data, int nb_in_sample
 	return num;
 }
 
-bool PortRecorder::startRecord(int paDeviceIndex)
+bool PortRecorder::start_record()
+{
+	return start_record(Pa_GetDefaultInputDevice());
+}
+
+bool PortRecorder::start_record(int paDeviceIndex)
 {
 	if (device_list.find(paDeviceIndex) == device_list.end())
 	{
@@ -95,13 +100,6 @@ bool PortRecorder::startRecord(int paDeviceIndex)
 
 static char port_input_temp_buff[PORT_INPUT_TEMP];//最大float32
 static char port_swr_buff[PORT_INPUT_TEMP*2];//最大float32
-
-int64_t getTimeStampMilli()
-{
-	std::chrono::system_clock::time_point tp = std::chrono::system_clock::now();
-	auto tt = std::chrono::duration_cast<std::chrono::milliseconds>(tp.time_since_epoch());
-	return tt.count();
-}
 
 static int64_t frame_time = 0;
 
@@ -222,7 +220,7 @@ void PortRecorder::thread_record(int index)
 	_stream = inputStream;
 }
 
-void PortRecorder::stopRecord()
+void PortRecorder::stop_record()
 {
 	log4u::log("stopRecord...");
 	is_record_stop = true;
@@ -240,7 +238,7 @@ void PortRecorder::stopRecord()
 	}
 }
 
-void PortRecorder::addPaDevice(int deviceIdx, const PaDeviceInfo* dinfo)
+void PortRecorder::add_pa_device(int deviceIdx, const PaDeviceInfo* dinfo)
 {
 	device_list[deviceIdx] = dinfo;
 }

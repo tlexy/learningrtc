@@ -7,7 +7,6 @@
 #pragma execution_character_set("utf-8")
 
 std::unordered_map<int, const PaDeviceInfo*> AudioPlayer::_device_list;
-bool AudioPlayer::_is_init = false;
 
 AudioPlayer::AudioPlayer()
 	:_stream(NULL),
@@ -15,32 +14,9 @@ AudioPlayer::AudioPlayer()
 {
 }
 
-void AudioPlayer::init()
+void AudioPlayer::add_pa_device(int deviceIdx, const PaDeviceInfo* dinfo)
 {
-	if (_is_init)
-	{
-		return;
-	}
-	PaHostApiIndex hostCnt = Pa_GetHostApiCount();
-	for (int i = 0; i < hostCnt; ++i)
-	{
-		const PaHostApiInfo* hinfo = Pa_GetHostApiInfo(i);
-		if (hinfo->type == paWASAPI || hinfo->type == paDirectSound)
-		{
-			for (PaDeviceIndex hostDevice = 0; hostDevice < hinfo->deviceCount; ++hostDevice)
-			{
-				PaDeviceIndex deviceNum = Pa_HostApiDeviceIndexToDeviceIndex(i, hostDevice);
-				const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(deviceNum);
-				//printf_device_info(deviceNum, dinfo);
-				if (dinfo != NULL && dinfo->maxInputChannels > 0)
-				{
-					_device_list[deviceNum] = dinfo;
-				}
-			}
-
-		}
-	}
-	_is_init = true;
+	_device_list[deviceIdx] = dinfo;
 }
 
 void AudioPlayer::set_sample_rate(int sample_rate)

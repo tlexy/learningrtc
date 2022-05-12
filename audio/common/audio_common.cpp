@@ -1,4 +1,6 @@
 ﻿#include "audio_common.h"
+#include "../core/audio_player.h"
+#include "../core/port_recorder.h"
 
 void AudioCommon::init_device()
 {
@@ -11,33 +13,37 @@ void AudioCommon::init_device()
 	for (int i = 0; i < hostCnt; ++i)
 	{
 		const PaHostApiInfo* hinfo = Pa_GetHostApiInfo(i);
-		if (hinfo->type == paWASAPI/* || hinfo->type == paDirectSound*/)
+		for (PaDeviceIndex hostDevice = 0; hostDevice < hinfo->deviceCount; ++hostDevice)
 		{
-			for (PaDeviceIndex hostDevice = 0; hostDevice < hinfo->deviceCount; ++hostDevice)
+			PaDeviceIndex deviceNum = Pa_HostApiDeviceIndexToDeviceIndex(i, hostDevice);
+			const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(deviceNum);
+			if (dinfo == NULL)
 			{
-				PaDeviceIndex deviceNum = Pa_HostApiDeviceIndexToDeviceIndex(i, hostDevice);
-				const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(deviceNum);
-				if (dinfo != NULL && dinfo->maxInputChannels > 0)
+				continue;
+			}
+			if (dinfo->maxInputChannels == 2)
+			{
+				if (hinfo->type == paWASAPI)
 				{
-					_bgm_device_list[deviceNum] = dinfo;
-					_cb_bgm->addItem(QString::fromStdString(dinfo->name), QVariant(deviceNum));
+					bgm_device_list[deviceNum] = dinfo;
 				}
+				else if (hinfo->type == paDirectSound)
+				{
+					mic_device_list[deviceNum] = dinfo;
+				}
+				else
+				{
+					continue;
+				}
+				//将设备保存到录音对象中
+				PortRecorder::add_pa_device(deviceNum, dinfo);
+			}
+			if (dinfo->maxOutputChannels > 0)
+			{
+				speaker_device_list[deviceNum] = dinfo;
+				AudioPlayer::add_pa_device(deviceNum, dinfo);
 			}
 		}
-		else if (hinfo->type == paDirectSound)
-		{
-			for (PaDeviceIndex hostDevice = 0; hostDevice < hinfo->deviceCount; ++hostDevice)
-			{
-				PaDeviceIndex deviceNum = Pa_HostApiDeviceIndexToDeviceIndex(i, hostDevice);
-				const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(deviceNum);
-				if (dinfo != NULL && dinfo->maxInputChannels > 0)
-				{
-					_mic_device_list[deviceNum] = dinfo;
-					_cb_mic->addItem(QString::fromStdString(dinfo->name), QVariant(deviceNum));
-					//将设备保存到录音对象中
-					PortRecorder::addPaDevice(deviceNum, dinfo);
-				}
-			}
-		}
+		
 	}
 }
