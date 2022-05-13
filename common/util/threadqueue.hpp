@@ -88,8 +88,8 @@ public:
 		if (!_isNotEmpty)
 		{
 			flag = false;
-			T t;
-			return t;
+			//T t;
+			return _default;
 		}
 		else
 		{
@@ -133,6 +133,7 @@ private:
 	int _max;
 	bool _isFull;
 	bool _isNotEmpty;
+	T _default{};
 };
 
 #endif
