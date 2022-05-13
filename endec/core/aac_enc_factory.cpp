@@ -1,35 +1,40 @@
-﻿#include "aac_sender.h"
+﻿#include "aac_enc_factory.h"
 #include "aac_helper.h"
 #include <iostream>
 #include <common/util/file_saver.h>
+#include <time.h>
+#include <string>
 
-AacSender::AacSender(int numOfChannels, int sampleRate, int bitRate)
+AacEncFactory::AacEncFactory(int numOfChannels, int sampleRate, int bitRate)
 	:_pcm_queue(100),
 	_th(std::shared_ptr<std::thread>())
 {
 	_aac_helper = new AacHelper();
 	_is_good = _aac_helper->openEncoder(numOfChannels, sampleRate, bitRate);
-	_pcm_bufque = new DcLoopPcmBuffer(43, 1);
+	_pcm_bufque = new DcLoopPcmBuffer(43);
 	_aac_temp_buf = (uint8_t*)malloc(_aac_temp_len);
 }
 
-AacSender::~AacSender()
+AacEncFactory::~AacEncFactory()
 {}
 
-bool AacSender::isGood()
+bool AacEncFactory::isGood()
 {
 	return _is_good;
 }
 
-void AacSender::sendFrame(const uint8_t* data, int len)
+void AacEncFactory::sendFrame(const uint8_t* data, int len)
 {
-	//std::cout << "sendFrame, len:" << len << std::endl;
+	if (len > 4096)
+	{
+		std::cout << "sendFrame 0, data too long: " << len << std::endl;
+	}
 	if (!isGood())
 	{
 		std::cout << "sendFrame 1" << std::endl;
 		return;
 	}
-	DcPcmBuffer* ptr = _pcm_bufque->get_empty_buffer();
+	DcPcmBuffer* ptr = _pcm_bufque->get_empty_buffer2();
 	if (ptr == NULL)
 	{
 		std::cout << "sendFrame 2" << std::endl;
@@ -39,7 +44,7 @@ void AacSender::sendFrame(const uint8_t* data, int len)
 	_pcm_queue.push_back(ptr);
 }
 
-void AacSender::enc_thread()
+void AacEncFactory::enc_thread()
 {
 	_is_stop = false;
 	bool flag = false;
@@ -73,21 +78,21 @@ void AacSender::enc_thread()
 		}
 		if (ptr != NULL)
 		{
-			_pcm_bufque->push_empty_buffer(ptr);
+			_pcm_bufque->push_empty_buffer2(ptr);
 		}
 	}
 }
 
-void AacSender::startEncThread()
+void AacEncFactory::startEncThread()
 {
 	if (_th)
 	{
 		return;
 	}
-	_th = std::make_shared<std::thread>(&AacSender::enc_thread, this);
+	_th = std::make_shared<std::thread>(&AacEncFactory::enc_thread, this);
 }
 
-void AacSender::stopEncThread()
+void AacEncFactory::stopEncThread()
 {
 	_is_stop = true;
 	if (_th)
@@ -102,9 +107,13 @@ void AacSender::stopEncThread()
 
 
 FileAacSender::FileAacSender(int numOfChannels, int sampleRate, int bitRate)
-	:AacSender(numOfChannels, sampleRate, bitRate)
+	:AacEncFactory(numOfChannels, sampleRate, bitRate)
 {
-	_file = new FileSaver(1024 * 1024, "demo");
+	time_t now = time(NULL);
+	std::string sn = std::to_string(now);
+	std::string fn = "demo_";
+	fn += sn;
+	_file = new FileSaver(1024 * 1024, fn.c_str());
 }
 
 void FileAacSender::receivePacket(const uint8_t* buf, int len)

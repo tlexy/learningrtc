@@ -11,17 +11,18 @@
 class AacHelper;
 class FileSaver;
 
-class AacSender 
+class AacEncFactory
 {
 public:
-	AacSender(int numOfChannels = 2, int sampleRate = 44100, int bitRate = 192000);
-	virtual ~AacSender();
+	AacEncFactory(int numOfChannels = 2, int sampleRate = 44100, int bitRate = 192000);
+	virtual ~AacEncFactory();
 
 	bool isGood();
+	//发送aac数据到内部线程进行编码，len的长度不能大于4096
 	void sendFrame(const uint8_t*, int len);
 	void startEncThread();
 	void stopEncThread();
-
+	//获取编码后的输出
 	virtual void receivePacket(const uint8_t*, int len) = 0;
 
 private:
@@ -39,7 +40,7 @@ private:
 	uint8_t* _aac_temp_buf;
 };
 
-class FileAacSender : public AacSender
+class FileAacSender : public AacEncFactory
 {
 public:
 	FileAacSender(int numOfChannels = 2, int sampleRate = 44100, int bitRate = 192000);

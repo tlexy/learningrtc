@@ -141,11 +141,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\aac_helper.cpp" />
-    <ClCompile Include="core\aac_sender.cpp" />
+    <ClCompile Include="core\aac_enc_factory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\aac_helper.h" />
-    <ClInclude Include="core\aac_sender.h" />
+    <ClInclude Include="core\aac_enc_factory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

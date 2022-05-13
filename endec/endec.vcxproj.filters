@@ -14,7 +14,7 @@
     <ClCompile Include="core\aac_helper.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="core\aac_sender.cpp">
+    <ClCompile Include="core\aac_enc_factory.cpp">
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -22,7 +22,7 @@
     <ClInclude Include="core\aac_helper.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="core\aac_sender.h">
+    <ClInclude Include="core\aac_enc_factory.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
