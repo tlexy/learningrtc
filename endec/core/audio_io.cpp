@@ -3,7 +3,7 @@
 #include <audio/common/audio_common.h>
 
 AudioIO::AudioIO(int bitRate)
-	:AacEncFactory(_sample_channel, _sample_rate, bitRate)
+	:AacEncFactory(2, 44100, bitRate)
 {
 	_recorder = new PortRecorder(this);
 }
@@ -42,6 +42,6 @@ void AudioIO::receivePacket(const uint8_t* data, int len)
 
 void AudioIO::stream_cb(const void* input, unsigned long frameCount, int sampleSize)
 {
-	int framesize = frameCount * sampleSize * _sample_channel/2;
+	int framesize = frameCount * sampleSize * _sample_channel/8;
 	sendFrame((uint8_t*)input, framesize);
 }
