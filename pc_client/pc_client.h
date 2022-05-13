@@ -21,6 +21,9 @@ public:
 
     void init();
 
+public slots:
+    void slot_audio_device_change(int index);
+
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);
 

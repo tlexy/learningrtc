@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QVariant>
+#include <QDebug>
 #include <audio/common/audio_common.h>
 
 #pragma execution_character_set("utf-8")
@@ -57,8 +59,25 @@ void PcClient::init()
 
     for (auto it = AudioCommon::mic_device_list.begin(); it != AudioCommon::mic_device_list.end(); ++it)
     {
-        _audio_com_box->addItem(tr(it->second->name));
+        _audio_com_box->addItem(tr(it->second->name), QVariant(it->first));
     }
+
+    connect(_audio_com_box, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        [&](int index) {
+            slot_audio_device_change(index);
+        });
+}
+
+void PcClient::slot_audio_device_change(int index)
+{
+    if (index >= _audio_com_box->count())
+    {
+        return;
+    }
+    QString device_name = _audio_com_box->itemText(index);
+    QVariant var = _audio_com_box->itemData(index);
+    qDebug() << var.value<int>() << " : " << device_name;
+    //emit sig_input_device_change(device_name);
 }
 
 QBoxLayout* PcClient::create_layout(const std::vector<QWidget*> widgets, QBoxLayout* layout)

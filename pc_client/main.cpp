@@ -13,5 +13,7 @@ int main(int argc, char *argv[])
     w.init();
 
     w.show();
-    return a.exec();
+    int ret = a.exec();
+    AudioCommon::destory();
+    return ret;
 }
