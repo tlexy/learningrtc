@@ -109,11 +109,7 @@ void AacEncFactory::stopEncThread()
 FileAacSender::FileAacSender(int numOfChannels, int sampleRate, int bitRate)
 	:AacEncFactory(numOfChannels, sampleRate, bitRate)
 {
-	time_t now = time(NULL);
-	std::string sn = std::to_string(now);
-	std::string fn = "demo_";
-	fn += sn;
-	_file = new FileSaver(1024 * 1024, fn.c_str());
+	_file = new FileSaver(1024 * 1024, "demo", ".aac");
 }
 
 void FileAacSender::receivePacket(const uint8_t* buf, int len)

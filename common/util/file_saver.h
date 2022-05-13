@@ -6,7 +6,7 @@
 class FileSaver
 {
 public:
-	FileSaver(int size, const char* filename);
+	FileSaver(int size, const char* filename, const char* suffix = "");
 
 	void write(const char* buf, int len);
 

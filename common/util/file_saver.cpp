@@ -3,7 +3,7 @@
 #include <string>
 #include <time.h>
 
-FileSaver::FileSaver(int size, const char* filename)
+FileSaver::FileSaver(int size, const char* filename, const char* suffix)
 {
 	_buf = new char[size];
 	_buf_size = size;
@@ -11,7 +11,7 @@ FileSaver::FileSaver(int size, const char* filename)
 
 	std::string name(filename);
 	int now = time(NULL);
-	name = name + std::to_string(now) + std::string(".aac");
+	name = name + std::to_string(now) +std::string(suffix);
 	_file = fopen(name.c_str(), "wb");
 
 }
