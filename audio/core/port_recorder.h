@@ -9,7 +9,7 @@
 #include <chrono>
 #include <portaudio.h>
 
-#include "../common/mid_buf.h"
+#include <common/audio/mid_buf.h>
 
 extern "C" {
 #include <libavutil/avutil.h>
