@@ -19,9 +19,9 @@ int main(int argc, char *argv[])
     w.resize(1280, 720);
     w.init();
 
-    AudioIO* audio_io = new AudioIO(128000);
+    /*AudioIO* audio_io = new AudioIO(128000);
     audio_io->set_io_cb(std::bind(aac_cb, std::placeholders::_1, std::placeholders::_2));
-    audio_io->start();
+    audio_io->start();*/
 
     w.show();
     int ret = a.exec();

@@ -15,11 +15,6 @@ void AudioIO::set_io_cb(AudioIoCallBack cb)
 
 void AudioIO::start(int pa_device_index)
 {
-	/*for (auto it = AudioCommon::mic_device_list.begin(); it != AudioCommon::mic_device_list.end(); ++it)
-	{
-		_recorder->add_pa_device(it->first, it->second);
-	}*/
-
 	_recorder->set_target_rate(_sample_rate);
 	_recorder->start_record(pa_device_index);
 

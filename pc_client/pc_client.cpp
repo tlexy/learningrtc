@@ -59,7 +59,11 @@ void PcClient::init()
 
     for (auto it = AudioCommon::mic_device_list.begin(); it != AudioCommon::mic_device_list.end(); ++it)
     {
-        _audio_com_box->addItem(tr(it->second->name), QVariant(it->first));
+        QString name = QString::fromStdString(it->second->name);
+        if (name[0] != 65533)
+        {
+            _audio_com_box->addItem(name, QVariant(it->first));
+        }
     }
 
     connect(_audio_com_box, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
