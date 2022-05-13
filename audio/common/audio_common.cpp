@@ -19,6 +19,10 @@ void AudioCommon::init_device()
 	for (int i = 0; i < hostCnt; ++i)
 	{
 		const PaHostApiInfo* hinfo = Pa_GetHostApiInfo(i);
+		if (hinfo->type == paMME)
+		{
+			continue;
+		}
 		for (PaDeviceIndex hostDevice = 0; hostDevice < hinfo->deviceCount; ++hostDevice)
 		{
 			PaDeviceIndex deviceNum = Pa_HostApiDeviceIndexToDeviceIndex(i, hostDevice);
@@ -29,14 +33,14 @@ void AudioCommon::init_device()
 			}
 			if (dinfo->maxInputChannels == 2)
 			{
-				if (hinfo->type == paWASAPI)
-				{
-					bgm_device_list[deviceNum] = dinfo;
-				}
-				else if (hinfo->type == paDirectSound)
+				if (hinfo->type == paWASAPI || hinfo->type == paDirectSound)
 				{
 					mic_device_list[deviceNum] = dinfo;
 				}
+				/*else if (hinfo->type == paDirectSound)
+				{
+					mic_device_list[deviceNum] = dinfo;
+				}*/
 				else
 				{
 					continue;

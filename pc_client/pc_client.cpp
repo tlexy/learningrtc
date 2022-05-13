@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <audio/common/audio_common.h>
 
 #pragma execution_character_set("utf-8")
 
@@ -53,6 +54,11 @@ void PcClient::init()
 
     hMainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(hMainLayout);
+
+    for (auto it = AudioCommon::mic_device_list.begin(); it != AudioCommon::mic_device_list.end(); ++it)
+    {
+        _audio_com_box->addItem(tr(it->second->name));
+    }
 }
 
 QBoxLayout* PcClient::create_layout(const std::vector<QWidget*> widgets, QBoxLayout* layout)
