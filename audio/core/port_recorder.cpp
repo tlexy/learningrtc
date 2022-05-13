@@ -71,13 +71,16 @@ int PortRecorder::do_swr(struct SwrContext* swr, void* in_data, int nb_in_sample
 	return num;
 }
 
-bool PortRecorder::start_record()
-{
-	return start_record(Pa_GetDefaultInputDevice());
-}
-
 bool PortRecorder::start_record(int paDeviceIndex)
 {
+	if (paDeviceIndex < 0)
+	{
+		//paDeviceIndex = Pa_GetDefaultInputDevice();
+		if (device_list.size() > 0)
+		{
+			paDeviceIndex = device_list.begin()->first;
+		}
+	}
 	if (device_list.find(paDeviceIndex) == device_list.end())
 	{
 		return false;
@@ -134,7 +137,7 @@ int port_record_cb(
 		else
 		{
 			//不需要重采样，直接复制
-			recorder->cb->stream_cb(recorder->record_mid->data(), 1024, 16);
+			recorder->cb->stream_cb(recorder->record_mid->data(), frameCount, 16);
 		}
 		recorder->record_mid->set_read(PORT_AAC_FRAME);
 	}
@@ -157,7 +160,7 @@ void PortRecorder::thread_record(int index)
 	const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(index);
 	if (!dinfo)
 	{
-		log4u::loge("Pa_GetDeviceInfo return NULL");
+		log_error("Pa_GetDeviceInfo return NULL");
 		return;
 	}
 
@@ -169,19 +172,19 @@ void PortRecorder::thread_record(int index)
 
 	inputParam.hostApiSpecificStreamInfo = NULL;
 	inputParam.suggestedLatency = dinfo->defaultHighInputLatency;//dinfo->defaultLowInputLatency;
-	if (inputParam.sampleFormat == paFloat32)
+	/*if (inputParam.sampleFormat == paFloat32)
 	{
 		sample_size = 4;
 	}
 	else
 	{
 		sample_size = 2;
-	}
+	}*/
 	src_rate = dst_rate;
 	PaError err = Pa_IsFormatSupported(&inputParam, NULL, src_rate);
 	if (err != paNoError)
 	{
-		sample_size = 2;
+		//sample_size = 2;
 		/*log_e("port recorder, format not support, index: %d, name: %s, sampleFormat: %d, sampleRate: %d", index, dinfo->name, inputParam.sampleFormat, dinfo->defaultSampleRate);
 		log_e("port recorder, try 16bit");*/
 		inputParam.sampleFormat = paInt16;
@@ -189,7 +192,7 @@ void PortRecorder::thread_record(int index)
 		err = Pa_IsFormatSupported(&inputParam, NULL, src_rate);
 		if (err != paNoError)
 		{
-			log4u::loge("audio format unsupported");
+			log_error("audio format unsupported");
 			return;
 		}
 	}
@@ -206,6 +209,8 @@ void PortRecorder::thread_record(int index)
 			src_fmt = AV_SAMPLE_FMT_S16;
 		}
 		src_fmt = src_fmt;
+		ten_mill_sample = dst_rate / 100;
+		tem_mill_size = ten_mill_sample * sample_size * channel_size;
 		swr_ctx = init_swr(src_rate, AV_CH_LAYOUT_STEREO, src_fmt, dst_rate, AV_CH_LAYOUT_STEREO, AV_SAMPLE_FMT_S16);
 	}
 	//log_w("port recorder open stream: index: %d, name: %s, sampleFormat: %d, sampleRate: %f", index, dinfo->name, inputParam.sampleFormat, dinfo->defaultSampleRate);
@@ -214,7 +219,7 @@ void PortRecorder::thread_record(int index)
 	err = Pa_StartStream(inputStream);
 	if (err != paNoError)
 	{
-		log4u::loge("pa start stream error");
+		log_error("pa start stream error");
 		return;
 	}
 	_stream = inputStream;
@@ -222,7 +227,7 @@ void PortRecorder::thread_record(int index)
 
 void PortRecorder::stop_record()
 {
-	log4u::log("stopRecord...");
+	log_error("stopRecord...");
 	is_record_stop = true;
 	if (_stream)
 	{

@@ -22,6 +22,8 @@ public:
 	void sendFrame(const uint8_t*, int len);
 	void startEncThread();
 	void stopEncThread();
+
+protected:
 	//获取编码后的输出
 	virtual void receivePacket(const uint8_t*, int len) = 0;
 

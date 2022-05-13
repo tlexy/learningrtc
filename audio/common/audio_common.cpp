@@ -1,6 +1,7 @@
 ﻿#include "audio_common.h"
 #include "../core/audio_player.h"
 #include "../core/port_recorder.h"
+#include <iostream>
 
 #pragma execution_character_set("utf-8")
 
@@ -27,11 +28,13 @@ void AudioCommon::init_device()
 		{
 			PaDeviceIndex deviceNum = Pa_HostApiDeviceIndexToDeviceIndex(i, hostDevice);
 			const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(deviceNum);
+			
 			if (dinfo == NULL)
 			{
 				continue;
 			}
-			if (dinfo->maxInputChannels == 2)
+			std::cout << "deviceNum: " << deviceNum << "\tname: " << dinfo->name << std::endl;
+			if (dinfo->maxInputChannels > 0)
 			{
 				if (hinfo->type == paWASAPI || hinfo->type == paDirectSound)
 				{

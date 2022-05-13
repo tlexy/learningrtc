@@ -33,15 +33,16 @@ public:
 	
 	void set_target_rate(int sample_rate);
 
-	bool start_record();
-	bool start_record(int paDeviceIndex);
+	bool start_record(int paDeviceIndex = -1);
 	void stop_record();
-
-	void thread_record(int index);
 
 	static struct SwrContext* init_swr(int src_rate, int src_channels, int src_fmt, int dst_rate, int dst_channels, int dst_fmt);
 	static int do_swr(struct SwrContext* swr, void* in_data, int nb_in_samples, int src_rate, void* out_data, int out_len, int dst_rate);
 	static void add_pa_device(int, const PaDeviceInfo*);
+
+private:
+	void thread_record(int index);
+
 public:
 	mid_buf* record_mid{NULL};
 	static std::map<int, const PaDeviceInfo*> device_list;
@@ -49,7 +50,7 @@ public:
 	int ten_mill_sample{ 441 };//10ms的样本大小
 	int tem_mill_size{ 441 * 2 * 2 };
 	int channel_size{ 2 };
-	int sample_size;
+	int sample_size{2};
 	bool is_record_stop;
 	int error_count;
 	struct SwrContext* swr_ctx;

@@ -17,12 +17,18 @@
     <ClCompile Include="core\aac_enc_factory.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\audio_io.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\aac_helper.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="core\aac_enc_factory.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\audio_io.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

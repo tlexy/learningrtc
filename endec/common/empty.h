@@ -1,4 +1,0 @@
-﻿#ifndef 
-#define 
-
-#endif
