@@ -1,15 +1,39 @@
-#pragma once
+﻿#pragma once
 
 #include <QtWidgets/QWidget>
-#include "ui_pc_client.h"
+#include <string>
+#include <stdint.h>
+#include <vector>
 
-class pc_client : public QWidget
+#pragma execution_character_set("utf-8")
+
+class QComboBox;
+class QPushButton;
+class QLineEdit;
+class QBoxLayout;
+
+class PcClient : public QWidget
 {
     Q_OBJECT
 
 public:
-    pc_client(QWidget *parent = Q_NULLPTR);
+    PcClient(QWidget *parent = Q_NULLPTR);
+
+    void init();
 
 private:
-    Ui::pc_clientClass ui;
+    QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);
+
+private:
+    QComboBox* _audio_com_box;
+    QComboBox* _video_com_box;
+    QPushButton* _join_btn;
+    QPushButton* _leave_btn;
+    QLineEdit* _room_id_le;
+    QLineEdit* _uid_le;
+
+    std::string _appid;
+    std::string _room_id;
+    int64_t _uid;
+
 };

@@ -4,7 +4,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    pc_client w;
+    PcClient w;
+    w.resize(1280, 720);
+    w.init();
+
     w.show();
     return a.exec();
 }
