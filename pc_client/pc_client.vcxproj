@@ -61,6 +61,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio_v19_src\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>common.lib;audio.lib;portaudio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;%(AdditionalDependencies)</AdditionalDependencies>
