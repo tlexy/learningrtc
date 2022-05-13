@@ -1,0 +1,2 @@
+D:\code666\learningrtc\learninglive\x64\Debug\fdk-aac.pdb
+D:\code666\learningrtc\3rd\fdk-aac-2.0.1\fak-aac-win\fdk-aac\x64\Debug\fdk-aac.pdb

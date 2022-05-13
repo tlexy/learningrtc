@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\libAACdec">
+      <UniqueIdentifier>{73f4622a-0bc4-44c7-8e4e-5484c5181602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libAACenc">
+      <UniqueIdentifier>{1b565c6e-6504-4919-a182-974d119f2ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libArithCoding">
+      <UniqueIdentifier>{6cd035e7-858a-46c2-81e1-f8aeb4f1b3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libDRCdec">
+      <UniqueIdentifier>{14e07396-c758-4425-a19d-612e39136be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libFDK">
+      <UniqueIdentifier>{79f4583a-f2a4-480c-9da7-02050feb2cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libMpegTPDec">
+      <UniqueIdentifier>{d3a104c2-1ce2-4fb8-8435-77f878a815ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libMpegTPEnc">
+      <UniqueIdentifier>{4c858b1d-68e8-4f06-9db3-4363ab9b2f5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libPCMutils">
+      <UniqueIdentifier>{4f02f858-7e92-4e64-bc49-1225ec910cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libSACdec">
+      <UniqueIdentifier>{72791f68-f8b5-4627-b1be-e9d23c0eeb5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libSACenc">
+      <UniqueIdentifier>{e7a70d7a-be2f-4698-8618-7d400da270b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libSBRdec">
+      <UniqueIdentifier>{b25f7c03-ab97-4cd8-a309-b6fb2aa678b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libSBRenc">
+      <UniqueIdentifier>{75f5c3d5-44fd-4f09-8914-9cbd115ed38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\libSYS">
+      <UniqueIdentifier>{3b96f377-fe39-4081-8ed4-28c3cd6a8bbf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\libAACdec\src\aac_ram.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aac_rom.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdec_drc.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdec_hcr.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdec_hcr_bit.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdec_hcrs.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdec_pns.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdec_tns.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdecoder.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\aacdecoder_lib.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\block.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\channel.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\channelinfo.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\conceal.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\FDK_delay.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\ldfiltbank.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\pulsedata.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\rvlc.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\rvlcbit.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\rvlcconceal.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\stereo.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_ace_d4t64.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_ace_ltp.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_acelp.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_fac.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_lpc.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_lpd.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACdec\src\usacdec_rom.cpp">
+      <Filter>源文件\libAACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\aacenc.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\aacenc_lib.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\aacenc_pns.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\aacEnc_ram.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\aacEnc_rom.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\aacenc_tns.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\adj_thr.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\band_nrg.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\bandwidth.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\bit_cnt.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\bitenc.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\block_switch.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\channel_map.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\chaosmeasure.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\dyn_bits.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\grp_data.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\intensity.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\line_pe.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\metadata_compressor.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\metadata_main.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\mps_main.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\ms_stereo.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\noisedet.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\pnsparam.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\pre_echo_control.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\psy_configuration.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\psy_main.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\qc_main.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\quantize.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\sf_estim.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\spreading.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\tonality.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libAACenc\src\transform.cpp">
+      <Filter>源文件\libAACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libArithCoding\src\ac_arith_coder.cpp">
+      <Filter>源文件\libArithCoding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_gainDecoder.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_reader.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_rom.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_selectionProcess.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_tools.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcGainDec_init.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcGainDec_preprocess.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\drcGainDec_process.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libDRCdec\src\FDK_drcDecLib.cpp">
+      <Filter>源文件\libDRCdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\scale.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\qmf.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\nlc_dec.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\mdct.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\huff_nodes.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\fixpoint_math.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\fft_rad2.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\fft.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_trigFcts.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_tools_rom.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_qmf_domain.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_matrixCalloc.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_lpc.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_hybrid.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_decorrelate.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_crc.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_core.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\FDK_bitbuffer.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\dct.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libFDK\src\autocorr2nd.cpp">
+      <Filter>源文件\libFDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_adif.cpp">
+      <Filter>源文件\libMpegTPDec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_adts.cpp">
+      <Filter>源文件\libMpegTPDec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_asc.cpp">
+      <Filter>源文件\libMpegTPDec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_drm.cpp">
+      <Filter>源文件\libMpegTPDec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_latm.cpp">
+      <Filter>源文件\libMpegTPDec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_lib.cpp">
+      <Filter>源文件\libMpegTPDec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_adif.cpp">
+      <Filter>源文件\libMpegTPEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_adts.cpp">
+      <Filter>源文件\libMpegTPEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_asc.cpp">
+      <Filter>源文件\libMpegTPEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_latm.cpp">
+      <Filter>源文件\libMpegTPEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_lib.cpp">
+      <Filter>源文件\libMpegTPEnc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libPCMutils\src\limiter.cpp">
+      <Filter>源文件\libPCMutils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libPCMutils\src\pcm_utils.cpp">
+      <Filter>源文件\libPCMutils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libPCMutils\src\pcmdmx_lib.cpp">
+      <Filter>源文件\libPCMutils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_bitdec.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_calcM1andM2.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_dec.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_dec_conceal.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_dec_lib.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_process.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_qmf.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_reshapeBBEnv.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_rom.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_smoothing.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_stp.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACdec\src\sac_tsd.cpp">
+      <Filter>源文件\libSACdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_bitstream.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_delay.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_dmx_tdom_enh.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_filter.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_framewindowing.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_huff_tab.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_lib.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_nlc_enc.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_onsetdetect.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_paramextract.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_staticgain.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_tree.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSACenc\src\sacenc_vectorfunctions.cpp">
+      <Filter>源文件\libSACenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\env_calc.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\env_dec.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\env_extr.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\hbe.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\HFgen_preFlat.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\huff_dec.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\lpp_tran.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\psbitdec.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\psdec.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\psdec_drm.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\psdecrom_drm.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\pvc_dec.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbr_crc.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbr_deb.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbr_dec.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbr_ram.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbr_rom.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbrdec_drc.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbrdec_freq_sca.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRdec\src\sbrdecoder.cpp">
+      <Filter>源文件\libSBRdec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\bit_sbr.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\code_env.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\env_bit.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\env_est.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\fram_gen.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\invf_est.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\mh_det.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\nf_est.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\ps_bitenc.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\ps_encode.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\ps_main.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\resampler.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\sbr_encoder.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\sbr_misc.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\sbrenc_freq_sca.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\sbrenc_ram.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\sbrenc_rom.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\ton_corr.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSBRenc\src\tran_det.cpp">
+      <Filter>源文件\libSBRenc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSYS\src\genericStds.cpp">
+      <Filter>源文件\libSYS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libSYS\src\syslib_channelMapDescr.cpp">
+      <Filter>源文件\libSYS</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

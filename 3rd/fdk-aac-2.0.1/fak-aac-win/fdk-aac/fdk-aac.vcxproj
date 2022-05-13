@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B46CD54F-C4E8-43DA-9899-2A172252B7A8}</ProjectGuid>
+    <RootNamespace>fdkaac</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\lib\Debug\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\lib\Release\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\lib\Release64\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../libAACenc/include;../../libAACdec/include;../../libArithCoding/include;../../libDRCdec/include;../../libFDK/include;../../libMpegTPEnc/include;../../libMpegTPDec/include;../../libPCMutils/include;../../libSACdec/include;../../libSACenc/include;../../libSBRenc/include;../../libSBRdec/include;../../libSYS/include;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\lib\debug\libfdkaac.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../libAACenc/include;../../libAACdec/include;../../libArithCoding/include;../../libDRCdec/include;../../libFDK/include;../../libMpegTPEnc/include;../../libMpegTPDec/include;../../libPCMutils/include;../../libSACdec/include;../../libSACenc/include;../../libSBRenc/include;../../libSBRdec/include;../../libSYS/include;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\lib\debug64\libfdkaac.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../libAACenc/include;../../libAACdec/include;../../libArithCoding/include;../../libDRCdec/include;../../libFDK/include;../../libMpegTPEnc/include;../../libMpegTPDec/include;../../libPCMutils/include;../../libSACdec/include;../../libSACenc/include;../../libSBRenc/include;../../libSBRdec/include;../../libSYS/include;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\lib\release\libfdkaac.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../libAACenc/include;../../libAACdec/include;../../libArithCoding/include;../../libDRCdec/include;../../libFDK/include;../../libMpegTPEnc/include;../../libMpegTPDec/include;../../libPCMutils/include;../../libSACdec/include;../../libSACenc/include;../../libSBRenc/include;../../libSBRdec/include;../../libSYS/include;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <OutputFile>..\..\lib\release64\libfdkaac.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\libAACdec\src\aacdecoder.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdecoder_lib.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdec_drc.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdec_hcr.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdec_hcrs.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdec_hcr_bit.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdec_pns.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aacdec_tns.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aac_ram.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\aac_rom.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\block.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\channel.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\channelinfo.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\conceal.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\FDK_delay.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\ldfiltbank.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\pulsedata.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\rvlc.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\rvlcbit.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\rvlcconceal.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\stereo.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_acelp.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_ace_d4t64.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_ace_ltp.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_fac.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_lpc.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_lpd.cpp" />
+    <ClCompile Include="..\..\libAACdec\src\usacdec_rom.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\aacenc.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\aacenc_lib.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\aacenc_pns.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\aacEnc_ram.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\aacEnc_rom.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\aacenc_tns.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\adj_thr.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\bandwidth.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\band_nrg.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\bitenc.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\bit_cnt.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\block_switch.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\channel_map.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\chaosmeasure.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\dyn_bits.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\grp_data.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\intensity.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\line_pe.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\metadata_compressor.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\metadata_main.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\mps_main.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\ms_stereo.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\noisedet.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\pnsparam.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\pre_echo_control.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\psy_configuration.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\psy_main.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\qc_main.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\quantize.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\sf_estim.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\spreading.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\tonality.cpp" />
+    <ClCompile Include="..\..\libAACenc\src\transform.cpp" />
+    <ClCompile Include="..\..\libArithCoding\src\ac_arith_coder.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_gainDecoder.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_reader.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_rom.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_selectionProcess.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcDec_tools.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcGainDec_init.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcGainDec_preprocess.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\drcGainDec_process.cpp" />
+    <ClCompile Include="..\..\libDRCdec\src\FDK_drcDecLib.cpp" />
+    <ClCompile Include="..\..\libFDK\src\autocorr2nd.cpp" />
+    <ClCompile Include="..\..\libFDK\src\dct.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_bitbuffer.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_core.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_crc.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_decorrelate.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_hybrid.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_lpc.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_matrixCalloc.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_qmf_domain.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_tools_rom.cpp" />
+    <ClCompile Include="..\..\libFDK\src\FDK_trigFcts.cpp" />
+    <ClCompile Include="..\..\libFDK\src\fft.cpp" />
+    <ClCompile Include="..\..\libFDK\src\fft_rad2.cpp" />
+    <ClCompile Include="..\..\libFDK\src\fixpoint_math.cpp" />
+    <ClCompile Include="..\..\libFDK\src\huff_nodes.cpp" />
+    <ClCompile Include="..\..\libFDK\src\mdct.cpp" />
+    <ClCompile Include="..\..\libFDK\src\nlc_dec.cpp" />
+    <ClCompile Include="..\..\libFDK\src\qmf.cpp" />
+    <ClCompile Include="..\..\libFDK\src\scale.cpp" />
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_adif.cpp" />
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_adts.cpp" />
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_asc.cpp" />
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_drm.cpp" />
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_latm.cpp" />
+    <ClCompile Include="..\..\libMpegTPDec\src\tpdec_lib.cpp" />
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_adif.cpp" />
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_adts.cpp" />
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_asc.cpp" />
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_latm.cpp" />
+    <ClCompile Include="..\..\libMpegTPEnc\src\tpenc_lib.cpp" />
+    <ClCompile Include="..\..\libPCMutils\src\limiter.cpp" />
+    <ClCompile Include="..\..\libPCMutils\src\pcmdmx_lib.cpp" />
+    <ClCompile Include="..\..\libPCMutils\src\pcm_utils.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_bitdec.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_calcM1andM2.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_dec.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_dec_conceal.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_dec_lib.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_process.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_qmf.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_reshapeBBEnv.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_rom.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_smoothing.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_stp.cpp" />
+    <ClCompile Include="..\..\libSACdec\src\sac_tsd.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_bitstream.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_delay.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_dmx_tdom_enh.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_filter.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_framewindowing.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_huff_tab.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_lib.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_nlc_enc.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_onsetdetect.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_paramextract.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_staticgain.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_tree.cpp" />
+    <ClCompile Include="..\..\libSACenc\src\sacenc_vectorfunctions.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\env_calc.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\env_dec.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\env_extr.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\hbe.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\HFgen_preFlat.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\huff_dec.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\lpp_tran.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\psbitdec.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\psdec.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\psdecrom_drm.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\psdec_drm.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\pvc_dec.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbrdecoder.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbrdec_drc.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbrdec_freq_sca.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbr_crc.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbr_deb.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbr_dec.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbr_ram.cpp" />
+    <ClCompile Include="..\..\libSBRdec\src\sbr_rom.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\bit_sbr.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\code_env.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\env_bit.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\env_est.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\fram_gen.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\invf_est.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\mh_det.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\nf_est.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\ps_bitenc.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\ps_encode.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\ps_main.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\resampler.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\sbrenc_freq_sca.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\sbrenc_ram.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\sbrenc_rom.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\sbr_encoder.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\sbr_misc.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\ton_corr.cpp" />
+    <ClCompile Include="..\..\libSBRenc\src\tran_det.cpp" />
+    <ClCompile Include="..\..\libSYS\src\genericStds.cpp" />
+    <ClCompile Include="..\..\libSYS\src\syslib_channelMapDescr.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
