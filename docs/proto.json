@@ -1,0 +1,54 @@
+//加入房间
+{
+    "action": "Join",
+    "appid": "",
+    "roomid": "",
+    "uid": 737483
+}
+
+//离开房间
+{
+    "action": "Leave",
+    "appid": "",
+    "roomid": "",
+    "uid": 737483
+}
+
+//发布流
+{
+    "action": "Pulish",
+    "audio": {"rate": 128000, "codec": "AAC"},
+    "video": {"width": 1280, "height": 720, "codec": "H264"}
+}
+
+//发布流返回
+{
+    "action": "PulishPermit",
+    "ip": "127.0.0.1",
+    "port": [{"audio": 32000, "SSRC": 5454549}, {"video": 32002, "SSRC": 5454550}],
+}
+
+//取消发布流
+{
+    "action": "UnPulish"
+}
+
+//订阅流,mask: 1(仅音频),2(仅视频),3(音视频)
+{
+    "action": "Subscribe",
+    "mask": 1
+}
+
+//流通知,subaction: 1(新发布的流),2(取消发布的流)
+{
+    "action": "StreamNotifier",
+    "subaction": 1,
+    "ip": "127.0.0.1",
+    "streams": [{"uid": 737483, "audio": {"rate": 128000, "codec": "AAC", "SSRC": 5454549, "port": 32020}, "video": {"width": 1280, "height": 720, "codec": "H264", "SSRC": 5454550, "port": 32022}}]
+}
+
+//取消订阅流
+{
+    "action": "UnSubscribe",
+    "mask": 1
+}
