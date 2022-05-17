@@ -52,7 +52,6 @@ public:
 	int channel_size{ 2 };
 	int sample_size{2};
 	bool is_record_stop;
-	int error_count;
 	struct SwrContext* swr_ctx;
 	IPortCallBack* cb{nullptr};
 	int src_rate{ 0 };

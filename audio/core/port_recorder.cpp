@@ -1,6 +1,7 @@
 ﻿#include "port_recorder.h"
 #include "iport_callback.h"
 #include "core/common_log.h"
+#include <3rd/log4u/core/common_log.h>
 
 #pragma execution_character_set("utf-8")
 
@@ -15,9 +16,7 @@ PortRecorder::PortRecorder(IPortCallBack* cb)
 	:cb(cb),
 	_record_thread(std::shared_ptr<std::thread>()),
 	swr_ctx(NULL),
-	is_record_stop(true),
-	error_count(0),
-	sample_size(0)
+	is_record_stop(true)
 {
 	record_mid = new mid_buf(1024 * 1024);
 
@@ -119,7 +118,10 @@ int port_record_cb(
 		return paComplete;
 	}
 	int framesize = frameCount * recorder->sample_size * recorder->channel_size;
-
+	if (framesize < 1)
+	{
+		log_error("framesize too small");
+	}
 	recorder->record_mid->push((const uint8_t*)input, framesize);
 	if (!recorder->cb)
 	{
