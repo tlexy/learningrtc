@@ -30,6 +30,7 @@
     <ClInclude Include="audio\loop_pcm_buffer.h" />
     <ClInclude Include="audio\mid_buf.h" />
     <ClInclude Include="audio\mixer_interface.h" />
+    <ClInclude Include="def\rtc_common_def.h" />
     <ClInclude Include="util\file_saver.h" />
     <ClInclude Include="util\sutil.h" />
     <ClInclude Include="util\threadqueue.hpp" />

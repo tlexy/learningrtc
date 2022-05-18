@@ -20,6 +20,9 @@
     <Filter Include="net">
       <UniqueIdentifier>{99d43639-08f4-4fb1-aa9b-f453b201a202}</UniqueIdentifier>
     </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{73394ea5-de89-486c-b0ae-55ed2fb55f51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="pc_client.qrc">

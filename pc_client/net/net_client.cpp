@@ -4,7 +4,7 @@
 #include <uvnet/core/timer_event_loop.h>
 #include <uvnet/core/timer.h>
 #include <uvnet/core/event_loop.h>
-#include "common/util/sutil.h"
+#include <uvnet/core/packet_helpers.h>
 
 NetTcpClient::NetTcpClient(std::shared_ptr<uvcore::EventLoop> loop, const uvcore::IpAddress& addr)
 	:TcpClient(loop, addr)
@@ -34,12 +34,67 @@ void NetTcpClient::on_connected(int status, std::shared_ptr<uvcore::TcpConnectio
 {
 	if (status == 0)
 	{
-		std::string hello("hello, uvnet");
+		/*std::string hello("hello, uvnet");
 		std::cout << "connected." << std::endl;
-		ptr->write(hello.c_str(), hello.size());
+		ptr->write(hello.c_str(), hello.size());*/
+		if (_state == rtc::WaitJoin)
+		{
+			send_join_req();
+		}
 	}
 	else
 	{
 		std::cout << "connect failed" << std::endl;
 	}
+}
+
+bool NetTcpClient::join_room(const std::string& appid, const std::string& roomid, int64_t uid)
+{
+	_appid = appid;
+	_roomid = roomid;
+	_uid = uid;
+	if (!_is_connected)
+	{
+		connect();
+		_state = rtc::WaitJoin;
+	}
+	else
+	{
+		//发送join请求
+		send_join_req();
+	}
+}
+
+void NetTcpClient::send_join_req()
+{
+	Json::Value json;
+	json["action"] = "Join";
+	json["appid"] = _appid;
+	json["roomid"] = _roomid;
+	json["uid"] = _uid;
+	send(json);
+	_state = rtc::WaitJoinResp;
+}
+
+bool NetTcpClient::leave_room(const  std::string& appid, const std::string& roomid, int64_t uid)
+{}
+
+bool NetTcpClient::publish_stream(const Json::Value& audio_desc, const Json::Value& video_desc)
+{}
+
+bool NetTcpClient::unpublish_stream(const Json::Value& audio_desc, const Json::Value& video_desc)
+{}
+
+bool NetTcpClient::subscribe_stream(int mask)
+{}
+
+bool NetTcpClient::unsubscribe_stream(int mask)
+{}
+
+void NetTcpClient::send(const Json::Value& json)
+{
+	std::string bufs = json.toStyledString();
+	std::string send_bufs;
+	uvcore::PacketHelpers::pack(0, 100, bufs, send_bufs, 0);
+	_conn_ptr->writeInLoop(send_bufs.c_str(), send_bufs.size());
 }

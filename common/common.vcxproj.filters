@@ -8,6 +8,9 @@
     <Filter Include="util">
       <UniqueIdentifier>{9ab0652a-52d1-4876-b178-ef76a881ecde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="def">
+      <UniqueIdentifier>{4c729e47-31f8-4e32-9d80-2327795d462b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="audio\audio_internal_mixer.cpp">
@@ -47,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="util\sutil.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="def\rtc_common_def.h">
+      <Filter>def</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
