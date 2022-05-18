@@ -60,7 +60,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio_v19_src\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\jsoncpp\lib\Debug;..\3rd\uvnet\3rd\libuv-v1.44.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio_v19_src\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>

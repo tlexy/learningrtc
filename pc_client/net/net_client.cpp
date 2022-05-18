@@ -63,6 +63,7 @@ bool NetTcpClient::join_room(const std::string& appid, const std::string& roomid
 		//发送join请求
 		send_join_req();
 	}
+	return true;
 }
 
 void NetTcpClient::send_join_req()
