@@ -10,3 +10,7 @@ common/x64/Debug
 3rd/fdk-aac-2.0.1/fak-aac-win/fdk-aac/x64/Debug/fdk-aac.log
 3rd/fdk-aac-2.0.1/fak-aac-win/fdk-aac/x64/Debug/fdk-aac.tlog/*.tlog
 3rd/fdk-aac-2.0.1/lib/Debug64/libfdkaac.lib
+audacity-master-all.zip
+audio/x64
+endec/empty.h
+endec/x64
