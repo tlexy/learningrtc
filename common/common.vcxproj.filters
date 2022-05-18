@@ -22,6 +22,9 @@
     <ClCompile Include="util\file_saver.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="util\sutil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio\audio_internal_mixer.h">
@@ -40,6 +43,9 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="util\threadqueue.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\sutil.h">
       <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>

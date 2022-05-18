@@ -17,6 +17,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{99d43639-08f4-4fb1-aa9b-f453b201a202}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="pc_client.qrc">
@@ -30,10 +33,18 @@
     <ClCompile Include="main.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="net\net_client.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="pc_client.h">
       <Filter>ui</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="net\net_client.h">
+      <Filter>net</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
