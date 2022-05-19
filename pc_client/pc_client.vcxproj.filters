@@ -23,6 +23,9 @@
     <Filter Include="common">
       <UniqueIdentifier>{73394ea5-de89-486c-b0ae-55ed2fb55f51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="priv">
+      <UniqueIdentifier>{7dadbb94-04a1-4e67-b549-af6e04f55762}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="pc_client.qrc">
@@ -39,15 +42,36 @@
     <ClCompile Include="net\net_client.cpp">
       <Filter>net</Filter>
     </ClCompile>
+    <ClCompile Include="priv\pc_client_priv.cpp">
+      <Filter>priv</Filter>
+    </ClCompile>
+    <ClCompile Include="component\comm_thread.cpp">
+      <Filter>component</Filter>
+    </ClCompile>
+    <ClCompile Include="common\pc_global.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="pc_client.h">
       <Filter>ui</Filter>
     </QtMoc>
+    <QtMoc Include="priv\pc_client_priv.h">
+      <Filter>priv</Filter>
+    </QtMoc>
+    <QtMoc Include="component\comm_thread.h">
+      <Filter>component</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="net\net_client.h">
       <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="common\pc_common_def.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\pc_global.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

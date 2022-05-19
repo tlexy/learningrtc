@@ -96,6 +96,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="common\pc_global.cpp" />
+    <ClCompile Include="component\comm_thread.cpp" />
+    <ClCompile Include="priv\pc_client_priv.cpp" />
     <QtRcc Include="pc_client.qrc" />
     <QtMoc Include="pc_client.h" />
     <ClCompile Include="net\net_client.cpp" />
@@ -103,7 +106,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="component\comm_thread.h" />
+    <ClInclude Include="common\pc_common_def.h" />
+    <ClInclude Include="common\pc_global.h" />
     <ClInclude Include="net\net_client.h" />
+    <QtMoc Include="priv\pc_client_priv.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

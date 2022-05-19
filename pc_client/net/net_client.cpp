@@ -5,6 +5,8 @@
 #include <uvnet/core/timer.h>
 #include <uvnet/core/event_loop.h>
 #include <uvnet/core/packet_helpers.h>
+#include "../common/pc_global.h"
+#include "../component/comm_thread.h"
 
 NetTcpClient::NetTcpClient(std::shared_ptr<uvcore::EventLoop> loop, const uvcore::IpAddress& addr)
 	:TcpClient(loop, addr)
@@ -50,19 +52,23 @@ void NetTcpClient::on_connected(int status, std::shared_ptr<uvcore::TcpConnectio
 
 bool NetTcpClient::join_room(const std::string& appid, const std::string& roomid, int64_t uid)
 {
-	_appid = appid;
-	_roomid = roomid;
-	_uid = uid;
-	if (!_is_connected)
-	{
-		connect();
-		_state = rtc::WaitJoin;
-	}
-	else
-	{
-		//发送join请求
-		send_join_req();
-	}
+	//_appid = appid;
+	//_roomid = roomid;
+	//_uid = uid;
+	//if (!_is_connected)
+	//{
+	//	connect();
+	//	_state = rtc::WaitJoin;
+	//}
+	//else
+	//{
+	//	//发送join请求
+	//	send_join_req();
+	//}
+	SignalHub sig;
+	sig.first = 1;
+	sig.t = std::make_any<int>(199);
+	PcGlobal::get_instance()->comm_thread()->push(sig);
 	return true;
 }
 
@@ -78,19 +84,29 @@ void NetTcpClient::send_join_req()
 }
 
 bool NetTcpClient::leave_room(const  std::string& appid, const std::string& roomid, int64_t uid)
-{}
+{
+	return false;
+}
 
 bool NetTcpClient::publish_stream(const Json::Value& audio_desc, const Json::Value& video_desc)
-{}
+{
+	return false;
+}
 
 bool NetTcpClient::unpublish_stream(const Json::Value& audio_desc, const Json::Value& video_desc)
-{}
+{
+	return false;
+}
 
 bool NetTcpClient::subscribe_stream(int mask)
-{}
+{
+	return false;
+}
 
 bool NetTcpClient::unsubscribe_stream(int mask)
-{}
+{
+	return false;
+}
 
 void NetTcpClient::send(const Json::Value& json)
 {

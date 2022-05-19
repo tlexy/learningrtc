@@ -8,12 +8,21 @@
 #include <QVariant>
 #include <QDebug>
 #include <audio/common/audio_common.h>
+#include "priv/pc_client_priv.h"
+#include <log4u/core/common_log.h>
 
 #pragma execution_character_set("utf-8")
 
 PcClient::PcClient(QWidget *parent)
     : QWidget(parent)
 {
+    _d = std::make_shared<PcClientPrivate>(parent);
+    _d->init("talkischeap", "127.0.0.1", 5678);
+}
+
+void PcClient::destroy()
+{
+    _d->destroy();
 }
 
 void PcClient::init()
@@ -66,10 +75,18 @@ void PcClient::init()
         }
     }
 
+    connect(_join_btn, &QPushButton::clicked, this, &PcClient::slot_join);
+
     connect(_audio_com_box, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
         [&](int index) {
             slot_audio_device_change(index);
         });
+}
+
+void PcClient::slot_join()
+{
+    log_info("join button");
+    _d->join_room("", 123);
 }
 
 void PcClient::slot_audio_device_change(int index)

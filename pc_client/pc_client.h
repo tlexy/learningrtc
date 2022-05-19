@@ -4,6 +4,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include <memory>
 
 #pragma execution_character_set("utf-8")
 
@@ -11,6 +12,7 @@ class QComboBox;
 class QPushButton;
 class QLineEdit;
 class QBoxLayout;
+class PcClientPrivate;
 
 class PcClient : public QWidget
 {
@@ -20,9 +22,11 @@ public:
     PcClient(QWidget *parent = Q_NULLPTR);
 
     void init();
+    void destroy();
 
 public slots:
     void slot_audio_device_change(int index);
+    void slot_join();
 
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);
@@ -34,6 +38,8 @@ private:
     QPushButton* _leave_btn;
     QLineEdit* _room_id_le;
     QLineEdit* _uid_le;
+
+    std::shared_ptr<PcClientPrivate> _d;
 
     std::string _appid;
     std::string _room_id;
