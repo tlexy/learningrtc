@@ -6,12 +6,22 @@
     "uid": 737483
 }
 
+{
+    "action": "JoinResp",
+    "ret_code": 0
+}
+
 //离开房间
 {
     "action": "Leave",
     "appid": "",
     "roomid": "",
     "uid": 737483
+}
+
+{
+    "action": "LeaveResp",
+    "ret_code": 0
 }
 
 //发布流

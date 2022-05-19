@@ -18,7 +18,8 @@ namespace rtc
 	{
 		RoleSubscriber = 100,
 		RolePublisher = 101,
-		RoleDataChannel = 102
+		RoleDataChannel = 102,
+		RoleNull
 	};
 }
 

@@ -38,7 +38,7 @@ public:
 
 private:
 	void update();
-
+	void send(const Json::Value& json, std::shared_ptr<uvcore::TcpConnection> ptr);
 	//业务逻辑
 	void handle_join(std::shared_ptr<MsgUnit> unit);
 

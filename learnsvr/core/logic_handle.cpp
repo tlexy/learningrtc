@@ -1,6 +1,11 @@
 ﻿#include "logic_handle.h"
 #include <common/util/sutil.h>
 #include <log4u/core/common_log.h>
+#include <uvnet/core/tcp_connection.h>
+#include "../room/room_manager.h"
+#include "../room/rtc_room.h"
+#include "../room/rtc_user.h"
+#include <uvnet/core/packet_helpers.h>
 
 RtcLogicHandle* const RtcLogicHandle::_instance = new RtcLogicHandle();
 
@@ -94,4 +99,35 @@ void RtcLogicHandle::stop_thread()
 }
 
 void RtcLogicHandle::handle_join(std::shared_ptr<MsgUnit> unit)
-{}
+{
+	std::string appid = (*unit->json)["appid"].asString();
+	std::string roomid = (*unit->json)["roomid"].asString();
+	int64_t uid = (*unit->json)["uid"].asInt64();
+	
+	auto roomptr = RoomManager::get_instance()->find_room(appid, roomid);
+	if (!roomptr)
+	{
+		roomptr = RoomManager::get_instance()->create_room(appid, roomid);
+	}
+
+	auto user = RoomManager::get_instance()->find_user(unit->conn->id());
+	if (!user)
+	{
+		user = RoomManager::get_instance()->create_user(appid, roomid, uid, unit->conn->id());
+	}
+	user->set_role(rtc::RoleNull);
+	roomptr->add_user(user);
+
+	Json::Value ret_json;
+	ret_json["action"] = "JoinResp";
+	ret_json["ret_code"] = 0;
+	send(ret_json, unit->conn);
+}
+
+void RtcLogicHandle::send(const Json::Value& json, std::shared_ptr<uvcore::TcpConnection> ptr)
+{
+	std::string bufs = json.toStyledString();
+	std::string send_bufs;
+	uvcore::PacketHelpers::pack(0, 100, bufs, send_bufs, 0);
+	ptr->writeInLoop(send_bufs.c_str(), send_bufs.size());
+}

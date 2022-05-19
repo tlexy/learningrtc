@@ -10,6 +10,7 @@ class LearnRtcServer
 {
 public:
 	void start(int port);
+	void stop();
 
 private:
 	int _port;

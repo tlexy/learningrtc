@@ -11,5 +11,10 @@ void LearnRtcServer::start(int port)
 
 	RtcLogicHandle::get_instance()->init();
 	RtcLogicHandle::get_instance()->start_thread();
+}
 
+void LearnRtcServer::stop()
+{
+	_io_server->stop_io_server();
+	RtcLogicHandle::get_instance()->stop_thread();
 }
