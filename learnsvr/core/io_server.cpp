@@ -8,8 +8,6 @@
 #include <common/util/sutil.h>
 #include "logic_handle.h"
 
-#define PACKET_HEADER_LEN_NODE 16
-
 IoServer::IoServer()
 {
 	_close_json["action"] = "close";
@@ -48,9 +46,9 @@ void IoServer::on_message(std::shared_ptr<uvcore::TcpConnection> ptr)
 				ptr->get_inner_buffer()->read_ptr(), ptr->get_inner_buffer()->readable_size());
 		if (ret >= 0)
 		{
-			std::string buff((char*)ptr->get_inner_buffer()->read_ptr(), ptr->get_inner_buffer()->readable_size());
-			RtcLogicHandle::get_instance()->handle_msg(buff, ptr);
-			ptr->get_inner_buffer()->has_read(ret + PACKET_HEADER_LEN_NODE);
+			std::cout << "io server handle msg" << std::endl;
+			RtcLogicHandle::get_instance()->handle_msg(_buff, ptr);
+			ptr->get_inner_buffer()->has_read(ret + PACKET_HEADER_LEN);
 			
 		}
 		else

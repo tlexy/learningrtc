@@ -7,6 +7,8 @@
 #include "../room/rtc_user.h"
 #include <uvnet/core/packet_helpers.h>
 
+#define REG_HANDLE(text, handle) _func_map[text] = std::bind(&RtcLogicHandle::handle, this, _1)
+
 RtcLogicHandle* const RtcLogicHandle::_instance = new RtcLogicHandle();
 
 RtcLogicHandle::RtcLogicHandle()
@@ -18,7 +20,11 @@ RtcLogicHandle* RtcLogicHandle::get_instance()
 }
 
 void RtcLogicHandle::init()
-{}
+{
+	using namespace std::placeholders;
+	//_func_map["Join"] = std::bind(&RtcLogicHandle::handle_join, this, _1);
+	REG_HANDLE("Join", handle_join);
+}
 
 void RtcLogicHandle::handle_msg(const std::string& buff, std::shared_ptr<uvcore::TcpConnection> ptr)
 {
@@ -32,6 +38,7 @@ void RtcLogicHandle::handle_msg(const std::string& buff, std::shared_ptr<uvcore:
 
 	auto unit = std::make_shared<MsgUnit>();
 	unit->action = (*json)["action"].asString();
+	std::cout << "action: " << unit->action << std::endl;
 	if (_func_map.find(unit->action) != _func_map.end())
 	{
 		unit->json = json;
@@ -44,7 +51,7 @@ void RtcLogicHandle::handle_msg(const std::string& buff, std::shared_ptr<uvcore:
 void RtcLogicHandle::update()
 {
 	int conti = 3;
-	while (_is_thread_stop)
+	while (!_is_thread_stop)
 	{
 		if (conti == 0)
 		{
@@ -104,7 +111,7 @@ void RtcLogicHandle::handle_join(std::shared_ptr<MsgUnit> unit)
 	std::string roomid = (*unit->json)["roomid"].asString();
 	int64_t uid = (*unit->json)["uid"].asInt64();
 	
-	auto roomptr = RoomManager::get_instance()->find_room(appid, roomid);
+	/*auto roomptr = RoomManager::get_instance()->find_room(appid, roomid);
 	if (!roomptr)
 	{
 		roomptr = RoomManager::get_instance()->create_room(appid, roomid);
@@ -116,7 +123,7 @@ void RtcLogicHandle::handle_join(std::shared_ptr<MsgUnit> unit)
 		user = RoomManager::get_instance()->create_user(appid, roomid, uid, unit->conn->id());
 	}
 	user->set_role(rtc::RoleNull);
-	roomptr->add_user(user);
+	roomptr->add_user(user);*/
 
 	Json::Value ret_json;
 	ret_json["action"] = "JoinResp";

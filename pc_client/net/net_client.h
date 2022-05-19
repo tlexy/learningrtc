@@ -8,6 +8,8 @@
 #include <uvnet/core/ip_address.h>
 #include <common/util/sutil.h>
 #include <common/def/rtc_common_def.h>
+#include <uvnet/core/packet_helpers.h>
+#include <jsoncpp/json/json.h>
 
 class NetTcpClient : public uvcore::TcpClient
 {
@@ -33,7 +35,13 @@ public:
 private:
 	void on_connected(int status, std::shared_ptr<uvcore::TcpConnection> ptr);
 	void send(const Json::Value&);
+	void handle_msg(const std::string& payload);
+
 	void send_join_req();
+
+
+	//返回业务
+	void handle_join_resp(const Json::Value&);
 
 private:
 	bool _is_connected{ false };
@@ -41,6 +49,9 @@ private:
 	std::string _appid;
 	std::string _roomid;
 	int64_t _uid;
+
+	uvcore::packet_t _packet_header;
+	char _buff[1024 * 1024];
 };
 
 #endif
