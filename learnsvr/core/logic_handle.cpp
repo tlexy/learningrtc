@@ -111,7 +111,7 @@ void RtcLogicHandle::handle_join(std::shared_ptr<MsgUnit> unit)
 	std::string roomid = (*unit->json)["roomid"].asString();
 	int64_t uid = (*unit->json)["uid"].asInt64();
 	
-	/*auto roomptr = RoomManager::get_instance()->find_room(appid, roomid);
+	auto roomptr = RoomManager::get_instance()->find_room(appid, roomid);
 	if (!roomptr)
 	{
 		roomptr = RoomManager::get_instance()->create_room(appid, roomid);
@@ -122,12 +122,17 @@ void RtcLogicHandle::handle_join(std::shared_ptr<MsgUnit> unit)
 	{
 		user = RoomManager::get_instance()->create_user(appid, roomid, uid, unit->conn->id());
 	}
-	user->set_role(rtc::RoleNull);
-	roomptr->add_user(user);*/
 
 	Json::Value ret_json;
 	ret_json["action"] = "JoinResp";
 	ret_json["ret_code"] = 0;
+	if (!roomptr || !user)
+	{
+		ret_json["ret_code"] = 300;
+	}
+	user->set_role(rtc::RoleNull);
+	roomptr->add_user(user);
+
 	send(ret_json, unit->conn);
 }
 

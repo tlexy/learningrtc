@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <jsoncpp/json/json.h>
+#include <unordered_map>
 
 class RtcUser;
 
@@ -19,6 +20,7 @@ public:
 private:
 	std::string _appid;
 	std::string _roomid;
+	std::unordered_map<int64_t, std::shared_ptr<RtcUser>> _users;
 };
 
 #endif

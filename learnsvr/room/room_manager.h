@@ -12,6 +12,8 @@ class RtcUser;
 class RoomManager
 {
 public:
+	using RoomList = std::unordered_map<std::string, std::shared_ptr<RtcRoom>>;
+	using AllRoom = std::unordered_map<std::string, RoomList>;
 	RoomManager();
 	static RoomManager* get_instance();
 
@@ -24,8 +26,8 @@ public:
 
 private:
 	static RoomManager* const _instance;
-
-	std::unordered_map<std::string, std::unordered_map<std::string, std::shared_ptr<RtcRoom>>> _all_rooms;
+	std::unordered_map<int64_t, std::shared_ptr<RtcUser>> _all_users;
+	AllRoom _all_rooms;
 };
 
 #endif

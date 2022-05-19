@@ -9,6 +9,7 @@ RtcRoom::RtcRoom(const std::string& appid, const std::string& roomid)
 void RtcRoom::add_user(std::shared_ptr<RtcUser> user)
 {
 	user->set_room(shared_from_this());
+	_users[user->uid()] = user;
 }
 
 void RtcRoom::publish_stream(int64_t uid, const Json::Value& video_desc, const Json::Value& audio_desc)

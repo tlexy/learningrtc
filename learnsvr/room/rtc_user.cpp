@@ -17,6 +17,21 @@ void RtcUser::set_room(std::shared_ptr<RtcRoom> roomptr)
 	_roomptr = roomptr;
 }
 
+void RtcUser::set_unique_id(int64_t unique)
+{
+	_unique_id = unique;
+}
+
+int64_t RtcUser::unique_id()
+{
+	return _unique_id;
+}
+
+int64_t RtcUser::uid()
+{
+	return _uid;
+}
+
 void RtcUser::publish_stream(const Json::Value& desc)
 {
 	auto video_desc = desc["video"];
