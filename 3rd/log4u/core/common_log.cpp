@@ -30,11 +30,11 @@ namespace log4u
 {
 	void log(const char* text, const char* file, int line)
 	{
-		std::cout << text << " Line: " << file << " File: " << line << std::endl;
+		std::cout << text << " Line: " << line << " File: " << file << std::endl;
 	}
 
 	void loge(const char* text, const char* file, int line)
 	{
-		std::cout << "[ERROR]" << text << " Line: " << file << " File: " << line << std::endl;
+		std::cout << "[ERROR]" << text << " Line: " << line << " File: " << file << std::endl;
 	}
 }
