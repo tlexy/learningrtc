@@ -29,6 +29,12 @@
     <ClCompile Include="room\rtc_user.cpp">
       <Filter>room</Filter>
     </ClCompile>
+    <ClCompile Include="core\logic_handle.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="learnrtc_server.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\io_server.h">
@@ -42,6 +48,12 @@
     </ClInclude>
     <ClInclude Include="room\rtc_user.h">
       <Filter>room</Filter>
+    </ClInclude>
+    <ClInclude Include="core\logic_handle.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="learnrtc_server.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <memory>
-#include "core/io_server.h"
+#include "learnrtc_server.h"
 
 #pragma comment (lib, "ws2_32.lib")
 #pragma comment (lib, "Iphlpapi.lib")
@@ -9,8 +9,8 @@
 
 int main(int argc, char* argv[])
 {
-	auto server = std::make_shared<IoServer>();
-	server->async_io_start("0.0.0.0", 5678);
+	auto server = std::make_shared<LearnRtcServer>();
+	server->start(5678);
 
 	std::cin.get();
 

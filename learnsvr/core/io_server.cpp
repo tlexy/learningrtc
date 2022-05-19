@@ -6,11 +6,14 @@
 #include <iostream>
 //#include <pActor/core/ptr_buffer.h>
 #include <common/util/sutil.h>
+#include "logic_handle.h"
 
 #define PACKET_HEADER_LEN_NODE 16
 
 IoServer::IoServer()
-{}
+{
+	_close_json["action"] = "close";
+}
 
 void IoServer::on_newconnection(std::shared_ptr<uvcore::TcpConnection> ptr)
 {
@@ -27,7 +30,8 @@ void IoServer::on_message(std::shared_ptr<uvcore::TcpConnection> ptr)
 {
 	if (ptr->error() != 0)
 	{
-		ptr->close();
+		RtcLogicHandle::get_instance()->handle_msg("{\"action\": \"close\"}", ptr);
+		//ptr->close();
 		return;
 	}
 	int payload_len = 0;
@@ -44,6 +48,8 @@ void IoServer::on_message(std::shared_ptr<uvcore::TcpConnection> ptr)
 				ptr->get_inner_buffer()->read_ptr(), ptr->get_inner_buffer()->readable_size());
 		if (ret >= 0)
 		{
+			std::string buff((char*)ptr->get_inner_buffer()->read_ptr(), ptr->get_inner_buffer()->readable_size());
+			RtcLogicHandle::get_instance()->handle_msg(buff, ptr);
 			ptr->get_inner_buffer()->has_read(ret + PACKET_HEADER_LEN_NODE);
 			
 		}

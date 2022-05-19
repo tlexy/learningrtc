@@ -13,7 +13,7 @@ class RoomManager
 {
 public:
 	RoomManager();
-	RoomManager* get_instance();
+	static RoomManager* get_instance();
 
 	std::shared_ptr<RtcRoom> find_room(const std::string& appid, const std::string& roomid);
 	std::shared_ptr<RtcRoom> create_room(const std::string& appid, const std::string& roomid);

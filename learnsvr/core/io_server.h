@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <string>
 #include <uvnet/core/packet_helpers.h>
+#include <jsoncpp/json/json.h>
 
 namespace uvcore {
 	class Timer;
@@ -27,7 +28,7 @@ private:
 	uvcore::packet_t _packet_header;
 	std::string _payload;
 	std::unordered_map<int64_t, std::shared_ptr<uvcore::TcpConnection>> _conn_map;
-
+	Json::Value _close_json;
 	char _buff[1024 * 1024];
 };
 
