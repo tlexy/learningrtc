@@ -13,6 +13,13 @@ namespace rtc
 		WaitJoin = 1,
 		WaitJoinResp = 2
 	};
+
+	enum RtcRole
+	{
+		RoleSubscriber = 100,
+		RolePublisher = 101,
+		RoleDataChannel = 102
+	};
 }
 
 #endif

@@ -9,18 +9,39 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="room">
+      <UniqueIdentifier>{61976548-b135-48b3-9164-14bb26f7f529}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\io_server.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="main2.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="room\room_manager.cpp">
+      <Filter>room</Filter>
+    </ClCompile>
+    <ClCompile Include="room\rtc_room.cpp">
+      <Filter>room</Filter>
+    </ClCompile>
+    <ClCompile Include="room\rtc_user.cpp">
+      <Filter>room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\io_server.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="room\room_manager.h">
+      <Filter>room</Filter>
+    </ClInclude>
+    <ClInclude Include="room\rtc_room.h">
+      <Filter>room</Filter>
+    </ClInclude>
+    <ClInclude Include="room\rtc_user.h">
+      <Filter>room</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

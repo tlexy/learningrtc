@@ -143,10 +143,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\io_server.cpp" />
-    <ClCompile Include="main2.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="room\room_manager.cpp" />
+    <ClCompile Include="room\rtc_room.cpp" />
+    <ClCompile Include="room\rtc_user.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\io_server.h" />
+    <ClInclude Include="room\room_manager.h" />
+    <ClInclude Include="room\rtc_room.h" />
+    <ClInclude Include="room\rtc_user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
