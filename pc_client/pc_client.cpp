@@ -10,8 +10,13 @@
 #include <audio/common/audio_common.h>
 #include "priv/pc_client_priv.h"
 #include <log4u/core/common_log.h>
+#include "common/pc_global.h"
+#include "component/comm_thread.h"
 
 #pragma execution_character_set("utf-8")
+
+#define CONN_COMM(SIG, SLOT) connect(PcGlobal::get_instance()->comm_thread().get(), &CommThread::SIG, this, &PcClient::SLOT)
+
 
 PcClient::PcClient(QWidget *parent)
     : QWidget(parent)
@@ -81,12 +86,19 @@ void PcClient::init()
         [&](int index) {
             slot_audio_device_change(index);
         });
+
+    CONN_COMM(sig_join_resp, slot_joinresp);
 }
 
 void PcClient::slot_join()
 {
     log_info("join button");
     _d->join_room("", 123);
+}
+
+void PcClient::slot_joinresp(int status)
+{
+    qDebug() << "join resp " << status;
 }
 
 void PcClient::slot_audio_device_change(int index)

@@ -27,6 +27,7 @@ public:
 public slots:
     void slot_audio_device_change(int index);
     void slot_join();
+    void slot_joinresp(int status);
 
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);

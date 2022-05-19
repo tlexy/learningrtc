@@ -34,7 +34,7 @@ void PcClientPrivate::init(const std::string& appid, const std::string& ip, int 
     _client = std::make_shared<NetTcpClient>(_loop->get_loop(), addr);
 
     //connect(PcGlobal::get_instance()->comm_thread().get(), &CommThread::sig_join_resp, this, &PcClientPrivate::slot_joinresp);
-    CONN_COMM(sig_join_resp, slot_joinresp);
+//    CONN_COMM(sig_join_resp, slot_joinresp);
 
 }
 
@@ -48,10 +48,5 @@ void PcClientPrivate::join_room(const std::string& roomid, int64_t uid)
     _roomid = roomid;
     _uid = uid;
     _client->join_room(_appid, roomid, uid);
-}
-
-void PcClientPrivate::slot_joinresp(int status)
-{
-    qDebug() << "join resp " << status;
 }
 

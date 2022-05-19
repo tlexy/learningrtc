@@ -26,10 +26,7 @@ public:
     void join_room(const std::string& roomid, int64_t uid);
 
 public slots:
-    void slot_joinresp(int status);
-
-signals:
-    void sig_joinresp(int status);
+    
 
 private:
     
