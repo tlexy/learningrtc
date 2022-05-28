@@ -143,11 +143,13 @@
     <ClCompile Include="core\rtp_cacher.cpp" />
     <ClCompile Include="core\rtp_receiver.cpp" />
     <ClCompile Include="core\rtp_sender.cpp" />
+    <ClCompile Include="entity\jetter_buffer_entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\rtp_cacher.h" />
     <ClInclude Include="core\rtp_receiver.h" />
     <ClInclude Include="core\rtp_sender.h" />
+    <ClInclude Include="entity\jetter_buffer_entity.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

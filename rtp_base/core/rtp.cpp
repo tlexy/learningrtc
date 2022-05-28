@@ -176,7 +176,9 @@ rtp_packet_t* rtp_unpack(void* src, int len)
 
 	if (rtp->hdr_ext.length > 0)
 	{
-		rtp->ext_body = rtpp + pos;// p + pos;
+		//ext body的内容在所申请内存的最后
+		rtp->ext_body = rtpp + (payload_len + sizeof(rtp_packet_t));// rtpp + pos;// p + pos;
+		memcpy(rtp->ext_body, p + pos, ext_bytes);
 		rtp->ext_len = rtp->hdr_ext.length;
 		pos += (rtp->ext_len * 4);
 	}

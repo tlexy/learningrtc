@@ -1,7 +1,13 @@
 ﻿#include "rtp_cacher.h"
 
+void RtpCacher::set_update_cb(RtpCacherUpdateCb cb)
+{
+	_update_cb = cb;
+}
+
 void RtpCacher::push(rtp_packet_t* rtp)
 {
+	std::lock_guard<std::mutex> lock(_mutex);
 	if (_cache_list.size() == 0)
 	{
 		_cache_list.push_back(rtp);
@@ -59,4 +65,44 @@ void RtpCacher::push(rtp_packet_t* rtp)
 void RtpCacher::set_max_cache_size(int mcs)
 {
 	_max_cache_size = mcs;
+}
+
+void RtpCacher::update(bool force)
+{
+	if (force)
+	{
+		_mutex.lock();
+		if (_cache_list.size() > 0)
+		{
+			auto rtp = _cache_list.front();
+			_cache_list.pop_front();
+			_mutex.unlock();
+			_update_cb(rtp);
+			return;
+		}
+		_mutex.unlock();
+		return;
+	}
+	if (_failed_time < 3)
+	{
+		if (!_mutex.try_lock())
+		{
+			++_failed_time;
+			return;
+		}
+	}
+	else
+	{
+		_mutex.lock();
+		_failed_time = 0;
+	}
+	if (_update_cb && _cache_list.size() > _cache_size)
+	{
+		auto rtp = _cache_list.front();
+		_cache_list.pop_front();
+		_mutex.unlock();
+		_update_cb(rtp);
+		return;
+	}
+	_mutex.unlock();
 }

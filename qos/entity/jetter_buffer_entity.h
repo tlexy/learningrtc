@@ -1,0 +1,66 @@
+﻿#ifndef LEARNING_RTC_JB_ENTITY_H
+#define LEARNING_RTC_JB_ENTITY_H
+
+#include <memory>
+#include <stdint.h>
+#include <uvnet/core/ip_address.h>
+#include <uvnet/core/udp_server.h>
+#include <rtp_base/core/rtp.h>
+#include <list>
+#include <mutex>
+
+class RtpCacher;
+class RtpReceiver;
+
+class AacHelper;
+
+//两个问题：（1）jetterbuffer大小；（2）什么时候强制拉取cache层的数据？
+class JetterBufferEntity
+{
+public:
+	JetterBufferEntity();
+
+	void start_recv(const uvcore::IpAddress& addr,
+		std::shared_ptr<uvcore::UdpServer> server);
+
+	//设置最小的输出时长，只有jetterbuffer达到这个的最小值时，才开始向外输出
+	void set_output_buffer(int64_t ms);
+
+	void update();
+	void decode();
+
+protected:
+	virtual bool force_cache();
+	virtual void do_decode() = 0;
+
+protected:
+	std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
+	std::shared_ptr<RtpCacher> _rtp_cacher;
+
+	std::mutex _mutex;
+	std::list<rtp_packet_t*> _rtp_list;
+	bool _is_init{ false };
+	int64_t _output_ms{0};
+
+private:
+	void on_rtp_packet(rtp_packet_t*);
+};
+
+//专用于aac音频的
+class AacJetterBufferEntity : public JetterBufferEntity
+{
+public:
+	AacJetterBufferEntity();
+
+protected:
+	virtual bool force_cache();
+	virtual void do_decode();
+
+private:
+	std::shared_ptr<AacHelper> _aac_helper{nullptr};
+	int _bit_dep{0};
+	int _channel{0};
+	int _sample_rate{0};
+};
+
+#endif
