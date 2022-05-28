@@ -12,6 +12,60 @@ AacHelper::AacHelper()
 	_enc_buf = new mid_buf(1024 * 1024);
 }
 
+bool AacHelper::parse_aac_adts_head(uint8_t* adts_aac, int len, int& channel, int& bit_dep, int& sample_rate)
+{
+	if (len <= 7)
+	{
+		return false;
+	}
+
+	//syncword 12个1
+	if ((adts_aac[0] == 0xFF) && ((adts_aac[1] & 0xF0) == 0xF0))
+	{
+		bool bGetParams = true;
+		//ADTS中音频采样率索引取值情况
+		//             96000, 88200, 64000, 48000, 44100, 32000,
+		//            24000, 22050, 16000, 12000, 11025, 8000, 7350
+		//             索引依次从0递增，44100的索引为4
+
+		unsigned int sample_rate_tab[] = { 96000, 88200, 64000, 48000, 44100, 32000, 24000, 22050, 16000, 12000, 11025, 8000, 7350 };
+
+		unsigned int syncword = (adts_aac[0] << 4) | (adts_aac[1] >> 4);
+		unsigned int id = ((unsigned int)adts_aac[1] & 0x08) >> 3;
+		unsigned int layer = ((unsigned int)adts_aac[1] & 0x06) >> 1;
+		unsigned int protection_absent = (unsigned int)adts_aac[1] & 0x01;
+		unsigned int profile = ((unsigned int)adts_aac[2] & 0xc0) >> 6;
+		unsigned int source_samrate_index = ((unsigned int)adts_aac[2] & 0x3c) >> 2;
+		if (source_samrate_index < sizeof(sample_rate_tab) / sizeof(sample_rate_tab[0]))
+		{
+			sample_rate = sample_rate_tab[source_samrate_index];
+		}
+		else
+		{
+			sample_rate = 0;
+			bGetParams = false;
+		}
+
+		unsigned int private_bit = ((unsigned int)adts_aac[2] & 0x02) >> 1;
+		channel = ((((unsigned int)adts_aac[2] & 0x01) << 2) | (((unsigned int)adts_aac[3] & 0xc0) >> 6));
+		//当前支持2声道和单声道
+		if ((channel != 1) && (channel != 2))
+		{
+			bGetParams = false;
+			channel = 0;
+		}
+
+		//当前仅支持16bit位数
+		bit_dep = 16;
+
+		return bGetParams;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool AacHelper::openEncoder(int numOfChannels, int sampleRate, int bitRate)
 {
 	if (numOfChannels != 2)
@@ -123,4 +177,64 @@ int AacHelper::encode(const uint8_t* buf, int len, uint8_t* out_buf, int& out_le
 	{
 		return 2;//编码发生错误
 	}
+}
+
+bool AacHelper::openDecoder()
+{
+	_d_handle = NULL;
+
+	_d_handle = aacDecoder_Open(TT_MP4_ADTS, 1);
+	if (_d_handle == NULL)
+	{
+		return false;
+	}
+	_dec_buf_len = 8 * 2 * 1024;
+	_dec_buf = (int16_t*)malloc(_dec_buf_len);
+	if (!_dec_buf)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool AacHelper::decode(uint8_t* adts_aac, unsigned int len, uint8_t*& out_buff_addr, unsigned int& out_len)
+{
+	uint8_t* ptr = adts_aac;
+	int i;
+	unsigned int valid;
+	unsigned int packet_size = len;
+	AAC_DECODER_ERROR err;
+
+	valid = packet_size;
+	err = aacDecoder_Fill(_d_handle, &ptr, &packet_size, &valid);
+	if (err != AAC_DEC_OK)
+	{
+		return false;
+	}
+	err = aacDecoder_DecodeFrame(_d_handle, _dec_buf, _dec_buf_len, 0);
+	if (err == AAC_DEC_NOT_ENOUGH_BITS)
+	{
+		return true;
+	}
+	if (err != AAC_DEC_OK)
+	{
+		return false;
+	}
+	CStreamInfo* info = aacDecoder_GetStreamInfo(_d_handle);
+	if (!info || info->sampleRate <= 0)
+	{
+		return false;
+	}
+
+	int frame_size = info->frameSize * info->numChannels;
+	uint8_t* out = NULL;
+	for (i = 0; i < frame_size; i++)
+	{
+		out = &out_buff_addr[i << 1]; // *2
+		out[0] = _dec_buf[i] & 0xff;
+		out[1] = _dec_buf[i] >> 8;
+	}
+
+	out_len = frame_size << 1;  // *2
+	return true;
 }
