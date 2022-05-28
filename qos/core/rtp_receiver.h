@@ -4,6 +4,8 @@
 #include <memory>
 #include <uvnet/core/ip_address.h>
 #include <uvnet/core/udp_server.h>
+#include <rtp_base/core/rtp.h>
+#include <rtp_base/core/rtp_base_common_def.h>
 
 class RtpCacher;
 

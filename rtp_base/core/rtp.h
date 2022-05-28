@@ -83,6 +83,8 @@ int rtp_payload_type(void* src, int len);
 //将buffer转为rtp_packet
 rtp_packet_t* rtp_unpack(void* src, int len);
 
+void* rtp_free(rtp_packet_t*);
+
 void dump(rtp_packet_t*, const char* text);
 
 

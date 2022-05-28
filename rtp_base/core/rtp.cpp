@@ -142,12 +142,14 @@ rtp_packet_t* rtp_unpack(void* src, int len)
 	rtp_packet_t* tmp = (rtp_packet_t*)src;
 	//头部长度，包含hdr及hdr_ext及hdr_body length
 	int header_len = sizeof(rtp_hdr_t);
+	int ext_bytes = 0;
 	if (tmp->hdr.extbit == 1)
 	{
 		header_len += sizeof(rtp_hdr_ext_t);
 		tmp->hdr_ext.length = sockets::networkToHost16(tmp->hdr_ext.length);
 		tmp->hdr_ext.profile_specific = sockets::networkToHost16(tmp->hdr_ext.profile_specific);
-		header_len = header_len + tmp->hdr_ext.length*4;
+		ext_bytes = tmp->hdr_ext.length * 4;
+		header_len = header_len + ext_bytes;// tmp->hdr_ext.length * 4;
 	}
 	int payload_len = len - header_len;
 	if (payload_len < 1)
@@ -156,7 +158,8 @@ rtp_packet_t* rtp_unpack(void* src, int len)
 	}
 
 	char* p = (char*)src;
-	rtp_packet_t* rtp = (rtp_packet_t*)malloc(payload_len + sizeof(rtp_packet_t));
+	rtp_packet_t* rtp = (rtp_packet_t*)malloc(payload_len + sizeof(rtp_packet_t) + ext_bytes);
+	char* rtpp = (char*)rtp;
 	if (!rtp)
 	{
 		return NULL;
@@ -173,7 +176,7 @@ rtp_packet_t* rtp_unpack(void* src, int len)
 
 	if (rtp->hdr_ext.length > 0)
 	{
-		rtp->ext_body = p + pos;
+		rtp->ext_body = rtpp + pos;// p + pos;
 		rtp->ext_len = rtp->hdr_ext.length;
 		pos += (rtp->ext_len * 4);
 	}

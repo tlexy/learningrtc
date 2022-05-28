@@ -22,6 +22,14 @@ namespace rtp_base
 		eGroupExt = 1,
 		eEndExt
 	};
+
+	enum rtp_payload_type
+	{
+		eH264PayLoad = 96,
+		eAacLcPayLoad = 97,
+		eFecPayLoad = 98,
+		eEndPayLoad
+	};
 }
 
 #endif
