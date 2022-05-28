@@ -1,5 +1,5 @@
-﻿#ifndef LEARNING_RTC_RTC_RECEIVER_H
-#define LEARNING_RTC_RTC_RECEIVER_H
+﻿#ifndef LEARNING_RTC_RTP_RECEIVER_H
+#define LEARNING_RTC_RTP_RECEIVER_H
 
 #include <memory>
 #include <uvnet/core/ip_address.h>

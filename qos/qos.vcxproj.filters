@@ -17,12 +17,18 @@
     <ClCompile Include="core\rtp_receiver.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\rtp_sender.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\rtp_cacher.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="core\rtp_receiver.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\rtp_sender.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,5 +14,13 @@
     <ClInclude Include="core\rtp_base_common_def.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\rtp.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\rtp.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
