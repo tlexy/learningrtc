@@ -21,8 +21,17 @@ void RtpReceiver::start()
 	_rtp_udp = _udp_server->addBind(_addr, std::bind(&RtpReceiver::on_rtp_receive, this, _1, _2));
 }
 
-void RtpReceiver::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr*)
+void RtpReceiver::set_data_cb(ReceiverDataCb cb)
 {
+	_data_cb = cb;
+}
+
+void RtpReceiver::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
+{
+	if (_data_cb)
+	{
+		_data_cb(udp, addr);
+	}
 	//rtp验证与解包
 	//每一个rtp包都包含一个rtp扩展头
 	auto rtp = rtp_unpack(udp->get_inner_buffer()->read_ptr(), udp->get_inner_buffer()->readable_size());

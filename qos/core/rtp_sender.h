@@ -2,6 +2,7 @@
 #define LEARNING_RTC_RTP_SENDER_H
 
 #include <memory>
+#include <functional>
 #include <uvnet/core/ip_address.h>
 #include <uvnet/core/udp_server.h>
 #include <stdint.h>
@@ -10,6 +11,8 @@
 #include <list>
 
 class JetterBufferEntity;
+
+using SenderDataCb = std::function<void(uvcore::Udp*, const struct sockaddr*)>;
 
 class RtpSender
 {
@@ -22,6 +25,8 @@ public:
 	};
 	RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JetterBufferEntity> entity, 
 		std::shared_ptr<uvcore::UdpServer> server);
+
+	void set_data_cb(SenderDataCb cb);
 	
 	void enable_fec(uint8_t group_size, int redrate);
 	//是否允许超时重发
@@ -39,6 +44,7 @@ private:
 private:
 	uvcore::IpAddress _remote_addr;
 	uvcore::IpAddress _local_addr;
+	SenderDataCb _data_cb{ nullptr };
 	std::shared_ptr<JetterBufferEntity> _je_entity;
 	std::shared_ptr<uvcore::UdpServer> _udp_server{ nullptr };
 	uvcore::Udp* _rtp_udp{ nullptr };

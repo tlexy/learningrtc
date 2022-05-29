@@ -30,6 +30,11 @@ void RtpSender::set_local_addr(const uvcore::IpAddress& addr)
 	_local_addr = addr;
 }
 
+void RtpSender::set_data_cb(SenderDataCb cb)
+{
+	_data_cb = cb;
+}
+
 void RtpSender::enable_fec(uint8_t group_size, int redrate)
 {
 	_redrate = redrate;
@@ -44,8 +49,12 @@ void RtpSender::set_rtp_param(uint8_t pt, uint32_t ssrc, uint32_t time_inter)
 	_param.pt = pt;
 }
 
-void RtpSender::on_rtp_receive(uvcore::Udp*, const struct sockaddr*)
+void RtpSender::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 {
+	if (_data_cb)
+	{
+		_data_cb(udp, addr);
+	}
 	//to do...
 	//在这里接收包的回复
 	/*if (is_rtp_packet)
