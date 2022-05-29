@@ -1,18 +1,18 @@
 ﻿#include "peer_connection.h"
 #include <qos/core/rtp_cacher.h>
-#include <qos/core/rtp_receiver.h>
-#include <qos/core/rtp_sender.h>
 #include <qos/entity/jetter_buffer_entity.h>
 #include <chrono>
 #include <endec/core/audio_io.h>
 #include <audio/core/port_recorder.h>
 #include <audio/common/audio_common.h>
 #include <audio/core/audio_player.h>
+#include <uvnet/utils/byte_order.hpp>
 
 namespace tests
 {
 	PeerConnection::PeerConnection()
 	{
+		_remote_addr.setPort(0);
 	}
 
 	void PeerConnection::set_audio_device(int device_idx)
@@ -20,14 +20,50 @@ namespace tests
 		_audio_device_idx = device_idx;
 	}
 
+	void PeerConnection::remote_data_cb(uvcore::Udp*, const struct sockaddr* addr)
+	{
+		struct sockaddr_in* in_addr = (struct sockaddr_in*)addr;
+		int port = sockets::networkToHost16(in_addr->sin_port);
+		if (port != _remote_addr.getPort())
+		{
+			_remote_addr = uvcore::IpAddress::fromRawSocketAddress((struct sockaddr*)in_addr, sizeof(struct sockaddr_in));
+		}
+	}
+
 	void PeerConnection::connect(const uvcore::IpAddress& ipaddr)
 	{
+		using namespace std::placeholders;
+
+		if (_rtp_receiver)
+		{
+			return;
+		}
 		_sender_je = std::make_shared<AacJetterBufferEntity>();
 		_sender_je->init();
 		_sender_je->set_output_buffer(60);
 		_remote_addr = ipaddr;
 		_rtp_sender = std::make_shared<RtpSender>(_remote_addr, _sender_je, _udp_server);
 		_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
+		_rtp_sender->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
+	}
+
+	void PeerConnection::listen(int local_port)
+	{
+		using namespace std::placeholders;
+
+		if (_rtp_sender)
+		{
+			return;
+		}
+		_receiver_je = std::make_shared<AacJetterBufferEntity>();
+		_receiver_je->init();
+		_receiver_je->set_output_buffer(60);
+		uvcore::IpAddress local_addr(local_port);
+		_rtp_receiver = std::make_shared<RtpReceiver>(local_addr, _receiver_je, _udp_server);
+		_rtp_receiver->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
+
+		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
+		_stop = false;
 	}
 
 	void PeerConnection::start_stream()
@@ -40,6 +76,13 @@ namespace tests
 
 		_sender_th = std::make_shared<std::thread>(&PeerConnection::sender_worker, this);
 		_stop = false;
+		//作为调用listen等等对端首先发送数据过来的一方，在收到数据之前，_rtp_sender一定是一个nullptr
+		if (!_rtp_sender)
+		{
+			//不需要从对方接收RTP数据，所以jetter buffer参数传入nullptr
+			_rtp_sender = std::make_shared<RtpSender>(_remote_addr, nullptr, _udp_server);
+			_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
+		}
 	}
 
 	void PeerConnection::start_play()
@@ -64,18 +107,6 @@ namespace tests
 	void PeerConnection::audio_player_cb(void* output, unsigned long frameCount)
 	{
 		//
-	}
-
-	void PeerConnection::listen(int local_port)
-	{
-		_receiver_je = std::make_shared<AacJetterBufferEntity>();
-		_receiver_je->init();
-		_receiver_je->set_output_buffer(60);
-		uvcore::IpAddress local_addr(local_port);
-		_rtp_receiver = std::make_shared<RtpReceiver>(local_addr, _receiver_je, _udp_server);
-
-		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
-		_stop = false;
 	}
 
 	void PeerConnection::receiver_worker()

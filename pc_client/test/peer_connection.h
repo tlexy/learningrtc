@@ -5,12 +5,19 @@
 #include <uvnet/core/ip_address.h>
 #include <uvnet/core/udp_server.h>
 #include <thread>
+#include <qos/core/rtp_receiver.h>
+#include <qos/core/rtp_sender.h>
 
 class JetterBufferEntity;
-class RtpReceiver;
-class RtpSender;
+//class RtpReceiver;
+//class RtpSender;
 class AudioIO;
 class AudioPlayer;
+
+namespace uvcore
+{
+	class Udp;
+}
 
 namespace tests
 {
@@ -42,9 +49,11 @@ namespace tests
 		void recorder_enc_cb(const uint8_t*, int len);
 		void audio_player_cb(void* output, unsigned long frameCount);
 
+		void remote_data_cb(uvcore::Udp*, const struct sockaddr*);
+
 	private:
 		std::shared_ptr<uvcore::UdpServer> _udp_server;
-		std::shared_ptr<RtpReceiver> _rtp_receiver;
+		std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
 		std::shared_ptr<JetterBufferEntity> _receiver_je;
 		uvcore::IpAddress _remote_addr;
 		bool _stop{ true };
@@ -52,7 +61,7 @@ namespace tests
 		std::shared_ptr<std::thread> _receiver_th{nullptr};
 		//发送端接收对端RTP包的返回处理线程
 		std::shared_ptr<std::thread> _sender_th{ nullptr };
-		std::shared_ptr<RtpSender> _rtp_sender;
+		std::shared_ptr<RtpSender> _rtp_sender{nullptr};
 		std::shared_ptr<JetterBufferEntity> _sender_je;
 		std::shared_ptr<AudioIO> _audio_io;
 		uint32_t _aac_timestamp{0};
