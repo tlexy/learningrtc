@@ -11,6 +11,11 @@
 class NetTcpClient;
 namespace uvcore {
     class ThreadTimerEventLoop;
+    class UdpServer;
+}
+
+namespace tests {
+    class PeerConnection;
 }
 
 class PcClientPrivate : public QObject
@@ -25,12 +30,14 @@ public:
     
     void join_room(const std::string& roomid, int64_t uid);
 
+    void listen(int port);
+
 public slots:
     
 
-private:
-    
-
+public:
+    std::shared_ptr<uvcore::UdpServer> udp_server;
+    std::shared_ptr<tests::PeerConnection> pc{nullptr};
 private:
     std::shared_ptr<uvcore::ThreadTimerEventLoop> _loop;
     std::shared_ptr<NetTcpClient> _client{nullptr};

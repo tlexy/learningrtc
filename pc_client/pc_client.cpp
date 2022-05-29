@@ -49,6 +49,13 @@ void PcClient::init()
     _room_id_le = new QLineEdit(this);
     _uid_le = new QLineEdit(this);
 
+    _listen_btn = new QPushButton(tr("监听"), this);
+    _pushlish_btn = new QPushButton(tr("推流"), this);
+    _ip_le = new QLineEdit(this);
+    _port_le = new QLineEdit(this);
+    QLabel* ip_lbl = new QLabel(tr("对端IP地址"), this);
+    QLabel* port_lbl = new QLabel(tr("端口"), this);
+
     QLabel* video_lbl = new QLabel(tr("摄像机"), this);
     QLabel* audio_lbl = new QLabel(tr("录音机"), this);
 
@@ -61,6 +68,10 @@ void PcClient::init()
     vBodyLeftLayout->addLayout(create_layout({ room_lbl, _room_id_le }, new QHBoxLayout));
     vBodyLeftLayout->addLayout(create_layout({ uid_lbl, _uid_le }, new QHBoxLayout));
     vBodyLeftLayout->addLayout(create_layout({ _join_btn, _leave_btn }, new QHBoxLayout));
+    vBodyLeftLayout->addSpacing(20);
+    vBodyLeftLayout->addLayout(create_layout({ ip_lbl, _ip_le }, new QHBoxLayout));
+    vBodyLeftLayout->addLayout(create_layout({ port_lbl, _port_le }, new QHBoxLayout));
+    vBodyLeftLayout->addLayout(create_layout({ _listen_btn, _pushlish_btn }, new QHBoxLayout));
     vBodyLeftLayout->addStretch();
 
     hBodyLayout->addWidget(new QWidget());
@@ -82,6 +93,8 @@ void PcClient::init()
 
     connect(_join_btn, &QPushButton::clicked, this, &PcClient::slot_join);
 
+    connect(_listen_btn, &QPushButton::clicked, this, &PcClient::slot_listen);
+
     connect(_audio_com_box, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
         [&](int index) {
             slot_audio_device_change(index);
@@ -94,6 +107,17 @@ void PcClient::slot_join()
 {
     log_info("join button");
     _d->join_room("", 123);
+}
+
+void PcClient::slot_listen()
+{
+    log_info("listen button");
+    QString sport = _port_le->text();
+    int port = std::atoi(sport.toStdString().c_str());
+    if (port > 0)
+    {
+        _d->listen(port);
+    }
 }
 
 void PcClient::slot_joinresp(int status)
@@ -124,6 +148,7 @@ QBoxLayout* PcClient::create_layout(const std::vector<QWidget*> widgets, QBoxLay
             layout->addStretch();
         }
     }
+    //layout->addStretch();
     return layout;
 }
 

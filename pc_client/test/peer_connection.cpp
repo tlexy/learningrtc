@@ -76,7 +76,7 @@ namespace tests
 
 		_sender_th = std::make_shared<std::thread>(&PeerConnection::sender_worker, this);
 		_stop = false;
-		//作为调用listen等等对端首先发送数据过来的一方，在收到数据之前，_rtp_sender一定是一个nullptr
+		//作为调用listen等待对端首先发送数据过来的一方，在收到数据之前，_rtp_sender一定是一个nullptr
 		if (!_rtp_sender)
 		{
 			//不需要从对方接收RTP数据，所以jetter buffer参数传入nullptr
@@ -106,7 +106,25 @@ namespace tests
 
 	void PeerConnection::audio_player_cb(void* output, unsigned long frameCount)
 	{
-		//
+		memset(output, 0x0, frameCount * 2 * 2);
+		if (_receiver_je)
+		{
+			auto ptr = std::dynamic_pointer_cast<AacJetterBufferEntity>(_receiver_je);
+			if (ptr)
+			{
+				ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
+			}
+			return;
+		}
+		if (_sender_je)
+		{
+			auto ptr = std::dynamic_pointer_cast<AacJetterBufferEntity>(_sender_je);
+			if (ptr)
+			{
+				ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
+			}
+			return;
+		}
 	}
 
 	void PeerConnection::receiver_worker()

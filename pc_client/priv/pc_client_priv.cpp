@@ -11,6 +11,8 @@
 #include <log4u/core/common_log.h>
 #include "../common/pc_global.h"
 #include "../component/comm_thread.h"
+#include <uvnet/core/udp_server.h>
+#include "../test/peer_connection.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -29,6 +31,8 @@ void PcClientPrivate::init(const std::string& appid, const std::string& ip, int 
     _loop->init(3000, nullptr);
     _loop->start_thread();
 
+    udp_server = std::make_shared<uvcore::UdpServer>(_loop->get_loop());
+
     uvcore::IpAddress addr(port);
     addr.setIp(ip);
     _client = std::make_shared<NetTcpClient>(_loop->get_loop(), addr);
@@ -41,6 +45,10 @@ void PcClientPrivate::init(const std::string& appid, const std::string& ip, int 
 void PcClientPrivate::destroy()
 {
     _loop->stop_thread();
+    if (pc)
+    {
+        pc->destory();
+    }
 }
 
 void PcClientPrivate::join_room(const std::string& roomid, int64_t uid)
@@ -48,5 +56,12 @@ void PcClientPrivate::join_room(const std::string& roomid, int64_t uid)
     _roomid = roomid;
     _uid = uid;
     _client->join_room(_appid, roomid, uid);
+}
+
+void PcClientPrivate::listen(int port)
+{
+    pc = std::make_shared<tests::PeerConnection>();
+    pc->listen(port);
+    pc->start_play();
 }
 
