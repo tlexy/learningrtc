@@ -133,6 +133,11 @@ int rtp_payload_type(void* src, int len)
 	return tmp->hdr.paytype;
 }
 
+void rtp_free(rtp_packet_t* rtp)
+{
+	free(rtp);
+}
+
 rtp_packet_t* rtp_unpack(void* src, int len)
 {
 	if (len <= sizeof(rtp_hdr_t))

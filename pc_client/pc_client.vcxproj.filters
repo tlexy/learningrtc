@@ -26,6 +26,9 @@
     <Filter Include="priv">
       <UniqueIdentifier>{7dadbb94-04a1-4e67-b549-af6e04f55762}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{2d9e34cc-ac09-4775-b861-0c7907dc49d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="pc_client.qrc">
@@ -51,6 +54,9 @@
     <ClCompile Include="common\pc_global.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="test\peer_connection.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="pc_client.h">
@@ -72,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="common\pc_global.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="test\peer_connection.h">
+      <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

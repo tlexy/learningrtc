@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>qt5.15.2_vs2019_x64</QtInstall>
+    <QtInstall>5.14.2_msvc2017_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -99,6 +99,7 @@
     <ClCompile Include="common\pc_global.cpp" />
     <ClCompile Include="component\comm_thread.cpp" />
     <ClCompile Include="priv\pc_client_priv.cpp" />
+    <ClCompile Include="test\peer_connection.cpp" />
     <QtRcc Include="pc_client.qrc" />
     <QtMoc Include="pc_client.h" />
     <ClCompile Include="net\net_client.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="test\peer_connection.h" />
     <QtMoc Include="component\comm_thread.h" />
     <ClInclude Include="common\pc_common_def.h" />
     <ClInclude Include="common\pc_global.h" />

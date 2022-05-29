@@ -9,6 +9,8 @@
 #include "../component/comm_thread.h"
 #include <log4u/core/common_log.h>
 
+#define PROTO_HEADER_LEN 16
+
 NetTcpClient::NetTcpClient(std::shared_ptr<uvcore::EventLoop> loop, const uvcore::IpAddress& addr)
 	:TcpClient(loop, addr)
 {}
@@ -29,7 +31,7 @@ void NetTcpClient::on_message(std::shared_ptr<uvcore::TcpConnection> ptr)
 		if (ret >= 0)
 		{
 			std::cout << "payload: " << _buff << std::endl;
-			ptr->get_inner_buffer()->has_read(ret + PACKET_HEADER_LEN);
+			ptr->get_inner_buffer()->has_read(ret + PROTO_HEADER_LEN);
 			handle_msg(_buff);
 		}
 		else
