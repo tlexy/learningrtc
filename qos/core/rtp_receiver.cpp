@@ -2,6 +2,7 @@
 #include <uvnet/core/udp.h>
 #include "rtp_cacher.h"
 #include "../entity/jetter_buffer_entity.h"
+#include <iostream>
 
 RtpReceiver::RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JetterBufferEntity> entity,
 	std::shared_ptr<uvcore::UdpServer> server)
@@ -35,8 +36,9 @@ void RtpReceiver::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 	//rtp验证与解包
 	//每一个rtp包都包含一个rtp扩展头
 	auto rtp = rtp_unpack(udp->get_inner_buffer()->read_ptr(), udp->get_inner_buffer()->readable_size());
-	if (rtp)
+	if (!rtp)
 	{
+		udp->get_inner_buffer()->reset();
 		return;
 	}
 	rtp_base::rtc_ext_header* rtc_header = (rtp_base::rtc_ext_header*)rtp->ext_body;
@@ -54,5 +56,9 @@ void RtpReceiver::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 	}
 	else
 	{
+		std::cout << "receiver, receive rtp packet, rsn = " << real_seqno << std::endl;
+		_je_entity->push(rtp);
 	}
+
+	udp->get_inner_buffer()->reset();
 }

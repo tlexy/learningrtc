@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <uvnet/core/udp.h>
 #include "../entity/jetter_buffer_entity.h"
+#include <iostream>
 
 RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JetterBufferEntity> entity, 
 	std::shared_ptr<uvcore::UdpServer> server)
@@ -55,12 +56,16 @@ void RtpSender::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 	{
 		_data_cb(udp, addr);
 	}
-	//to do...
-	//在这里接收包的回复
-	/*if (is_rtp_packet)
+	auto rtp = rtp_unpack(udp->get_inner_buffer()->read_ptr(), udp->get_inner_buffer()->readable_size());
+	if (rtp)
 	{
+		rtp_base::rtc_ext_header* rtc_header = (rtp_base::rtc_ext_header*)rtp->ext_body;
+		uint32_t real_seqno = (rtc_header->ext_seq * 65535) + rtp->hdr.seq_number;
+		std::cout << "receiver, receive rtp packet, rsn = " << real_seqno << std::endl;
+
 		_je_entity->push(rtp);
-	}*/
+	}
+	udp->get_inner_buffer()->reset();
 }
 
 void RtpSender::enable_retrans(bool flag)
