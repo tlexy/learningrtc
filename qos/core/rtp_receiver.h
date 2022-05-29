@@ -7,12 +7,12 @@
 #include <rtp_base/core/rtp.h>
 #include <rtp_base/core/rtp_base_common_def.h>
 
-class RtpCacher;
+class JetterBufferEntity;
 
 class RtpReceiver
 {
 public:
-	RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<RtpCacher> cacher,
+	RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JetterBufferEntity> entity,
 		std::shared_ptr<uvcore::UdpServer> server);
 
 	void start();
@@ -22,7 +22,7 @@ private:
 
 private:
 	uvcore::IpAddress _addr;
-	std::shared_ptr<RtpCacher> _rtp_cacher;
+	std::shared_ptr<JetterBufferEntity> _je_entity;
 	std::shared_ptr<uvcore::UdpServer> _udp_server{nullptr};
 	uvcore::Udp* _rtp_udp{nullptr};
 	bool _is_start{false};

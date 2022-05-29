@@ -1,11 +1,12 @@
 ﻿#include "rtp_receiver.h"
 #include <uvnet/core/udp.h>
 #include "rtp_cacher.h"
+#include "../entity/jetter_buffer_entity.h"
 
-RtpReceiver::RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<RtpCacher> cacher,
+RtpReceiver::RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JetterBufferEntity> entity,
 	std::shared_ptr<uvcore::UdpServer> server)
 	:_addr(addr),
-	_rtp_cacher(cacher),
+	_je_entity(entity),
 	_udp_server(server)
 {
 }

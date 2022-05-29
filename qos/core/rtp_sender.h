@@ -9,6 +9,8 @@
 #include <rtp_base/core/rtp.h>
 #include <list>
 
+class JetterBufferEntity;
+
 class RtpSender
 {
 public:
@@ -18,7 +20,8 @@ public:
 		void* buff;
 		int len;
 	};
-	RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<uvcore::UdpServer> server);
+	RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JetterBufferEntity> entity, 
+		std::shared_ptr<uvcore::UdpServer> server);
 	
 	void enable_fec(uint8_t group_size, int redrate);
 	//是否允许超时重发
@@ -36,6 +39,7 @@ private:
 private:
 	uvcore::IpAddress _remote_addr;
 	uvcore::IpAddress _local_addr;
+	std::shared_ptr<JetterBufferEntity> _je_entity;
 	std::shared_ptr<uvcore::UdpServer> _udp_server{ nullptr };
 	uvcore::Udp* _rtp_udp{ nullptr };
 

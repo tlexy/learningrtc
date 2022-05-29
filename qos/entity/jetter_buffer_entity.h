@@ -11,8 +11,7 @@
 #include <common/audio/mid_buf.h>
 
 class RtpCacher;
-class RtpReceiver;
-
+//class RtpReceiver;
 class AacHelper;
 
 //两个问题：（1）jetterbuffer大小；（2）什么时候强制拉取cache层的数据？
@@ -20,10 +19,10 @@ class JetterBufferEntity
 {
 public:
 	JetterBufferEntity();
-
-	void start_recv(const uvcore::IpAddress& addr,
-		std::shared_ptr<uvcore::UdpServer> server);
-
+	void init();
+	/*void start_recv(const uvcore::IpAddress& addr,
+		std::shared_ptr<uvcore::UdpServer> server);*/
+	void push(rtp_packet_t*);
 	//设置最小的输出时长，只有jetterbuffer达到这个的最小值时，才开始向外输出
 	void set_output_buffer(int64_t ms);
 
@@ -35,7 +34,7 @@ protected:
 	virtual void do_decode() = 0;
 
 protected:
-	std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
+	//std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
 	std::shared_ptr<RtpCacher> _rtp_cacher;
 
 	std::mutex _mutex;

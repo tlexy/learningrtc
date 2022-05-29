@@ -1,20 +1,31 @@
 ﻿#include "jetter_buffer_entity.h"
 #include "../core/rtp_cacher.h"
-#include "../core/rtp_receiver.h"
+//#include "../core/rtp_receiver.h"
 #include <endec/core/aac_helper.h>
 
 JetterBufferEntity::JetterBufferEntity()
 {
-	_rtp_cacher = std::make_shared<RtpCacher>();
+	
 }
 
-void JetterBufferEntity::start_recv(const uvcore::IpAddress& addr,
-	std::shared_ptr<uvcore::UdpServer> server)
+void JetterBufferEntity::init()
 {
-	_rtp_receiver = std::make_shared<RtpReceiver>(addr, _rtp_cacher, server);
-	_rtp_receiver->start();
-
+	_rtp_cacher = std::make_shared<RtpCacher>();
 	_rtp_cacher->set_update_cb(std::bind(&JetterBufferEntity::on_rtp_packet, this, std::placeholders::_1));
+}
+
+//void JetterBufferEntity::start_recv(const uvcore::IpAddress& addr,
+//	std::shared_ptr<uvcore::UdpServer> server)
+//{
+//	_rtp_receiver = std::make_shared<RtpReceiver>(addr, _rtp_cacher, server);
+//	_rtp_receiver->start();
+//
+//	_rtp_cacher->set_update_cb(std::bind(&JetterBufferEntity::on_rtp_packet, this, std::placeholders::_1));
+//}
+
+void JetterBufferEntity::push(rtp_packet_t* rtp)
+{
+	_rtp_cacher->push(rtp);
 }
 
 bool JetterBufferEntity::force_cache()

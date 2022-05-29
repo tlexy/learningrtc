@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd;..;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

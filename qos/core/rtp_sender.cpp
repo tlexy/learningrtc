@@ -1,16 +1,19 @@
 ﻿#include "rtp_sender.h"
 #include <stdlib.h>
 #include <uvnet/core/udp.h>
+#include "../entity/jetter_buffer_entity.h"
 
-RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<uvcore::UdpServer> server)
+RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JetterBufferEntity> entity, 
+	std::shared_ptr<uvcore::UdpServer> server)
 	:_remote_addr(remote_addr),
-	_udp_server(server)
+	_udp_server(server),
+	_je_entity(entity)
 {
 	_local_addr.setIp("0.0.0.0");
 	_local_addr.setPort(0);
 
 	_sess.seq_number = rand();
-	_sess.timestamp = rand();
+	_sess.timestamp = 0;// rand();
 
 	_param.version = 2;
 	_param.padding = 0;
@@ -45,6 +48,10 @@ void RtpSender::on_rtp_receive(uvcore::Udp*, const struct sockaddr*)
 {
 	//to do...
 	//在这里接收包的回复
+	/*if (is_rtp_packet)
+	{
+		_je_entity->push(rtp);
+	}*/
 }
 
 void RtpSender::enable_retrans(bool flag)
