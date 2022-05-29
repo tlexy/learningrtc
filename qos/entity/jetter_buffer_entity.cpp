@@ -72,6 +72,7 @@ bool AacJetterBufferEntity::force_cache()
 		//要重新等待？
 		_output_init = false;
 	}
+	//可用的数据太少时
 	if (pcm_buffer_rest <= _frame_size)
 	{
 		return true;
