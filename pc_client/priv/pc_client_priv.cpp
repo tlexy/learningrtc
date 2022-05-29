@@ -13,6 +13,8 @@
 #include "../component/comm_thread.h"
 #include <uvnet/core/udp_server.h>
 #include "../test/peer_connection.h"
+#include <uvnet/utils/sock_utils.h>
+#include <QDebug>
 
 #pragma execution_character_set("utf-8")
 
@@ -60,8 +62,24 @@ void PcClientPrivate::join_room(const std::string& roomid, int64_t uid)
 
 void PcClientPrivate::listen(int port)
 {
-    pc = std::make_shared<tests::PeerConnection>();
+    pc = std::make_shared<tests::PeerConnection>(udp_server);
     pc->listen(port);
     pc->start_play();
+}
+
+void PcClientPrivate::connect_to_peer(const std::string& ip, int port, int audio_device_idx)
+{
+    if (!sockets::isIp(ip))
+    {
+        qDebug() << "Not a Ip: " << QString::fromStdString(ip) << " FILE: " <<__FILE__;
+        return;
+    }
+
+    uvcore::IpAddress addr(port);
+    addr.setIp(ip);
+    pc = std::make_shared<tests::PeerConnection>(udp_server);
+    pc->connect(addr);
+    pc->set_audio_device(audio_device_idx);
+    pc->start_stream();
 }
 

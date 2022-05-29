@@ -29,9 +29,13 @@ public slots:
     void slot_join();
     void slot_joinresp(int status);
     void slot_listen();
+    void slot_connect();
 
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);
+
+private:
+    
 
 private:
     QComboBox* _audio_com_box;
@@ -45,6 +49,7 @@ private:
     QLineEdit* _port_le;
     QPushButton* _listen_btn;
     QPushButton* _pushlish_btn;
+    int _audio_device_idx{-1};
 
     std::shared_ptr<PcClientPrivate> _d;
 

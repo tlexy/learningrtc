@@ -10,7 +10,8 @@
 
 namespace tests
 {
-	PeerConnection::PeerConnection()
+	PeerConnection::PeerConnection(std::shared_ptr<uvcore::UdpServer> server)
+		:_udp_server(server)
 	{
 		_remote_addr.setPort(0);
 	}

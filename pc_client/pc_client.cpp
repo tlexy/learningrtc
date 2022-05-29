@@ -94,6 +94,7 @@ void PcClient::init()
     connect(_join_btn, &QPushButton::clicked, this, &PcClient::slot_join);
 
     connect(_listen_btn, &QPushButton::clicked, this, &PcClient::slot_listen);
+    connect(_pushlish_btn, &QPushButton::clicked, this, &PcClient::slot_connect);
 
     connect(_audio_com_box, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
         [&](int index) {
@@ -120,6 +121,20 @@ void PcClient::slot_listen()
     }
 }
 
+void PcClient::slot_connect()
+{
+    log_info("connect button");
+    QString sport = _port_le->text();
+    int port = std::atoi(sport.toStdString().c_str());
+    if (port <= 0)
+    {
+        log_error("connect error, port");
+        return;
+    }
+    QString ipstr = _ip_le->text();
+    _d->connect_to_peer(ipstr.toStdString(), port, _audio_device_idx);
+}
+
 void PcClient::slot_joinresp(int status)
 {
     qDebug() << "join resp " << status;
@@ -133,7 +148,8 @@ void PcClient::slot_audio_device_change(int index)
     }
     QString device_name = _audio_com_box->itemText(index);
     QVariant var = _audio_com_box->itemData(index);
-    qDebug() << var.value<int>() << " : " << device_name;
+    _audio_device_idx = var.value<int>();
+    qDebug() << _audio_device_idx << " : " << device_name;
     //emit sig_input_device_change(device_name);
 }
 

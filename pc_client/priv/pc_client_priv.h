@@ -31,6 +31,7 @@ public:
     void join_room(const std::string& roomid, int64_t uid);
 
     void listen(int port);
+    void connect_to_peer(const std::string& ip, int port, int audio_device_idx);
 
 public slots:
     
