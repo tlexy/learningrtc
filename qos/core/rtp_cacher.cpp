@@ -62,9 +62,25 @@ void RtpCacher::push(rtp_packet_t* rtp)
 	}
 }
 
-void RtpCacher::set_max_cache_size(int mcs)
+void RtpCacher::set_p1_cache_size(int cs)
+{
+	_cache_size = cs;
+}
+
+void RtpCacher::set_p2_cache_size(int mcs)
 {
 	_max_cache_size = mcs;
+}
+
+rtp_packet_t* RtpCacher::front()
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+	if (_cache_list.size() > 0)
+	{
+		auto rtp = _cache_list.front();
+		return rtp;
+	}
+	return nullptr;
 }
 
 void RtpCacher::update(bool force)

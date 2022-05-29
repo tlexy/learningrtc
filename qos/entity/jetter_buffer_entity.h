@@ -8,6 +8,7 @@
 #include <rtp_base/core/rtp.h>
 #include <list>
 #include <mutex>
+#include <common/audio/mid_buf.h>
 
 class RtpCacher;
 class RtpReceiver;
@@ -52,15 +53,32 @@ class AacJetterBufferEntity : public JetterBufferEntity
 public:
 	AacJetterBufferEntity();
 
+	/// <summary>
+	/// 获取pcm buffer，并将获取到实际数据长度返回
+	/// </summary>
+	/// <param name="data">存放输出数据的内存地址</param>
+	/// <param name="len">希望获得的长度</param>
+	/// <returns>实际获得的长度</returns>
+	int get_pcm_buffer(int8_t* data, int len);
+
 protected:
 	virtual bool force_cache();
 	virtual void do_decode();
+
+	void aac_init();
 
 private:
 	std::shared_ptr<AacHelper> _aac_helper{nullptr};
 	int _bit_dep{0};
 	int _channel{0};
 	int _sample_rate{0};
+	bool _output_init{false};
+	int _frame_size;
+	int64_t _output_len{0};//
+	uint8_t* _decode_buf;
+	int _decode_buf_len;
+	std::shared_ptr<mid_buf> _pcm_buffer;
+	std::mutex _pcm_buffer_mutex;
 };
 
 #endif

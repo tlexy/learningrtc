@@ -19,9 +19,12 @@ public:
 	* 当包的个数多于p2时，不再接收新的包
 	* */
 	void push(rtp_packet_t*);
-	void set_max_cache_size(int mcs);
+	void set_p1_cache_size(int mcs);
+	void set_p2_cache_size(int cs);
 	void update(bool force = false);
 	void set_update_cb(RtpCacherUpdateCb);
+
+	rtp_packet_t* front();
 
 private:
 	std::mutex _mutex;
