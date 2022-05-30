@@ -62,7 +62,7 @@ namespace tests
 		uvcore::IpAddress local_addr(local_port);
 		_rtp_receiver = std::make_shared<RtpReceiver>(local_addr, _receiver_je, _udp_server);
 		_rtp_receiver->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
-
+		_rtp_receiver->start();
 		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
 		_stop = false;
 	}
@@ -167,6 +167,11 @@ namespace tests
 		{
 			_sender_th->join();
 			_sender_th = nullptr;
+		}
+		if (_audio_io)
+		{
+			_audio_io->stop();
+			_audio_io = nullptr;
 		}
 	}
 }

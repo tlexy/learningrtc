@@ -138,6 +138,7 @@ void AacJetterBufferEntity::do_decode()
 	if (!_is_init)
 	{
 		aac_init();
+		_aac_helper->openDecoder();
 		return;
 	}
 	if (!_aac_helper)
