@@ -199,7 +199,7 @@ void PortRecorder::thread_record(int index)
 		}
 	}
 	
-	if (inputParam.sampleFormat == paInt16 && dinfo->defaultSampleRate == dst_rate)
+	if (inputParam.sampleFormat == paInt16 && src_rate == dst_rate)
 	{
 		swr_ctx = NULL;
 	}
@@ -216,7 +216,7 @@ void PortRecorder::thread_record(int index)
 		swr_ctx = init_swr(src_rate, AV_CH_LAYOUT_STEREO, src_fmt, dst_rate, AV_CH_LAYOUT_STEREO, AV_SAMPLE_FMT_S16);
 	}
 	//log_w("port recorder open stream: index: %d, name: %s, sampleFormat: %d, sampleRate: %f", index, dinfo->name, inputParam.sampleFormat, dinfo->defaultSampleRate);
-	err = Pa_OpenStream(&inputStream, &inputParam, NULL, dinfo->defaultSampleRate, paFramesPerBufferUnspecified, 0, port_record_cb, this);
+	err = Pa_OpenStream(&inputStream, &inputParam, NULL, src_rate, paFramesPerBufferUnspecified, 0, port_record_cb, this);
 	
 	err = Pa_StartStream(inputStream);
 	if (err != paNoError)

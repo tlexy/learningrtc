@@ -41,6 +41,7 @@ void AacEncFactory::sendFrame(const uint8_t* data, int len)
 		return;
 	}
 	memcpy(ptr->buffer[0], data, len);
+	ptr->buff_size = len;
 	_pcm_queue.push_back(ptr);
 }
 
@@ -51,7 +52,7 @@ void AacEncFactory::enc_thread()
 	int ret = 0;
 	while (!_is_stop)
 	{
-		DcPcmBuffer* ptr = _pcm_queue.pop(flag, std::chrono::milliseconds(10000));
+		DcPcmBuffer* ptr = _pcm_queue.pop(flag, std::chrono::milliseconds(10));
 		if (flag && ptr != NULL)
 		{
 			_aac_temp_len = 2048;
@@ -67,14 +68,14 @@ void AacEncFactory::enc_thread()
 		}
 		else
 		{
-			if (flag == false)
+			/*if (flag == false)
 			{
 				std::cout << "pcm queue is empty..." << std::endl;
 			}
 			if (ptr == NULL)
 			{
 				std::cout << "ptr is NULL." << std::endl;
-			}
+			}*/
 		}
 		if (ptr != NULL)
 		{

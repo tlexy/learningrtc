@@ -13,6 +13,7 @@ class JetterBufferEntity;
 //class RtpSender;
 class AudioIO;
 class AudioPlayer;
+class FileSaver;
 
 namespace uvcore
 {
@@ -67,6 +68,9 @@ namespace tests
 		uint32_t _aac_timestamp{0};
 		int _audio_device_idx;
 		std::shared_ptr<AudioPlayer> _audio_player;
+
+		///for test
+		FileSaver* _aac_saver{nullptr};
 	};
 }
 

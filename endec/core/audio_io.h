@@ -33,6 +33,8 @@ private:
 	int _sample_rate{ 44100 };
 	int _sample_deps{ 2 };
 	int _sample_channel{ 2 };
+
+	FileSaver* _file_saver{nullptr};
 };
 
 #endif

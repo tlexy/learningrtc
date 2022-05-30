@@ -7,6 +7,9 @@
 #include <audio/common/audio_common.h>
 #include <audio/core/audio_player.h>
 #include <uvnet/utils/byte_order.hpp>
+#include <common/util/file_saver.h>
+
+#define SAVE_AAC
 
 namespace tests
 {
@@ -14,6 +17,9 @@ namespace tests
 		:_udp_server(server)
 	{
 		_remote_addr.setPort(0);
+#ifdef SAVE_AAC
+		_aac_saver = new FileSaver(1024 * 1024, "test_aac", ".aac");
+#endif
 	}
 
 	void PeerConnection::set_audio_device(int device_idx)
@@ -71,7 +77,7 @@ namespace tests
 	{
 		using namespace std::placeholders;
 
-		_audio_io = std::make_shared<AudioIO>(44100);
+		_audio_io = std::make_shared<AudioIO>(128000);
 		_audio_io->set_io_cb(std::bind(&PeerConnection::recorder_enc_cb, this, _1, _2));
 		_audio_io->start(_audio_device_idx);
 
@@ -103,6 +109,9 @@ namespace tests
 		{
 			_rtp_sender->send_rtp((void*)data, len, _aac_timestamp);
 		}
+#ifdef SAVE_AAC
+		_aac_saver->write((const char*)data, len);
+#endif
 	}
 
 	void PeerConnection::audio_player_cb(void* output, unsigned long frameCount)
@@ -173,5 +182,8 @@ namespace tests
 			_audio_io->stop();
 			_audio_io = nullptr;
 		}
+#ifdef SAVE_AAC
+		_aac_saver->save();
+#endif
 	}
 }
