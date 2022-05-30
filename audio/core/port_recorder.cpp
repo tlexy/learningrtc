@@ -173,7 +173,7 @@ void PortRecorder::thread_record(int index)
 	inputParam.sampleFormat = paInt16;// paFloat32;
 
 	inputParam.hostApiSpecificStreamInfo = NULL;
-	inputParam.suggestedLatency = dinfo->defaultHighInputLatency;//dinfo->defaultLowInputLatency;
+	inputParam.suggestedLatency = dinfo->defaultLowInputLatency;//dinfo->defaultLowInputLatency;
 	/*if (inputParam.sampleFormat == paFloat32)
 	{
 		sample_size = 4;

@@ -139,7 +139,7 @@ int AudioPlayer::init_play(int device_idx)
 	out_params.device = device_idx;
 	out_params.sampleFormat = paInt16;
 	out_params.hostApiSpecificStreamInfo = NULL;
-	out_params.suggestedLatency = dinfo->defaultHighInputLatency;
+	out_params.suggestedLatency = dinfo->defaultLowOutputLatency;
 
 	PaError err = Pa_IsFormatSupported(NULL, &out_params, SAMPLE_RATE);
 	if (err != paNoError)

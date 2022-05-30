@@ -118,6 +118,7 @@ void AacJetterBufferEntity::aac_init()
 			return;
 		}
 		_is_init = true;
+		_aac_helper->openDecoder();
 		//根据设置的jetterbuffer ms设置接收的数据大小
 		_frame_size = (_channel * _bit_dep * 1024) / 8; //一帧的大小
 		int64_t seconds = (_channel * _bit_dep * _sample_rate) / 8;
@@ -138,7 +139,6 @@ void AacJetterBufferEntity::do_decode()
 	if (!_is_init)
 	{
 		aac_init();
-		_aac_helper->openDecoder();
 		return;
 	}
 	if (!_aac_helper)

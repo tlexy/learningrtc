@@ -32,7 +32,7 @@ private:
 	RtpCacherUpdateCb _update_cb{ nullptr };
 	std::list<rtp_packet_t*> _cache_list;
 	int _max_cache_size{100};
-	int _cache_size{ 10 };
+	int _cache_size{ 5 };
 	uint32_t _last_decode_seqno{0};//上一个送到解码器解码的包序号
 };
 
