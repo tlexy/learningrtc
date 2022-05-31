@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;WIN32;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\3rd\portaudio_v19_src\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\3rd\portaudiov19\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

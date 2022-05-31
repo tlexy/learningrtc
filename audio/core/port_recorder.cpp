@@ -159,6 +159,7 @@ void PortRecorder::set_target_rate(int sample_rate)
 
 void PortRecorder::thread_record(int index)
 {
+	//int ret = Pa_Initialize();
 	const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(index);
 	if (!dinfo)
 	{
@@ -170,23 +171,24 @@ void PortRecorder::thread_record(int index)
 	PaStreamParameters inputParam;
 	inputParam.channelCount = 2;
 	inputParam.device = index;
-	inputParam.sampleFormat = paInt16;// paFloat32;
+	inputParam.sampleFormat = paFloat32;
 
 	inputParam.hostApiSpecificStreamInfo = NULL;
 	inputParam.suggestedLatency = dinfo->defaultLowInputLatency;//dinfo->defaultLowInputLatency;
-	/*if (inputParam.sampleFormat == paFloat32)
+	if (inputParam.sampleFormat == paFloat32)
 	{
 		sample_size = 4;
 	}
 	else
 	{
 		sample_size = 2;
-	}*/
+	}
 	src_rate = dst_rate;
+	//CoInitialize(NULL);
 	PaError err = Pa_IsFormatSupported(&inputParam, NULL, src_rate);
 	if (err != paNoError)
 	{
-		//sample_size = 2;
+		sample_size = 2;
 		/*log_e("port recorder, format not support, index: %d, name: %s, sampleFormat: %d, sampleRate: %d", index, dinfo->name, inputParam.sampleFormat, dinfo->defaultSampleRate);
 		log_e("port recorder, try 16bit");*/
 		inputParam.sampleFormat = paInt16;

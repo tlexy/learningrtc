@@ -52,6 +52,7 @@ void PcClient::init()
     _listen_btn = new QPushButton(tr("监听"), this);
     _pushlish_btn = new QPushButton(tr("推流"), this);
     _ip_le = new QLineEdit(this);
+    _ip_le->setText(QString("127.0.0.1"));
     _port_le = new QLineEdit(this);
     QLabel* ip_lbl = new QLabel(tr("对端IP地址"), this);
     QLabel* port_lbl = new QLabel(tr("端口"), this);
