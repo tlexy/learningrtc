@@ -121,7 +121,7 @@ int AacHelper::encode(const uint8_t* buf, int len, uint8_t* out_buf, int& out_le
 	if (len != 4096)
 	{
 		std::cout << "input buffer error..." << std::endl;
-		return 1;
+		//return 1;
 	}
 	AACENC_BufDesc inBufDesc;
 	AACENC_BufDesc outBufDesc;
