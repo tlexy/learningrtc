@@ -9,7 +9,7 @@
 #include <uvnet/utils/byte_order.hpp>
 #include <common/util/file_saver.h>
 
-#define SAVE_AAC
+#define SAVE_TEST
 
 namespace tests
 {
@@ -17,7 +17,7 @@ namespace tests
 		:_udp_server(server)
 	{
 		_remote_addr.setPort(0);
-#ifdef SAVE_AAC
+#ifdef SAVE_TEST
 		_aac_saver = new FileSaver(1024 * 1024, "test_aac", ".aac");
 #endif
 	}
@@ -109,7 +109,7 @@ namespace tests
 		{
 			_rtp_sender->send_rtp((void*)data, len, _aac_timestamp);
 		}
-#ifdef SAVE_AAC
+#ifdef SAVE_TEST
 		_aac_saver->write((const char*)data, len);
 #endif
 	}
@@ -182,7 +182,7 @@ namespace tests
 			_audio_io->stop();
 			_audio_io = nullptr;
 		}
-#ifdef SAVE_AAC
+#ifdef SAVE_TEST
 		_aac_saver->save();
 #endif
 	}

@@ -3,7 +3,6 @@
 #include <audio/common/audio_common.h>
 #include <common/util/file_saver.h>
 
-#define SAVE_TEST
 #define AAC_FRAME_SIZE 4096
 
 AudioIO::AudioIO(int bitRate)

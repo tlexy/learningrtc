@@ -66,8 +66,8 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;G:\x264dev\audacity-master\build\cmake-proxies\portaudio-v19\Debug\portaudio-v19.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\learninglive\x64\Debug;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib;..\3rd\fdk-aac-2.0.1\lib\Debug64;..\3rd\uvnet\3rd\libuv-v1.44.1\build\Debug;..\3rd\jsoncpp\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;portaudio-v19.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\learninglive\x64\Debug;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib;..\3rd\fdk-aac-2.0.1\lib\Debug64;..\3rd\uvnet\3rd\libuv-v1.44.1\build\Debug;..\3rd\jsoncpp\lib\Debug;..\3rd\portaudiov19\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
