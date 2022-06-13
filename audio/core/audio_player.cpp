@@ -1,5 +1,6 @@
 ﻿#include "audio_player.h"
 #include <stdlib.h>
+#include <windows.h>
 
 #define SAMPLE_RATE         (44100)
 #define FRAMES_PER_BUFFER   (1024)
@@ -115,6 +116,7 @@ int AudioPlayer::init_play()
 
 int AudioPlayer::init_play(int device_idx)
 {
+	CoInitialize(0);
 	if (_stream)
 	{
 		Pa_AbortStream(_stream);
@@ -158,7 +160,7 @@ int AudioPlayer::init_play(int device_idx)
 		&out_stream,
 		NULL, /* no input */
 		&out_params,
-		SAMPLE_RATE,
+		_sample_rate,
 		FRAMES_PER_BUFFER,
 		paClipOff,      /* we won't output out of range samples so don't bother clipping them */
 		play_cb, /* no callback, use blocking API */

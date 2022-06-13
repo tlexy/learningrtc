@@ -34,6 +34,7 @@ void AacEncFactory::sendFrame(const uint8_t* data, int len)
 		std::cout << "sendFrame 1" << std::endl;
 		return;
 	}
+	std::cout << "receive PCM, LEN: " << len << std::endl;
 	DcPcmBuffer* ptr = _pcm_bufque->get_empty_buffer2();
 	if (ptr == NULL)
 	{
@@ -57,9 +58,12 @@ void AacEncFactory::enc_thread()
 		{
 			_aac_temp_len = 2048;
 			ret = _aac_helper->encode(ptr->buffer[0], ptr->buff_size, _aac_temp_buf, _aac_temp_len);
-			if (ret == 0 && _aac_temp_len > 0)
+			if (ret == 0)
 			{
-				receivePacket(_aac_temp_buf, _aac_temp_len);
+				if (_aac_temp_len > 0)
+				{
+					receivePacket(_aac_temp_buf, _aac_temp_len);
+				}
 			}
 			else
 			{

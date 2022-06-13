@@ -12,6 +12,9 @@
 #include <log4u/core/common_log.h>
 #include "common/pc_global.h"
 #include "component/comm_thread.h"
+#include <QTimerEvent>
+#include <audio/common/audio_common.h>
+#include <chrono>
 
 #pragma execution_character_set("utf-8")
 
@@ -23,6 +26,23 @@ PcClient::PcClient(QWidget *parent)
 {
     _d = std::make_shared<PcClientPrivate>(parent);
     _d->init("talkischeap", "127.0.0.1", 5678);
+}
+
+void PcClient::timerEvent(QTimerEvent* tve)
+{
+    /*if (!_device_init)
+    {
+        AudioCommon::init_device();
+        for (auto it = AudioCommon::mic_device_list.begin(); it != AudioCommon::mic_device_list.end(); ++it)
+        {
+            QString name = QString::fromStdString(it->second->name);
+            if (name[0] != 65533)
+            {
+                _audio_com_box->addItem(name, QVariant(it->first));
+            }
+        }
+        _device_init = true;
+    }*/
 }
 
 void PcClient::destroy()
@@ -103,6 +123,8 @@ void PcClient::init()
         });
 
     CONN_COMM(sig_join_resp, slot_joinresp);
+
+    //startTimer(200);
 }
 
 void PcClient::slot_join()

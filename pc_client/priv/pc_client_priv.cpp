@@ -15,6 +15,7 @@
 #include "../test/peer_connection.h"
 #include <uvnet/utils/sock_utils.h>
 #include <QDebug>
+#include <audio/common/audio_common.h>
 
 #pragma execution_character_set("utf-8")
 
@@ -75,11 +76,12 @@ void PcClientPrivate::connect_to_peer(const std::string& ip, int port, int audio
         return;
     }
 
+    //AudioCommon::init_device();
     uvcore::IpAddress addr(port);
     addr.setIp(ip);
     pc = std::make_shared<tests::PeerConnection>(udp_server);
     pc->connect(addr);
-    pc->set_audio_device(audio_device_idx);
+    pc->set_recorder_device(audio_device_idx);
     pc->start_stream();
 }
 

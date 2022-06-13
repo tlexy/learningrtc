@@ -34,8 +34,8 @@ public slots:
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);
 
-private:
-    
+protected:
+    void timerEvent(QTimerEvent* tve) override;
 
 private:
     QComboBox* _audio_com_box;
@@ -56,5 +56,6 @@ private:
     std::string _appid;
     std::string _room_id;
     int64_t _uid;
+    bool _device_init{false};
 
 };

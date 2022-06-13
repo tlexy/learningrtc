@@ -29,6 +29,7 @@ protected:
 
 private:
 	AudioIoCallBack _cb{};
+	mid_buf* _pcm_mid{ NULL };
 	PortRecorder* _recorder{};
 	int _sample_rate{ 44100 };
 	int _sample_deps{ 2 };

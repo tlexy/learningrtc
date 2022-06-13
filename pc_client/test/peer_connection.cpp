@@ -22,7 +22,7 @@ namespace tests
 #endif
 	}
 
-	void PeerConnection::set_audio_device(int device_idx)
+	void PeerConnection::set_recorder_device(int device_idx)
 	{
 		_audio_device_idx = device_idx;
 	}

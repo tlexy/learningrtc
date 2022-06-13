@@ -2,6 +2,7 @@
 #include "iport_callback.h"
 #include "core/common_log.h"
 #include <3rd/log4u/core/common_log.h>
+#include <common/util/file_saver.h>
 
 #pragma execution_character_set("utf-8")
 
@@ -117,17 +118,25 @@ int port_record_cb(
 	{
 		return paComplete;
 	}
+	
 	int framesize = frameCount * recorder->sample_size * recorder->channel_size;
 	if (framesize < 1)
 	{
 		log_error("framesize too small");
 	}
+#ifdef SAVE_TEST
+	if (recorder->fsaver == nullptr)
+	{
+		recorder->fsaver = new FileSaver(1024 * 1024*10, "pre_test_pcm", ".pcm");
+	}
+	recorder->fsaver->write((const char*)input, framesize);
+#endif
 	recorder->record_mid->push((const uint8_t*)input, framesize);
 	if (!recorder->cb)
 	{
 		return paContinue;
 	}
-	while (recorder->record_mid->usable_count() >= recorder->tem_mill_size)
+	while (recorder->record_mid->usable_count() >= recorder->ten_mill_size)
 	{
 		if (recorder->swr_ctx != NULL)
 		{
@@ -141,7 +150,7 @@ int port_record_cb(
 			//不需要重采样，直接复制
 			recorder->cb->stream_cb(recorder->record_mid->data(), frameCount, 16);
 		}
-		recorder->record_mid->set_read(PORT_AAC_FRAME);
+		recorder->record_mid->set_read(recorder->ten_mill_size);
 	}
 
 	return paContinue;
@@ -160,6 +169,7 @@ void PortRecorder::set_target_rate(int sample_rate)
 void PortRecorder::thread_record(int index)
 {
 	//int ret = Pa_Initialize();
+	CoInitialize(0);
 	const PaDeviceInfo* dinfo = Pa_GetDeviceInfo(index);
 	if (!dinfo)
 	{
@@ -183,7 +193,7 @@ void PortRecorder::thread_record(int index)
 	{
 		sample_size = 2;
 	}
-	src_rate = dst_rate;
+	src_rate = dinfo->defaultSampleRate;
 	//CoInitialize(NULL);
 	PaError err = Pa_IsFormatSupported(&inputParam, NULL, src_rate);
 	if (err != paNoError)
@@ -201,7 +211,7 @@ void PortRecorder::thread_record(int index)
 		}
 	}
 	
-	if (inputParam.sampleFormat == paInt16 && src_rate == dst_rate)
+	if (inputParam.sampleFormat == paFloat32 && src_rate == dst_rate)
 	{
 		swr_ctx = NULL;
 	}
@@ -212,9 +222,8 @@ void PortRecorder::thread_record(int index)
 		{
 			src_fmt = AV_SAMPLE_FMT_S16;
 		}
-		src_fmt = src_fmt;
 		ten_mill_sample = dst_rate / 100;
-		tem_mill_size = ten_mill_sample * sample_size * channel_size;
+		ten_mill_size = ten_mill_sample * sample_size * channel_size;
 		swr_ctx = init_swr(src_rate, AV_CH_LAYOUT_STEREO, src_fmt, dst_rate, AV_CH_LAYOUT_STEREO, AV_SAMPLE_FMT_S16);
 	}
 	//log_w("port recorder open stream: index: %d, name: %s, sampleFormat: %d, sampleRate: %f", index, dinfo->name, inputParam.sampleFormat, dinfo->defaultSampleRate);
@@ -245,6 +254,10 @@ void PortRecorder::stop_record()
 		_record_thread->join();
 		_record_thread = std::shared_ptr<std::thread>();
 	}
+
+#ifdef SAVE_TEST
+	fsaver->save();
+#endif
 }
 
 void PortRecorder::add_pa_device(int deviceIdx, const PaDeviceInfo* dinfo)

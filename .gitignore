@@ -15,3 +15,5 @@ audio/x64
 endec/empty.h
 endec/x64
 learnsvr/x64
+pc_client/*.aac
+pc_client/*.pcm

@@ -2,12 +2,23 @@
 #include "../core/audio_player.h"
 #include "../core/port_recorder.h"
 #include <iostream>
+#include <stdio.h>
 
 #pragma execution_character_set("utf-8")
 
 std::unordered_map<int, const PaDeviceInfo*> AudioCommon::bgm_device_list;
 std::unordered_map<int, const PaDeviceInfo*> AudioCommon::mic_device_list;
 std::unordered_map<int, const PaDeviceInfo*> AudioCommon::speaker_device_list;
+
+void printf_device_info(int index_num, const PaDeviceInfo* dinfo)
+{
+	if (!dinfo)
+	{
+		return;
+	}
+	printf("PaAudio info:: device_index: %d, name: %s, hostAPi: %d, maxInputChannels: %d, maxOutputChannels: %d, defaultLowInputLatency: %f, defaultLowOutputLatency: %f, defaultHighInputLatency: %f, defaultHighOutputLatency: %f, defaultSampleRate: %f\n",
+		index_num, dinfo->name, dinfo->hostApi, dinfo->maxInputChannels, dinfo->maxOutputChannels, dinfo->defaultLowInputLatency, dinfo->defaultLowOutputLatency, dinfo->defaultHighInputLatency, dinfo->defaultHighOutputLatency, dinfo->defaultSampleRate);
+}
 
 void AudioCommon::init_device()
 {
@@ -70,7 +81,7 @@ void AudioCommon::init_device()
 			{
 				continue;
 			}
-			
+			printf_device_info(deviceNum, dinfo);
 			if (dinfo->maxInputChannels > 0)
 			{
 				std::cout << "input device, deviceNum: " << deviceNum << "\tname: " << dinfo->name << std::endl;

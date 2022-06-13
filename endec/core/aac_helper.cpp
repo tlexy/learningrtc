@@ -118,11 +118,11 @@ bool AacHelper::openEncoder(int numOfChannels, int sampleRate, int bitRate)
 
 int AacHelper::encode(const uint8_t* buf, int len, uint8_t* out_buf, int& out_len)
 {
-	if (len != 4096)
-	{
-		std::cout << "input buffer error..." << std::endl;
-		//return 1;
-	}
+	//if (len != 4096)
+	//{
+	//	std::cout << "input buffer error..." << std::endl;
+	//	//return 1;
+	//}
 	AACENC_BufDesc inBufDesc;
 	AACENC_BufDesc outBufDesc;
 	AACENC_InArgs inargs;

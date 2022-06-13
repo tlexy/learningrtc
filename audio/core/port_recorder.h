@@ -24,6 +24,7 @@ extern "C" {
 
 
 class IPortCallBack;
+class FileSaver;
 
 class PortRecorder
 {
@@ -48,7 +49,7 @@ public:
 	static std::map<int, const PaDeviceInfo*> device_list;
 
 	int ten_mill_sample{ 441 };//10ms的样本大小
-	int tem_mill_size{ 441 * 2 * 2 };
+	int ten_mill_size{ 441 * 2 * 2 };
 	int channel_size{ 2 };
 	int sample_size{2};
 	bool is_record_stop;
@@ -57,6 +58,7 @@ public:
 	int src_rate{ 0 };
 	AVSampleFormat src_fmt{ AV_SAMPLE_FMT_S16 };
 	int dst_rate{ 44100 };
+	FileSaver* fsaver{ nullptr };
 private:
 	PaStream* _stream{NULL};//正在录制的流handle
 	std::shared_ptr<std::thread> _record_thread;

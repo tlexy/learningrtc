@@ -26,7 +26,7 @@ namespace tests
 	{
 	public:
 		PeerConnection(std::shared_ptr<uvcore::UdpServer>);
-		void set_audio_device(int device_idx);
+		void set_recorder_device(int device_idx);
 		void connect(const uvcore::IpAddress& ipaddr);
 
 		/// <summary>
