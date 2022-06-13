@@ -31,7 +31,7 @@ public:
 	void enable_fec(uint8_t group_size, int redrate);
 	//是否允许超时重发
 	void enable_retrans(bool flag);
-	void set_local_addr(const uvcore::IpAddress& addr);
+	void bind_local_addr(const uvcore::IpAddress& addr = uvcore::IpAddress());
 	void set_rtp_param(uint8_t pt, uint32_t ssrc, uint32_t time_inter = 0);
 
 	void send_rtp(void* data, int len, uint32_t ts = 0);

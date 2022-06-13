@@ -57,6 +57,7 @@ namespace tests
 		std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
 		std::shared_ptr<JetterBufferEntity> _receiver_je;
 		uvcore::IpAddress _remote_addr;
+		uvcore::IpAddress _local_addr;//接收端的本地接收端口
 		bool _stop{ true };
 		//接收端接收对端发过来的RTP包的处理线程
 		std::shared_ptr<std::thread> _receiver_th{nullptr};

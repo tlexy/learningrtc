@@ -52,6 +52,7 @@ namespace tests
 		_rtp_sender = std::make_shared<RtpSender>(_remote_addr, _sender_je, _udp_server);
 		_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
 		_rtp_sender->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
+		_rtp_sender->bind_local_addr();
 	}
 
 	void PeerConnection::listen(int local_port)
@@ -65,8 +66,9 @@ namespace tests
 		_receiver_je = std::make_shared<AacJetterBufferEntity>();
 		_receiver_je->init();
 		_receiver_je->set_output_buffer(60);
-		uvcore::IpAddress local_addr(local_port);
-		_rtp_receiver = std::make_shared<RtpReceiver>(local_addr, _receiver_je, _udp_server);
+		//uvcore::IpAddress local_addr(local_port);
+		_local_addr.setPort(local_port);
+		_rtp_receiver = std::make_shared<RtpReceiver>(_local_addr, _receiver_je, _udp_server);
 		_rtp_receiver->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
 		_rtp_receiver->start();
 		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
@@ -77,19 +79,21 @@ namespace tests
 	{
 		using namespace std::placeholders;
 
+		//作为调用listen等待对端首先发送数据过来的一方，在收到数据之前，_rtp_sender一定是一个nullptr
+		if (!_rtp_sender)
+		{
+			//不需要从对方接收RTP数据，所以jetter buffer参数传入nullptr
+			_rtp_sender = std::make_shared<RtpSender>(_remote_addr, nullptr, _udp_server);
+			_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765215);
+			_rtp_sender->bind_local_addr(_local_addr);
+		}
+
 		_audio_io = std::make_shared<AudioIO>(128000);
 		_audio_io->set_io_cb(std::bind(&PeerConnection::recorder_enc_cb, this, _1, _2));
 		_audio_io->start(_audio_device_idx);
 
 		_sender_th = std::make_shared<std::thread>(&PeerConnection::sender_worker, this);
 		_stop = false;
-		//作为调用listen等待对端首先发送数据过来的一方，在收到数据之前，_rtp_sender一定是一个nullptr
-		if (!_rtp_sender)
-		{
-			//不需要从对方接收RTP数据，所以jetter buffer参数传入nullptr
-			_rtp_sender = std::make_shared<RtpSender>(_remote_addr, nullptr, _udp_server);
-			_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
-		}
 	}
 
 	void PeerConnection::start_play()
@@ -109,9 +113,9 @@ namespace tests
 		{
 			_rtp_sender->send_rtp((void*)data, len, _aac_timestamp);
 		}
-#ifdef SAVE_TEST
-		_aac_saver->write((const char*)data, len);
-#endif
+//#ifdef SAVE_TEST
+//		_aac_saver->write((const char*)data, len);
+//#endif
 	}
 
 	void PeerConnection::audio_player_cb(void* output, unsigned long frameCount)
@@ -123,6 +127,9 @@ namespace tests
 			if (ptr)
 			{
 				ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
+#ifdef SAVE_TEST
+				_aac_saver->write((const char*)output, frameCount * 2 * 2);
+#endif
 			}
 			return;
 		}

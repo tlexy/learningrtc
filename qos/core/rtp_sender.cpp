@@ -26,9 +26,17 @@ RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<Jette
 	_rtc_header.group_seq = 0;
 }
 
-void RtpSender::set_local_addr(const uvcore::IpAddress& addr)
+void RtpSender::bind_local_addr(const uvcore::IpAddress& addr)
 {
-	_local_addr = addr;
+	using namespace std::placeholders;
+	if (addr())
+	{
+		_local_addr = addr;
+	}
+	if (!_rtp_udp)
+	{
+		_rtp_udp = _udp_server->addBind(_local_addr, std::bind(&RtpSender::on_rtp_receive, this, _1, _2));
+	}
 }
 
 void RtpSender::set_data_cb(SenderDataCb cb)
@@ -76,10 +84,10 @@ void RtpSender::enable_retrans(bool flag)
 void RtpSender::send_rtp(void* data, int len, uint32_t ts)
 {
 	using namespace std::placeholders;
-	if (!_rtp_udp)
+	/*if (!_rtp_udp)
 	{
 		_rtp_udp = _udp_server->addBind(_local_addr, std::bind(&RtpSender::on_rtp_receive, this, _1, _2));
-	}
+	}*/
 	if (!_rtp_udp)
 	{
 		return;
