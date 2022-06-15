@@ -1,6 +1,7 @@
 ﻿#include "audio_player.h"
 #include <stdlib.h>
 #include <windows.h>
+#include <iostream>
 
 #define SAMPLE_RATE         (44100)
 #define FRAMES_PER_BUFFER   (1024)
@@ -134,6 +135,10 @@ int AudioPlayer::init_play(int device_idx)
 	{
 		return -1;
 	}
+	else
+	{
+		std::cout << "player device, index: " << device_idx << "\tname: " << dinfo->name << std::endl;
+	}
 
 	PaStream* out_stream;
 	PaStreamParameters out_params;
@@ -143,10 +148,10 @@ int AudioPlayer::init_play(int device_idx)
 	out_params.hostApiSpecificStreamInfo = NULL;
 	out_params.suggestedLatency = dinfo->defaultLowOutputLatency;
 
-	PaError err = Pa_IsFormatSupported(NULL, &out_params, SAMPLE_RATE);
+	PaError err = Pa_IsFormatSupported(NULL, &out_params, _sample_rate);
 	if (err != paNoError)
 	{
-		_sample_rate = dinfo->defaultSampleRate;
+		/*_sample_rate = dinfo->defaultSampleRate;
 		_format = paFloat32;
 		_deps = 4;
 		out_params.sampleFormat = paFloat32;
@@ -154,14 +159,15 @@ int AudioPlayer::init_play(int device_idx)
 		if (err != paNoError)
 		{
 			return -1;
-		}
+		}*/
+		return -1;
 	}
 	err = Pa_OpenStream(
 		&out_stream,
 		NULL, /* no input */
 		&out_params,
 		_sample_rate,
-		FRAMES_PER_BUFFER,
+		paFramesPerBufferUnspecified,
 		paClipOff,      /* we won't output out of range samples so don't bother clipping them */
 		play_cb, /* no callback, use blocking API */
 		this); /* no callback, so no callback userData */

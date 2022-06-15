@@ -56,7 +56,7 @@ void RtpReceiver::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 	}
 	else
 	{
-		std::cout << "receiver, receive rtp packet, rsn = " << real_seqno << std::endl;
+		//std::cout << "receiver, receive rtp packet, rsn = " << real_seqno << std::endl;
 		_je_entity->push(rtp);
 	}
 

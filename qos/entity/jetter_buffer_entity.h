@@ -13,6 +13,7 @@
 class RtpCacher;
 //class RtpReceiver;
 class AacHelper;
+class FileSaver;
 
 //两个问题：（1）jetterbuffer大小；（2）什么时候强制拉取cache层的数据？
 class JetterBufferEntity
@@ -78,6 +79,8 @@ private:
 	int _decode_buf_len;
 	std::shared_ptr<mid_buf> _pcm_buffer;
 	std::mutex _pcm_buffer_mutex;
+
+	//FileSaver* _file_saver{nullptr};
 };
 
 #endif

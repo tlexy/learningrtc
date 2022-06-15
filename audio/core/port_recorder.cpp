@@ -75,11 +75,11 @@ bool PortRecorder::start_record(int paDeviceIndex)
 {
 	if (paDeviceIndex < 0)
 	{
-		//paDeviceIndex = Pa_GetDefaultInputDevice();
-		if (device_list.size() > 0)
+		paDeviceIndex = Pa_GetDefaultInputDevice();
+		/*if (device_list.size() > 0)
 		{
 			paDeviceIndex = device_list.begin()->first;
-		}
+		}*/
 	}
 	if (device_list.find(paDeviceIndex) == device_list.end())
 	{
@@ -223,7 +223,7 @@ void PortRecorder::thread_record(int index)
 			src_fmt = AV_SAMPLE_FMT_S16;
 		}
 		ten_mill_sample = dst_rate / 100;
-		ten_mill_size = ten_mill_sample * 2 * channel_size;
+		ten_mill_size = ten_mill_sample * sample_size * channel_size;
 		swr_ctx = init_swr(src_rate, AV_CH_LAYOUT_STEREO, src_fmt, dst_rate, AV_CH_LAYOUT_STEREO, AV_SAMPLE_FMT_S16);
 	}
 	//log_w("port recorder open stream: index: %d, name: %s, sampleFormat: %d, sampleRate: %f", index, dinfo->name, inputParam.sampleFormat, dinfo->defaultSampleRate);

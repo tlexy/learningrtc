@@ -18,7 +18,7 @@ namespace tests
 	{
 		_remote_addr.setPort(0);
 #ifdef SAVE_TEST
-		_aac_saver = new FileSaver(1024 * 1024, "test_aac", ".aac");
+		_aac_saver = new FileSaver(1024 * 1024*5, "test_aac", ".pcm");
 #endif
 	}
 
@@ -102,6 +102,7 @@ namespace tests
 
 		_audio_player = std::make_shared<AudioPlayer>();
 		int ret = _audio_player->init_play();
+		std::cout << "init playe ret: " << ret << std::endl;
 		_audio_player->set_player_cb(std::bind(&PeerConnection::audio_player_cb, this, _1, _2));
 		ret = _audio_player->play();
 	}
@@ -126,9 +127,10 @@ namespace tests
 			auto ptr = std::dynamic_pointer_cast<AacJetterBufferEntity>(_receiver_je);
 			if (ptr)
 			{
-				ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
+				int bytes = ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
+				std::cout << "get bytes: " << bytes << "\t need：" << frameCount << std::endl;
 #ifdef SAVE_TEST
-				_aac_saver->write((const char*)output, frameCount * 2 * 2);
+				_aac_saver->write((const char*)output, bytes);
 #endif
 			}
 			return;

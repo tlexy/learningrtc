@@ -2,6 +2,7 @@
 #include "../core/rtp_cacher.h"
 //#include "../core/rtp_receiver.h"
 #include <endec/core/aac_helper.h>
+#include <common/util/file_saver.h>
 
 JetterBufferEntity::JetterBufferEntity()
 {
@@ -66,6 +67,7 @@ void JetterBufferEntity::decode()
 AacJetterBufferEntity::AacJetterBufferEntity()
 {
 	_aac_helper = std::make_shared<AacHelper>();
+	//_file_saver = new FileSaver(1024 * 1024, "receiver", ".pcm");
 }
 
 bool AacJetterBufferEntity::force_cache()
