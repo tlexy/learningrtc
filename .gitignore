@@ -17,3 +17,6 @@ endec/x64
 learnsvr/x64
 pc_client/*.aac
 pc_client/*.pcm
+test/portaudio_test/x64
+rtp_base/x64
+qos/x64
