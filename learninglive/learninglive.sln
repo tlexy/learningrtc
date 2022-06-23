@@ -66,6 +66,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webrtc_camera_test", "..\te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "windows_capture_test", "..\webrtc_camera\windows_capture_test.vcxproj", "{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yuv", "..\3rd\libyuv\build\yuv.vcxproj", "{5DAF2744-064E-3C66-A13C-622C1D7492AC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "turbojpeg-static", "..\3rd\libjpeg-turbo-2.1.3\build\turbojpeg-static.vcxproj", "{57BEB124-1122-3DC3-BE48-D67FD62682FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -438,6 +442,38 @@ Global
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Debug|x64.ActiveCfg = Debug|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Debug|x64.Build.0 = Debug|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Debug|x86.ActiveCfg = Debug|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Release|x64.ActiveCfg = Release|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Release|x64.Build.0 = Release|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Release|x86.ActiveCfg = Release|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.ReleaseMinDependency|x64.ActiveCfg = Release|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.ReleaseMinDependency|x64.Build.0 = Release|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.ReleaseMinDependency|x86.ActiveCfg = RelWithDebInfo|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.ReleaseMinDependency|x86.Build.0 = RelWithDebInfo|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Debug|x64.ActiveCfg = Debug|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Debug|x64.Build.0 = Debug|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Debug|x86.ActiveCfg = Debug|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Release|x64.ActiveCfg = Release|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Release|x64.Build.0 = Release|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Release|x86.ActiveCfg = Release|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.ReleaseMinDependency|x64.ActiveCfg = Release|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.ReleaseMinDependency|x64.Build.0 = Release|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.ReleaseMinDependency|x86.ActiveCfg = RelWithDebInfo|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.ReleaseMinDependency|x86.Build.0 = RelWithDebInfo|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -449,6 +485,8 @@ Global
 		{00D09649-20CD-3700-80CC-DF2F14F28746} = {1085B390-9963-4918-9947-46A64A85A63C}
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6} = {579DC855-B89F-47AC-8821-91F170EA18DF}
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640} = {579DC855-B89F-47AC-8821-91F170EA18DF}
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC} = {1085B390-9963-4918-9947-46A64A85A63C}
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB} = {1085B390-9963-4918-9947-46A64A85A63C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3796E650-5316-43A4-BB97-88FFA7B81F44}
