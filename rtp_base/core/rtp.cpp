@@ -55,7 +55,8 @@ void* rtp_alloc_ext_hdr(rtp_packet_t* rtp, uint16_t profile, uint16_t len)
 	return rtp->ext_body;
 }
 
-void rtp_pack(rtp_packet_t* rtp, rtp_parameter_t* param, rtp_session_t* session, const void* payload, int payload_len)
+void rtp_pack(rtp_packet_t* rtp, rtp_parameter_t* param, rtp_session_t* session, 
+	const void* payload, int payload_len, int payload_off)
 {
 	rtp->hdr.cc = param->cc;
 	rtp->hdr.extbit = param->ext;
@@ -72,7 +73,7 @@ void rtp_pack(rtp_packet_t* rtp, rtp_parameter_t* param, rtp_session_t* session,
 	rtp->hdr.timestamp = sockets::hostToNetwork32(rtp->hdr.timestamp);
 	rtp->hdr.ssrc = sockets::hostToNetwork32(rtp->hdr.ssrc);
 	//assert(payload_len <= rtp->ptr_len)
-	memcpy(&rtp->arr, payload, payload_len);
+	memcpy(rtp->arr + payload_off, payload, payload_len);
 
 }
 
