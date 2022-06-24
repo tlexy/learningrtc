@@ -18,7 +18,7 @@
 #include <webrtc_camera/core/video_capture.h>
 #include <webrtc_camera/core/video_capture_factory.h>
 #include <webrtc_camera/vcm_capturer.h>
-
+#include <QCloseEvent>
 #include "sdl_player_widget.h"
 
 #pragma execution_character_set("utf-8")
@@ -101,7 +101,7 @@ void PcClient::init()
     vBodyLeftLayout->addStretch();
 
     _sdl_player = std::make_shared<SdlPlayerWidget>();//new SdlPlayerWidget()
-    _sdl_player->resize(640, 480);
+    _sdl_player->setFixedSize(740, 480);
     hBodyLayout->addWidget(_sdl_player.get());
 
     hMainLayout->addLayout(vBodyLeftLayout, 2);
@@ -130,6 +130,7 @@ void PcClient::init()
         });
 
     CONN_COMM(sig_join_resp, slot_joinresp);
+    connect(this, SIGNAL(close()), this, SLOT(slot_close()));
 
     //startTimer(200);
 
@@ -137,7 +138,18 @@ void PcClient::init()
     _vcm_capturer = webrtc::test::VcmCapturer::Create(640, 480, 30, 0);
     _vcm_capturer->AddSubscriber(_sdl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
 
+    _sdl_player->init();
     _vcm_capturer->StartCapture();
+    _sdl_player->start(640, 480);
+}
+
+void PcClient::closeEvent(QCloseEvent* event)
+{
+    _sdl_player->stop();
+    delete _vcm_capturer;
+    _vcm_capturer = nullptr;
+    qDebug() << "close...";
+    QWidget::closeEvent(event);
 }
 
 void PcClient::slot_join()

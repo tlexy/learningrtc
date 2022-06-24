@@ -42,6 +42,7 @@ private:
 
 protected:
     void timerEvent(QTimerEvent* tve) override;
+    void closeEvent(QCloseEvent* event) override;
 
 private:
     QComboBox* _audio_com_box;
@@ -58,6 +59,7 @@ private:
     int _audio_device_idx{-1};
 
     std::shared_ptr <SdlPlayerWidget> _sdl_player;
+    //std::shared_ptr<webrtc::test::VcmCapturer> _vcm_capturer;
     webrtc::test::VcmCapturer* _vcm_capturer;
 
     std::shared_ptr<PcClientPrivate> _d;
