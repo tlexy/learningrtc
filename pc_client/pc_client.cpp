@@ -101,8 +101,13 @@ void PcClient::init()
     vBodyLeftLayout->addStretch();
 
     _sdl_player = std::make_shared<SdlPlayerWidget>();//new SdlPlayerWidget()
-    _sdl_player->setFixedSize(740, 480);
-    hBodyLayout->addWidget(_sdl_player.get());
+    _sdl_player->setFixedSize(QSize(640, 480));
+    /*QWidget* sdlWidgetContainer = new QWidget();
+    QGridLayout* gridLayout = new QGridLayout();
+    gridLayout->addWidget(_sdl_player.get());
+    sdlWidgetContainer->setLayout(gridLayout);
+    sdlWidgetContainer->setFixedSize(740, 520);*/
+    hBodyLayout->addWidget(_sdl_player.get());//sdlWidgetContainer
 
     hMainLayout->addLayout(vBodyLeftLayout, 2);
     hMainLayout->addLayout(hBodyLayout, 7);
