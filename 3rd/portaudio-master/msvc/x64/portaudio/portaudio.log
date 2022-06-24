@@ -1,0 +1,28 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Output 目录未以斜杠结尾。  此生成实例将添加斜杠，因为必须有这个斜杠才能正确计算 Output 目录。
+cl : 命令行 warning D9035: “Gm”选项已否决，并将在将来的版本中移除
+  pa_x86_plain_converters.c
+  pa_win_wdmks_utils.c
+  pa_win_waveformat.c
+  pa_win_util.c
+  pa_win_hostapis.c
+  pa_win_coinitialize.c
+  pa_win_wmme.c
+  pa_win_wdmks.c
+  pa_win_wasapi.c
+  pa_hostapi_skeleton.c
+  pa_win_ds_dynlink.c
+  pa_win_ds.c
+  pa_trace.c
+  pa_stream.c
+  pa_ringbuffer.c
+  pa_process.c
+  pa_front.c
+  pa_dither.c
+  pa_debugprint.c
+  pa_cpuload.c
+  正在生成代码...
+  正在编译...
+  pa_converters.c
+  pa_allocation.c
+  正在生成代码...
+  portaudio.vcxproj -> G:\code666\learningrtc\bin\portaudio.lib
