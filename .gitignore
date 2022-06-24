@@ -24,4 +24,6 @@ webrtc_camera/x64
 video/x64
 3rd/portaudio-master/.github
 3rd/portaudio-master/msvc/x64
+3rd/portaudio-master/msvc/x64/Debug
+3rd/portaudio-master/msvc/x64/Debug/portaudio.tlog
 3rd/portaudio-master/msvc/Win32
