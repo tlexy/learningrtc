@@ -56,8 +56,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "..\common\common.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uvnet", "..\3rd\uvnet\uvnet.vcxproj", "{A066369B-465B-4EE9-B5AC-833C91E564B9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "portaudio-v19", "..\..\..\x264dev\audacity-master\build\cmake-proxies\portaudio-v19\portaudio-v19.vcxproj", "{00D09649-20CD-3700-80CC-DF2F14F28746}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{579DC855-B89F-47AC-8821-91F170EA18DF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "portaudio_test", "..\test\portaudio_test\portaudio_test.vcxproj", "{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}"
@@ -70,12 +68,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yuv", "..\3rd\libyuv\build\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "turbojpeg-static", "..\3rd\libjpeg-turbo-2.1.3\build\turbojpeg-static.vcxproj", "{57BEB124-1122-3DC3-BE48-D67FD62682FB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "portaudio", "..\3rd\portaudio-master\msvc\portaudio.vcxproj", "{0A18A071-125E-442F-AFF7-A3F68ABECF99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		MinSizeRel|x64 = MinSizeRel|x64
 		MinSizeRel|x86 = MinSizeRel|x86
+		portaudio|x64 = portaudio|x64
+		portaudio|x86 = portaudio|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 		ReleaseMinDependency|x64 = ReleaseMinDependency|x64
@@ -92,6 +94,10 @@ Global
 		{D779B12E-5F20-409E-A316-1D7A36ED0933}.MinSizeRel|x64.Build.0 = Release|x64
 		{D779B12E-5F20-409E-A316-1D7A36ED0933}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{D779B12E-5F20-409E-A316-1D7A36ED0933}.MinSizeRel|x86.Build.0 = Release|Win32
+		{D779B12E-5F20-409E-A316-1D7A36ED0933}.portaudio|x64.ActiveCfg = portaudio|x64
+		{D779B12E-5F20-409E-A316-1D7A36ED0933}.portaudio|x64.Build.0 = portaudio|x64
+		{D779B12E-5F20-409E-A316-1D7A36ED0933}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{D779B12E-5F20-409E-A316-1D7A36ED0933}.portaudio|x86.Build.0 = portaudio|Win32
 		{D779B12E-5F20-409E-A316-1D7A36ED0933}.Release|x64.ActiveCfg = Release|x64
 		{D779B12E-5F20-409E-A316-1D7A36ED0933}.Release|x64.Build.0 = Release|x64
 		{D779B12E-5F20-409E-A316-1D7A36ED0933}.Release|x86.ActiveCfg = Release|Win32
@@ -112,6 +118,10 @@ Global
 		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.MinSizeRel|x64.Build.0 = Release|x64
 		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.MinSizeRel|x86.Build.0 = Release|Win32
+		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.portaudio|x64.ActiveCfg = portaudio|x64
+		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.portaudio|x64.Build.0 = portaudio|x64
+		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.portaudio|x86.Build.0 = portaudio|Win32
 		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.Release|x64.ActiveCfg = Release|x64
 		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.Release|x64.Build.0 = Release|x64
 		{48BB8BD8-614B-472F-B2E5-B7BFB7B367B6}.Release|x86.ActiveCfg = Release|Win32
@@ -132,6 +142,10 @@ Global
 		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.MinSizeRel|x64.Build.0 = Release|x64
 		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.MinSizeRel|x86.Build.0 = Release|Win32
+		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.portaudio|x64.ActiveCfg = portaudio|x64
+		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.portaudio|x64.Build.0 = portaudio|x64
+		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.portaudio|x86.Build.0 = portaudio|Win32
 		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.Release|x64.ActiveCfg = Release|x64
 		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.Release|x64.Build.0 = Release|x64
 		{B67C8BB0-0871-4E51-9013-C679C49F8D2D}.Release|x86.ActiveCfg = Release|Win32
@@ -152,6 +166,10 @@ Global
 		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.MinSizeRel|x64.Build.0 = Release|x64
 		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.MinSizeRel|x86.Build.0 = Release|Win32
+		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.portaudio|x64.ActiveCfg = portaudio|x64
+		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.portaudio|x64.Build.0 = portaudio|x64
+		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.portaudio|x86.Build.0 = portaudio|Win32
 		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.Release|x64.ActiveCfg = Release|x64
 		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.Release|x64.Build.0 = Release|x64
 		{E8E7B242-FE57-4C6A-A7E6-C1B507D3227B}.Release|x86.ActiveCfg = Release|Win32
@@ -172,6 +190,10 @@ Global
 		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.MinSizeRel|x64.Build.0 = Release|x64
 		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.MinSizeRel|x86.Build.0 = Release|Win32
+		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.portaudio|x64.ActiveCfg = portaudio|x64
+		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.portaudio|x64.Build.0 = portaudio|x64
+		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.portaudio|x86.Build.0 = portaudio|Win32
 		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.Release|x64.ActiveCfg = Release|x64
 		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.Release|x64.Build.0 = Release|x64
 		{6EEBE883-9FC8-4D37-A08F-72CF0409709B}.Release|x86.ActiveCfg = Release|Win32
@@ -192,6 +214,10 @@ Global
 		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.MinSizeRel|x64.Build.0 = Release|x64
 		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.MinSizeRel|x86.Build.0 = Release|Win32
+		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.portaudio|x64.ActiveCfg = portaudio|x64
+		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.portaudio|x64.Build.0 = portaudio|x64
+		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.portaudio|x86.Build.0 = portaudio|Win32
 		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.Release|x64.ActiveCfg = Release|x64
 		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.Release|x64.Build.0 = Release|x64
 		{E4FC8B2C-20C0-4632-A521-093AC1B23A6E}.Release|x86.ActiveCfg = Release|Win32
@@ -212,6 +238,10 @@ Global
 		{8A39EF2E-018E-49F2-95C8-7290D8231493}.MinSizeRel|x64.Build.0 = Release|x64
 		{8A39EF2E-018E-49F2-95C8-7290D8231493}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{8A39EF2E-018E-49F2-95C8-7290D8231493}.MinSizeRel|x86.Build.0 = Release|Win32
+		{8A39EF2E-018E-49F2-95C8-7290D8231493}.portaudio|x64.ActiveCfg = portaudio|x64
+		{8A39EF2E-018E-49F2-95C8-7290D8231493}.portaudio|x64.Build.0 = portaudio|x64
+		{8A39EF2E-018E-49F2-95C8-7290D8231493}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{8A39EF2E-018E-49F2-95C8-7290D8231493}.portaudio|x86.Build.0 = portaudio|Win32
 		{8A39EF2E-018E-49F2-95C8-7290D8231493}.Release|x64.ActiveCfg = Release|x64
 		{8A39EF2E-018E-49F2-95C8-7290D8231493}.Release|x64.Build.0 = Release|x64
 		{8A39EF2E-018E-49F2-95C8-7290D8231493}.Release|x86.ActiveCfg = Release|Win32
@@ -232,6 +262,10 @@ Global
 		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.MinSizeRel|x64.Build.0 = Release|x64
 		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.MinSizeRel|x86.Build.0 = Release|Win32
+		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.portaudio|x64.ActiveCfg = portaudio|x64
+		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.portaudio|x64.Build.0 = portaudio|x64
+		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.portaudio|x86.Build.0 = portaudio|Win32
 		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.Release|x64.ActiveCfg = Release|x64
 		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.Release|x64.Build.0 = Release|x64
 		{D965C98C-E4EA-4186-90FD-0F4540BB1669}.Release|x86.ActiveCfg = Release|Win32
@@ -251,6 +285,9 @@ Global
 		{0909FEFF-51D6-4730-9B33-708C300638C1}.MinSizeRel|x64.Build.0 = Release|x64
 		{0909FEFF-51D6-4730-9B33-708C300638C1}.MinSizeRel|x86.ActiveCfg = Release|x64
 		{0909FEFF-51D6-4730-9B33-708C300638C1}.MinSizeRel|x86.Build.0 = Release|x64
+		{0909FEFF-51D6-4730-9B33-708C300638C1}.portaudio|x64.ActiveCfg = portaudio|x64
+		{0909FEFF-51D6-4730-9B33-708C300638C1}.portaudio|x64.Build.0 = portaudio|x64
+		{0909FEFF-51D6-4730-9B33-708C300638C1}.portaudio|x86.ActiveCfg = portaudio|x64
 		{0909FEFF-51D6-4730-9B33-708C300638C1}.Release|x64.ActiveCfg = Release|x64
 		{0909FEFF-51D6-4730-9B33-708C300638C1}.Release|x64.Build.0 = Release|x64
 		{0909FEFF-51D6-4730-9B33-708C300638C1}.Release|x86.ActiveCfg = Release|x64
@@ -270,6 +307,10 @@ Global
 		{FD585186-A241-4589-985D-2EBC3506C024}.MinSizeRel|x64.Build.0 = Release|x64
 		{FD585186-A241-4589-985D-2EBC3506C024}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{FD585186-A241-4589-985D-2EBC3506C024}.MinSizeRel|x86.Build.0 = Release|Win32
+		{FD585186-A241-4589-985D-2EBC3506C024}.portaudio|x64.ActiveCfg = portaudio|x64
+		{FD585186-A241-4589-985D-2EBC3506C024}.portaudio|x64.Build.0 = portaudio|x64
+		{FD585186-A241-4589-985D-2EBC3506C024}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{FD585186-A241-4589-985D-2EBC3506C024}.portaudio|x86.Build.0 = portaudio|Win32
 		{FD585186-A241-4589-985D-2EBC3506C024}.Release|x64.ActiveCfg = Release|x64
 		{FD585186-A241-4589-985D-2EBC3506C024}.Release|x64.Build.0 = Release|x64
 		{FD585186-A241-4589-985D-2EBC3506C024}.Release|x86.ActiveCfg = Release|Win32
@@ -290,6 +331,10 @@ Global
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.MinSizeRel|x64.Build.0 = Release|x64
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.MinSizeRel|x86.Build.0 = Release|Win32
+		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.portaudio|x64.ActiveCfg = portaudio|x64
+		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.portaudio|x64.Build.0 = portaudio|x64
+		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.portaudio|x86.Build.0 = portaudio|Win32
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.Release|x64.ActiveCfg = Release|x64
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.Release|x64.Build.0 = Release|x64
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8}.Release|x86.ActiveCfg = Release|Win32
@@ -310,6 +355,10 @@ Global
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.MinSizeRel|x64.Build.0 = Release|x64
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.MinSizeRel|x86.Build.0 = Release|Win32
+		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.portaudio|x64.ActiveCfg = portaudio|x64
+		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.portaudio|x64.Build.0 = portaudio|x64
+		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.portaudio|x86.Build.0 = portaudio|Win32
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.Release|x64.ActiveCfg = Release|x64
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.Release|x64.Build.0 = Release|x64
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8}.Release|x86.ActiveCfg = Release|Win32
@@ -330,6 +379,10 @@ Global
 		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.MinSizeRel|x64.Build.0 = Release|x64
 		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.MinSizeRel|x86.ActiveCfg = Release|Win32
 		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.MinSizeRel|x86.Build.0 = Release|Win32
+		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.portaudio|x64.ActiveCfg = portaudio|x64
+		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.portaudio|x64.Build.0 = portaudio|x64
+		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.portaudio|x86.Build.0 = portaudio|Win32
 		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.Release|x64.ActiveCfg = Release|x64
 		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.Release|x64.Build.0 = Release|x64
 		{028A17C0-A276-4C1F-BCE1-2BE289BC2AC7}.Release|x86.ActiveCfg = Release|Win32
@@ -350,6 +403,10 @@ Global
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.MinSizeRel|x64.Build.0 = Debug|x64
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.MinSizeRel|x86.ActiveCfg = Debug|Win32
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.MinSizeRel|x86.Build.0 = Debug|Win32
+		{A066369B-465B-4EE9-B5AC-833C91E564B9}.portaudio|x64.ActiveCfg = portaudio|x64
+		{A066369B-465B-4EE9-B5AC-833C91E564B9}.portaudio|x64.Build.0 = portaudio|x64
+		{A066369B-465B-4EE9-B5AC-833C91E564B9}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{A066369B-465B-4EE9-B5AC-833C91E564B9}.portaudio|x86.Build.0 = portaudio|Win32
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.Release|x64.ActiveCfg = Release|x64
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.Release|x64.Build.0 = Release|x64
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.Release|x86.ActiveCfg = Release|Win32
@@ -362,26 +419,6 @@ Global
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{A066369B-465B-4EE9-B5AC-833C91E564B9}.RelWithDebInfo|x86.Build.0 = Release|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Debug|x64.ActiveCfg = Debug|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Debug|x64.Build.0 = Debug|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Debug|x86.ActiveCfg = Debug|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Debug|x86.Build.0 = Debug|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.MinSizeRel|x86.ActiveCfg = MinSizeRel|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.MinSizeRel|x86.Build.0 = MinSizeRel|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Release|x64.ActiveCfg = Release|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Release|x64.Build.0 = Release|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Release|x86.ActiveCfg = Release|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.Release|x86.Build.0 = Release|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.ReleaseMinDependency|x64.ActiveCfg = Release|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.ReleaseMinDependency|x64.Build.0 = Release|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.ReleaseMinDependency|x86.ActiveCfg = Release|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.ReleaseMinDependency|x86.Build.0 = Release|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|Win32
-		{00D09649-20CD-3700-80CC-DF2F14F28746}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|Win32
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.Debug|x64.ActiveCfg = Debug|x64
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.Debug|x64.Build.0 = Debug|x64
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.Debug|x86.ActiveCfg = Debug|Win32
@@ -390,6 +427,10 @@ Global
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.MinSizeRel|x64.Build.0 = Debug|x64
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.MinSizeRel|x86.ActiveCfg = Debug|Win32
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.MinSizeRel|x86.Build.0 = Debug|Win32
+		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.portaudio|x64.ActiveCfg = portaudio|x64
+		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.portaudio|x64.Build.0 = portaudio|x64
+		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.portaudio|x86.Build.0 = portaudio|Win32
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.Release|x64.ActiveCfg = Release|x64
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.Release|x64.Build.0 = Release|x64
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6}.Release|x86.ActiveCfg = Release|Win32
@@ -410,6 +451,10 @@ Global
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.MinSizeRel|x64.Build.0 = Debug|x64
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.MinSizeRel|x86.ActiveCfg = Debug|Win32
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.MinSizeRel|x86.Build.0 = Debug|Win32
+		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.portaudio|x64.ActiveCfg = portaudio|x64
+		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.portaudio|x64.Build.0 = portaudio|x64
+		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.portaudio|x86.Build.0 = portaudio|Win32
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.Release|x64.ActiveCfg = Release|x64
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.Release|x64.Build.0 = Release|x64
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640}.Release|x86.ActiveCfg = Release|Win32
@@ -430,6 +475,10 @@ Global
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.MinSizeRel|x64.Build.0 = Debug|x64
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.MinSizeRel|x86.ActiveCfg = Debug|Win32
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.MinSizeRel|x86.Build.0 = Debug|Win32
+		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.portaudio|x64.ActiveCfg = portaudio|x64
+		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.portaudio|x64.Build.0 = portaudio|x64
+		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.portaudio|x86.Build.0 = portaudio|Win32
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.Release|x64.ActiveCfg = Release|x64
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.Release|x64.Build.0 = Release|x64
 		{1F8339F3-6D3C-4448-9E03-8B2774ECE2E8}.Release|x86.ActiveCfg = Release|Win32
@@ -448,6 +497,9 @@ Global
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.portaudio|x64.ActiveCfg = portaudio|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.portaudio|x64.Build.0 = portaudio|x64
+		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.portaudio|x86.ActiveCfg = portaudio|x64
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Release|x64.ActiveCfg = Release|x64
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Release|x64.Build.0 = Release|x64
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC}.Release|x86.ActiveCfg = Release|x64
@@ -464,6 +516,9 @@ Global
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.portaudio|x64.ActiveCfg = portaudio|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.portaudio|x64.Build.0 = portaudio|x64
+		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.portaudio|x86.ActiveCfg = portaudio|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Release|x64.ActiveCfg = Release|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Release|x64.Build.0 = Release|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.Release|x86.ActiveCfg = Release|x64
@@ -474,6 +529,30 @@ Global
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Debug|x64.ActiveCfg = Debug|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Debug|x64.Build.0 = Debug|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Debug|x86.ActiveCfg = Debug|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Debug|x86.Build.0 = Debug|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.MinSizeRel|x64.ActiveCfg = Debug|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.MinSizeRel|x64.Build.0 = Debug|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.MinSizeRel|x86.ActiveCfg = Debug|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.MinSizeRel|x86.Build.0 = Debug|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.portaudio|x64.ActiveCfg = portaudio|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.portaudio|x64.Build.0 = portaudio|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.portaudio|x86.ActiveCfg = portaudio|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.portaudio|x86.Build.0 = portaudio|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Release|x64.ActiveCfg = Release|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Release|x64.Build.0 = Release|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Release|x86.ActiveCfg = Release|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.Release|x86.Build.0 = Release|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.ReleaseMinDependency|x64.ActiveCfg = ReleaseMinDependency|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.ReleaseMinDependency|x64.Build.0 = ReleaseMinDependency|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.ReleaseMinDependency|x86.ActiveCfg = ReleaseMinDependency|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.ReleaseMinDependency|x86.Build.0 = ReleaseMinDependency|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99}.RelWithDebInfo|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,11 +561,11 @@ Global
 		{FAC2EE8D-DDA1-4237-B02F-884CEB24C6B8} = {1085B390-9963-4918-9947-46A64A85A63C}
 		{B46CD54F-C4E8-43DA-9899-2A172252B7A8} = {1085B390-9963-4918-9947-46A64A85A63C}
 		{A066369B-465B-4EE9-B5AC-833C91E564B9} = {1085B390-9963-4918-9947-46A64A85A63C}
-		{00D09649-20CD-3700-80CC-DF2F14F28746} = {1085B390-9963-4918-9947-46A64A85A63C}
 		{E1EEFEA1-F9DA-48C1-8370-97067CA9B0D6} = {579DC855-B89F-47AC-8821-91F170EA18DF}
 		{56E6DBAB-7A14-456B-8BDA-AE678AFF6640} = {579DC855-B89F-47AC-8821-91F170EA18DF}
 		{5DAF2744-064E-3C66-A13C-622C1D7492AC} = {1085B390-9963-4918-9947-46A64A85A63C}
 		{57BEB124-1122-3DC3-BE48-D67FD62682FB} = {1085B390-9963-4918-9947-46A64A85A63C}
+		{0A18A071-125E-442F-AFF7-A3F68ABECF99} = {1085B390-9963-4918-9947-46A64A85A63C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3796E650-5316-43A4-BB97-88FFA7B81F44}

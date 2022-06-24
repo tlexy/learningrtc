@@ -27,3 +27,6 @@
 
 ## 功能设计
 服务器有房间的概念，一个三元组（appid,roomid, uid）唯一标识了服务器上的一个用户。服务器上的用户有两种类型：主播以及观众。主播既向服务器推送流，也向服务器拉取流。其观众仅仅是从指定房间中拉取流，不能上传流。
+
+## 编译相关
+### portaudio [链接](http://portaudio.com/docs/v19-doxydocs/compile_windows.html)

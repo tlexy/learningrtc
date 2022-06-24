@@ -22,3 +22,6 @@ rtp_base/x64
 qos/x64
 webrtc_camera/x64
 video/x64
+3rd/portaudio-master/.github
+3rd/portaudio-master/msvc/x64
+3rd/portaudio-master/msvc/Win32
