@@ -21,4 +21,4 @@ cl : 命令行 warning D9035: “Gm”选项已否决，并将在将来的版本
   pa_converters.c
   pa_allocation.c
   正在生成代码...
-  portaudio.vcxproj -> G:\code666\learningrtc\bin\portaudio.lib
+  portaudio.vcxproj -> G:\code666\learninglive\bin\portaudio.lib
