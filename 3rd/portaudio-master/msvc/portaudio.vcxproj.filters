@@ -84,9 +84,6 @@
     <ClCompile Include="..\src\hostapi\wasapi\pa_win_wasapi.c">
       <Filter>Source Files\hostapi\wasapi</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\hostapi\wdmks\pa_win_wdmks.c">
-      <Filter>Source Files\hostapi\wdmks</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\os\win\pa_win_coinitialize.c">
       <Filter>Source Files\os\win</Filter>
     </ClCompile>
@@ -97,9 +94,6 @@
       <Filter>Source Files\os\win</Filter>
     </ClCompile>
     <ClCompile Include="..\src\os\win\pa_win_waveformat.c">
-      <Filter>Source Files\os\win</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\os\win\pa_win_wdmks_utils.c">
       <Filter>Source Files\os\win</Filter>
     </ClCompile>
     <ClCompile Include="..\src\os\win\pa_x86_plain_converters.c">

@@ -43,7 +43,6 @@ int main()
     std::cin.get();
     player->stop();
     x264_encoder->stop();
-
     sockets::Destroy();
 
 	return 0;

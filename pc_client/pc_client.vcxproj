@@ -82,12 +82,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\webrtc_camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;SAVE_TEST_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;portaudio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;portaudio.lib;turbojpeg-static.lib;yuv.lib;windows_capture_test.lib;SDL2.lib;video.lib;libx264.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\learninglive\x64\Debug;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib;..\3rd\fdk-aac-2.0.1\lib\Debug64;..\3rd\uvnet\3rd\libuv-v1.44.1\build\Debug;..\3rd\jsoncpp\lib\Debug;..\3rd\portaudiov19\x64\debug;..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -145,6 +145,7 @@
     <ClCompile Include="common\pc_global.cpp" />
     <ClCompile Include="component\comm_thread.cpp" />
     <ClCompile Include="priv\pc_client_priv.cpp" />
+    <ClCompile Include="sdl_player_widget.cpp" />
     <ClCompile Include="test\peer_connection.cpp" />
     <QtRcc Include="pc_client.qrc" />
     <QtMoc Include="pc_client.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="sdl_player_widget.h" />
     <ClInclude Include="test\peer_connection.h" />
     <QtMoc Include="component\comm_thread.h" />
     <ClInclude Include="common\pc_common_def.h" />

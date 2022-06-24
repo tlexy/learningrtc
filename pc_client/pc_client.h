@@ -13,6 +13,12 @@ class QPushButton;
 class QLineEdit;
 class QBoxLayout;
 class PcClientPrivate;
+class SdlPlayerWidget;
+
+namespace webrtc::test
+{
+    class  VcmCapturer;
+}
 
 class PcClient : public QWidget
 {
@@ -50,6 +56,9 @@ private:
     QPushButton* _listen_btn;
     QPushButton* _pushlish_btn;
     int _audio_device_idx{-1};
+
+    std::shared_ptr <SdlPlayerWidget> _sdl_player;
+    webrtc::test::VcmCapturer* _vcm_capturer;
 
     std::shared_ptr<PcClientPrivate> _d;
 

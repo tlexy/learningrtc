@@ -4,6 +4,9 @@
 #include "common/pc_global.h"
 #include <endec/core/audio_io.h>
 
+#pragma comment(lib, "setupapi.lib")
+#pragma comment(lib, "strmiids.lib")
+#pragma comment(lib, "Winmm.lib")
 #pragma comment (lib, "ws2_32.lib")
 #pragma comment (lib, "Iphlpapi.lib")
 #pragma comment (lib, "Psapi.lib")

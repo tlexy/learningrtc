@@ -57,6 +57,9 @@
     <ClCompile Include="test\peer_connection.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="sdl_player_widget.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="pc_client.h">
@@ -67,6 +70,9 @@
     </QtMoc>
     <QtMoc Include="component\comm_thread.h">
       <Filter>component</Filter>
+    </QtMoc>
+    <QtMoc Include="sdl_player_widget.h">
+      <Filter>ui</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
