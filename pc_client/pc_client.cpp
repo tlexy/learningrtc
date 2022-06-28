@@ -140,12 +140,18 @@ void PcClient::init()
 
     //startTimer(200);
 
+    int video_width = 640;
+    int video_height = 480;
     //_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
-    _vcm_capturer = webrtc::test::VcmCapturer::Create(640, 480, 30, 0);
+    _vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 0);
     _vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
 
-    _gl_player->init(640, 480, 2);
-    _vcm_capturer->StartCapture();
+    _d->vcm_capturer = _vcm_capturer;
+    _d->video_height = video_height;
+    _d->video_width = video_width;
+
+    _gl_player->init(video_width, video_height, 2);
+    //_vcm_capturer->StartCapture();
     //_sdl_player->start(640, 480);
 }
 

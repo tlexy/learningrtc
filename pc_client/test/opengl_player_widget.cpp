@@ -100,46 +100,8 @@ void OpenGLPlayerWidget::initializeGL()
     //设置材质坐标
     _sp->bindAttributeLocation("textureIn", ATTRIB_TEXTURE);
 
-    //初始化纹理对象
-    //for (int i = 0; i < 3; i++)
-    //{
-    //    yuv_textures[i] = new QOpenGLTexture(QOpenGLTexture::Target2D);
-    //    if (i == 0)
-    //    {
-    //        yuv_textures[i]->setSize(_width, _height);
-    //    }
-    //    else
-    //    {
-    //        yuv_textures[i]->setSize(_width / 2, _height / 2);
-    //    }
-
-    //    yuv_textures[i]->setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
-    //    yuv_textures[i]->create();
-    //    yuv_textures[i]->setFormat(QOpenGLTexture::R8_UNorm);
-    //    yuv_textures[i]->allocateStorage();        //存储配置(放大缩小过滤、格式、size)
-    //    //yuv_textures[i]->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, yuvArr[i]);
-    //    _texids[i] = yuv_textures[i]->textureId();
-    //}
-
     _sp->link();
     _sp->bind();
-
-    ////初始化VBO,将顶点数据存储到buffer中,等待VAO激活后才能释放
-    //float vertices[] = {
-    //    //顶点坐标               //纹理坐标的Y方向需要是反的,因为opengl中的坐标系是Y原点位于下方
-    //   -1.0f, -1.0f, 0.0f,  0.0f, 1.0f,        //左下
-    //   1.0f , -1.0f, 0.0f,  1.0f, 1.0f,        //右下
-    //   -1.0f, 1.0f,  0.0f,  0.0f, 0.0f,        //左上
-    //   1.0f,  1.0f,  0.0f,  1.0f, 0.0f         //右上
-    //};
-
-    ////顶点
-    //glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 5 * sizeof(float), vertices);
-    //glEnableVertexAttribArray(ATTRIB_VERTEX);
-
-    ////材质
-    //glVertexAttribPointer(ATTRIB_TEXTURE, 2, GL_FLOAT, 0, 5*sizeof(float), vertices + 3);
-    //glEnableVertexAttribArray(ATTRIB_TEXTURE);
 
     //传递顶点和材质坐标
     //顶点
@@ -205,14 +167,14 @@ void OpenGLPlayerWidget::initializeGL()
 void OpenGLPlayerWidget::paintGL()
 {
     //glClear(GL_COLOR_BUFFER_BIT);
-    if (!_new_frame)
+    /*if (!_new_frame)
+    {
+        return;
+    }*/
+    if (_frame.width() == 0)
     {
         return;
     }
-    /*yuv_textures[0]->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, _frame.video_frame_buffer()->GetI420()->DataY());
-    yuv_textures[1]->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, _frame.video_frame_buffer()->GetI420()->DataU());
-    yuv_textures[2]->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, _frame.video_frame_buffer()->GetI420()->DataV());*/
-    //_sp->bind();
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _texids[0]); //0层绑定到Y材质

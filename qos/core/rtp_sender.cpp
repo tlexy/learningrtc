@@ -81,7 +81,25 @@ void RtpSender::enable_retrans(bool flag)
 	_retrans = flag;
 }
 
-void RtpSender::send_rtp(void* data, int len, uint32_t ts)
+void RtpSender::send_rtp_packet(rtp_packet_t* rtp)
+{
+	if (!_rtp_udp)
+	{
+		return;
+	}
+
+	//准备发送
+	auto rtpc = _pack_rtp(rtp);
+	if (rtpc)
+	{
+		//发送了的包要缓存一断时间
+		//_cache_list.push_back(rtpc);
+		_rtp_udp->sendInLoop2((const char*)rtpc->buff, rtpc->len, _remote_addr);
+		free_rtpcache(rtpc);
+	}
+}
+
+void RtpSender::send_raw_data(void* data, int len, uint32_t ts)
 {
 	using namespace std::placeholders;
 	/*if (!_rtp_udp)
@@ -139,6 +157,23 @@ void RtpSender::send_rtp(void* data, int len, uint32_t ts)
 	{
 		//to do...
 	}
+}
+
+RtpSender::RtpCachePacket* RtpSender::_pack_rtp(rtp_packet_t* rtp)
+{
+	RtpCachePacket* rtpc = new RtpCachePacket();
+	rtpc->len = rtp_len(rtp);
+	rtpc->buff = malloc(rtpc->len);
+	if (rtpc->buff)
+	{
+		int ret = rtp_copy(rtp, rtpc->buff, rtpc->len);
+		if (ret == 0)
+		{
+			rtpc->rtp = rtp;
+			return rtpc;
+		}
+	}
+	return NULL;
 }
 
 RtpSender::RtpCachePacket* RtpSender::_pack_rtp(void* data, int len)

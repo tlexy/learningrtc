@@ -34,10 +34,12 @@ public:
 	void bind_local_addr(const uvcore::IpAddress& addr = uvcore::IpAddress());
 	void set_rtp_param(uint8_t pt, uint32_t ssrc, uint32_t time_inter = 0);
 
-	void send_rtp(void* data, int len, uint32_t ts = 0);
+	void send_rtp_packet(rtp_packet_t*);
+	void send_raw_data(void* data, int len, uint32_t ts = 0);
 
 private:
 	RtpCachePacket* _pack_rtp(void* data, int len);
+	RtpCachePacket* _pack_rtp(rtp_packet_t*);
 	void free_rtpcache(RtpCachePacket*);
 	void on_rtp_receive(uvcore::Udp*, const struct sockaddr*);
 

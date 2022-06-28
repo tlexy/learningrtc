@@ -10,6 +10,7 @@
 #include <webrtc_camera/video_frame_subscriber.h>
 #include "../rtp_h264/rtp_h264_encoder.h"
 #include "../rtp_h264/rtp_h264_decoder.h"
+#include <functional>
 extern "C"
 {
 #include <3rd/x264-master/x264.h>
@@ -18,13 +19,17 @@ extern "C"
 
 class FileSaver;
 
-#define SAVEF
+//#define SAVEF
+
+using X264VideoEncCb = std::function<void(uint8_t*, int)>;
 
 class X264Encoder : public webrtc::test::VideoFrameSubscriber
 {
 public:
 	X264Encoder();
 	virtual void OnFrame(const webrtc::VideoFrame&) override;
+
+	void set_enc_cb(X264VideoEncCb cb);
 
 	void start();
 	void stop();
@@ -48,12 +53,14 @@ private:
 	x264_t* _handle;
 	x264_param_t* _param;
 
+	X264VideoEncCb _cb{nullptr};
+
 	RtpH264Decoder* _rhd;
 
 #ifdef SAVEF
 	FileSaver* _h264_file{nullptr};
-#endif
 	FileSaver* _rtp_save{nullptr};
+#endif
 };
 
 #endif

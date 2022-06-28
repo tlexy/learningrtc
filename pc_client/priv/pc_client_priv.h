@@ -18,6 +18,11 @@ namespace tests {
     class PeerConnection;
 }
 
+namespace webrtc::test
+{
+    class  VcmCapturer;
+}
+
 class PcClientPrivate : public QObject
 {
     Q_OBJECT
@@ -45,6 +50,10 @@ public slots:
 public:
     std::shared_ptr<uvcore::UdpServer> udp_server;
     std::shared_ptr<tests::PeerConnection> pc{nullptr};
+    webrtc::test::VcmCapturer* vcm_capturer{nullptr};
+    int video_width;
+    int video_height;
+
 private:
     std::shared_ptr<uvcore::ThreadTimerEventLoop> _loop;
     std::shared_ptr<NetTcpClient> _client{nullptr};

@@ -9,6 +9,13 @@
 #include <uvnet/utils/byte_order.hpp>
 #include <common/util/file_saver.h>
 
+#include <video/rtp_h264/rtp_h264_encoder.h>
+#include <video/rtp_h264/rtp_h264_decoder.h>
+#include <webrtc_camera/core/video_capture.h>
+#include <webrtc_camera/core/video_capture_factory.h>
+#include <webrtc_camera/vcm_capturer.h>
+#include <QDebug>
+
 #define SAVE_TEST
 
 namespace tests
@@ -25,6 +32,11 @@ namespace tests
 	void PeerConnection::set_recorder_device(int device_idx)
 	{
 		_audio_device_idx = device_idx;
+	}
+
+	void PeerConnection::set_video_capturer(webrtc::test::VcmCapturer* capturer)
+	{
+		_vcm_capturer = capturer;
 	}
 
 	void PeerConnection::remote_data_cb(uvcore::Udp*, const struct sockaddr* addr)
@@ -75,7 +87,7 @@ namespace tests
 		_stop = false;
 	}
 
-	void PeerConnection::start_stream()
+	void PeerConnection::start_stream(int width, int height)
 	{
 		using namespace std::placeholders;
 
@@ -87,11 +99,24 @@ namespace tests
 			_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765215);
 			_rtp_sender->bind_local_addr(_local_addr);
 		}
-
+		//音频相关
 		_audio_io = std::make_shared<AudioIO>(128000);
 		_audio_io->set_io_cb(std::bind(&PeerConnection::recorder_enc_cb, this, _1, _2));
 		_audio_io->start(_audio_device_idx);
+		//视频相关
+		_video_width = width;
+		_video_height = height;
+		_x264_encoder = std::make_shared<X264Encoder>();
+		_x264_encoder->init(_video_width, _video_height, 30);
+		_x264_encoder->set_enc_cb(std::bind(&PeerConnection::h264_enc_cb, this, _1, _2));
+		if (_vcm_capturer)
+		{
+			_vcm_capturer->AddSubscriber(_x264_encoder);
+		}
+		_x264_encoder->start();
 
+		_vcm_capturer->StartCapture();
+		//音频接收？
 		_sender_th = std::make_shared<std::thread>(&PeerConnection::sender_worker, this);
 		_stop = false;
 	}
@@ -107,12 +132,37 @@ namespace tests
 		ret = _audio_player->play();
 	}
 
+	void PeerConnection::h264_enc_cb(uint8_t* payload, int payload_len)
+	{
+		//封闭为rtp格式（载荷类型为h264）并发送出去
+		if (!_rtp_h264_encoder)
+		{
+			_rtp_h264_encoder = std::make_shared<RtpH264Encoder>();
+		}
+		int off = 3;
+		unsigned char* p = payload;
+		if (p[0] == 0x00 && p[1] == 0x00
+			&& p[2] == 0x00 && p[3] == 0x01)
+		{
+			off = 4;
+		}
+		qDebug() << "h264 data comming, len: " << payload_len;
+		_rtp_h264_encoder->encode((const char*)payload + off, payload_len - off);
+		rtp_packet_t* rtp;
+		int rr = _rtp_h264_encoder->get_packet(rtp);
+		while (rr >= 0)
+		{
+			_rtp_sender->send_rtp_packet(rtp);
+			rr = _rtp_h264_encoder->get_packet(rtp);
+		}
+	}
+
 	void PeerConnection::recorder_enc_cb(const uint8_t* data, int len)
 	{
 		_aac_timestamp += 1024;
 		if (_rtp_sender)
 		{
-			_rtp_sender->send_rtp((void*)data, len, _aac_timestamp);
+			_rtp_sender->send_raw_data((void*)data, len, _aac_timestamp);
 		}
 //#ifdef SAVE_TEST
 //		_aac_saver->write((const char*)data, len);
@@ -174,6 +224,16 @@ namespace tests
 
 	void PeerConnection::destory()
 	{
+		/*if (_vcm_capturer)
+		{
+			delete _vcm_capturer;
+			_vcm_capturer = nullptr;
+		}*/
+		if (_x264_encoder)
+		{
+			_x264_encoder->stop();
+			_x264_encoder = nullptr;
+		}
 		_stop = true;
 		if (_receiver_th && _receiver_th->joinable())
 		{

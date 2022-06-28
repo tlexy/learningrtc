@@ -82,6 +82,8 @@ void PcClientPrivate::connect_to_peer(const std::string& ip, int port, int audio
     pc = std::make_shared<tests::PeerConnection>(udp_server);
     pc->connect(addr);
     pc->set_recorder_device(audio_device_idx);
-    pc->start_stream();
+
+    pc->set_video_capturer(vcm_capturer);
+    pc->start_stream(video_width, video_height);
 }
 

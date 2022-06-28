@@ -13,9 +13,9 @@ X264Encoder::X264Encoder()
 {
 #ifdef SAVEF
 	_h264_file = new FileSaver(1024*1024*100, "h264_i420_", ".h264");
+	_rtp_save = new FileSaver(1024 * 1024 * 100, "rtp_i420_", ".h264");
 #endif
 	_rhd = new RtpH264Decoder;
-	_rtp_save = new FileSaver(1024 * 1024 * 100, "rtp_i420_", ".h264");
 }
 
 void X264Encoder::OnFrame(const webrtc::VideoFrame& frame)
@@ -81,8 +81,13 @@ void X264Encoder::stop()
 	}
 #ifdef SAVEF
 	_h264_file->save();
-#endif
 	_rtp_save->save();
+#endif
+}
+
+void X264Encoder::set_enc_cb(X264VideoEncCb cb)
+{
+	_cb = cb;
 }
 
 void X264Encoder::encode_thread()
@@ -148,6 +153,7 @@ void X264Encoder::encode_thread()
 				for (int i = 0; i < iNal; ++i) 
 				{
 					//要去除0x00 00 01 或者 0x00 00 00 01
+#if 0
 					int off = 3;
 					unsigned char* p = pNals[i].p_payload;
 					if (p[0] == 0x00 && p[1] == 0x00
@@ -168,7 +174,11 @@ void X264Encoder::encode_thread()
 						send_rtp(rtp, sockfd, ipstr, 12500);
 						rr = rh->get_packet(rtp);
 					}
-					
+#endif
+					if (_cb)
+					{
+						_cb(pNals[i].p_payload, pNals[i].i_payload);
+					}
 				}
 			}
 #ifdef SAVEF
@@ -213,7 +223,9 @@ void X264Encoder::save_nalu(NALU* nalu)
 	{
 		std::cout << "IDR slice..." << std::endl;
 	}
+#ifdef SAVEF
 	_rtp_save->write((const char*)nalu->start_code, nalu->_start_code_len);
 	_rtp_save->write((const char*)nalu->payload, nalu->payload_len);
+#endif
 	free(nalu->payload);
 }

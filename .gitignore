@@ -27,3 +27,12 @@ video/x64
 3rd/portaudio-master/msvc/x64/Debug
 3rd/portaudio-master/msvc/x64/Debug/portaudio.tlog
 3rd/portaudio-master/msvc/Win32
+bin/*.idb
+bin/*.pdb
+bin/*.lib
+bin/*.pcm
+test/webrtc_camera_test/
+learninglive/x64/
+learninglive/bin/
+common/x64/
+netrate/x64/

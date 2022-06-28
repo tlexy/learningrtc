@@ -8,6 +8,8 @@
 #include <qos/core/rtp_receiver.h>
 #include <qos/core/rtp_sender.h>
 
+#include <video/test/x264_encoder.h>
+
 class JetterBufferEntity;
 //class RtpReceiver;
 //class RtpSender;
@@ -15,9 +17,17 @@ class AudioIO;
 class AudioPlayer;
 class FileSaver;
 
+class RtpH264Encoder;
+class RtpH264Decoder;
+
 namespace uvcore
 {
 	class Udp;
+}
+
+namespace webrtc::test
+{
+	class  VcmCapturer;
 }
 
 namespace tests
@@ -32,7 +42,9 @@ namespace tests
 		/// <summary>
 		/// 开始本地录制以及推流到对端
 		/// </summary>
-		void start_stream();
+		void start_stream(int width, int height);
+
+		void set_video_capturer(webrtc::test::VcmCapturer*);
 
 		/// <summary>
 		/// 开始播放接收到的音频
@@ -52,6 +64,8 @@ namespace tests
 
 		void remote_data_cb(uvcore::Udp*, const struct sockaddr*);
 
+		void h264_enc_cb(uint8_t*, int);
+
 	private:
 		std::shared_ptr<uvcore::UdpServer> _udp_server;
 		std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
@@ -69,6 +83,13 @@ namespace tests
 		uint32_t _aac_timestamp{0};
 		int _audio_device_idx;
 		std::shared_ptr<AudioPlayer> _audio_player;
+
+		int _video_width;
+		int _video_height;
+		std::shared_ptr<X264Encoder> _x264_encoder;
+		std::shared_ptr<RtpH264Encoder> _rtp_h264_encoder{nullptr};
+		std::shared_ptr<RtpH264Decoder> _rtp_h264_decoder;
+		webrtc::test::VcmCapturer* _vcm_capturer{nullptr};
 
 		///for test
 		FileSaver* _aac_saver{nullptr};
