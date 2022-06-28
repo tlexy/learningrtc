@@ -20,6 +20,7 @@
 #include <webrtc_camera/vcm_capturer.h>
 #include <QCloseEvent>
 #include "sdl_player_widget.h"
+#include "test/opengl_player_widget.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -100,14 +101,14 @@ void PcClient::init()
     vBodyLeftLayout->addLayout(create_layout({ _listen_btn, _pushlish_btn }, new QHBoxLayout));
     vBodyLeftLayout->addStretch();
 
-    _sdl_player = std::make_shared<SdlPlayerWidget>();//new SdlPlayerWidget()
-    _sdl_player->setFixedSize(QSize(640, 480));
+    _gl_player = std::make_shared<OpenGLPlayerWidget>();//new SdlPlayerWidget()
+    _gl_player->setFixedSize(QSize(640, 480));
     /*QWidget* sdlWidgetContainer = new QWidget();
     QGridLayout* gridLayout = new QGridLayout();
     gridLayout->addWidget(_sdl_player.get());
     sdlWidgetContainer->setLayout(gridLayout);
     sdlWidgetContainer->setFixedSize(740, 520);*/
-    hBodyLayout->addWidget(_sdl_player.get());//sdlWidgetContainer
+    hBodyLayout->addWidget(_gl_player.get());//sdlWidgetContainer
 
     hMainLayout->addLayout(vBodyLeftLayout, 2);
     hMainLayout->addLayout(hBodyLayout, 7);
@@ -141,16 +142,16 @@ void PcClient::init()
 
     //_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
     _vcm_capturer = webrtc::test::VcmCapturer::Create(640, 480, 30, 0);
-    _vcm_capturer->AddSubscriber(_sdl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
+    _vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
 
-    _sdl_player->init();
+    _gl_player->init(640, 480, 2);
     _vcm_capturer->StartCapture();
-    _sdl_player->start(640, 480);
+    //_sdl_player->start(640, 480);
 }
 
 void PcClient::closeEvent(QCloseEvent* event)
 {
-    _sdl_player->stop();
+//_sdl_player->stop();
     delete _vcm_capturer;
     _vcm_capturer = nullptr;
     qDebug() << "close...";

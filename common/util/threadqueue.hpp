@@ -84,20 +84,61 @@ public:
 	T pop(bool& flag, const std::chrono::duration<_Rep, _Period>& sleep_time)
 	{
 		std::unique_lock<std::mutex> lock(_mutex);
-		_cv.wait_for(lock, sleep_time, [&] {return _isNotEmpty; });
-		if (!_isNotEmpty)
+		if (sleep_time.count() == 0)
 		{
-			flag = false;
-			//T t;
-			return _default;
+			if (_queue.empty())
+			{
+				flag = false;
+				return _default;
+			}
+		}
+		if (!_queue.empty())
+		{
+			T val = _queue.front();
+			_queue.pop();
+			notify();
+			lock.unlock();
+			flag = true;
+			return val;
 		}
 		else
 		{
-			flag = true;
+			_cv.wait_for(lock, sleep_time, [&] {return _isNotEmpty; });
+			if (!_isNotEmpty)
+			{
+				flag = false;
+				//T t;
+				return _default;
+			}
+			else
+			{
+				flag = true;
+			}
+			T val = _queue.front();
+			_queue.pop();
+			/*if(_queue.size() == 0)
+			{
+				_isNotEmpty = false;
+			}
+			if (_queue.size() < _max)
+			{
+				_isFull = false;
+			}
+
+			lock.unlock();
+			if (_queue.size() < _max)
+			{
+				_cv.notify_all();
+			}*/
+			notify();
+			lock.unlock();
+			return val;
 		}
-		T val = _queue.front();
-		_queue.pop();
-		if(_queue.size() == 0)
+	}
+
+	void notify()
+	{
+		if (_queue.size() == 0)
 		{
 			_isNotEmpty = false;
 		}
@@ -105,13 +146,10 @@ public:
 		{
 			_isFull = false;
 		}
-
-		lock.unlock();
 		if (_queue.size() < _max)
 		{
 			_cv.notify_all();
 		}
-		return val;
 	}
 
 	void clear()

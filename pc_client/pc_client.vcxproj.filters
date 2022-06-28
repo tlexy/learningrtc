@@ -60,6 +60,9 @@
     <ClCompile Include="sdl_player_widget.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="test\opengl_player_widget.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="pc_client.h">
@@ -73,6 +76,9 @@
     </QtMoc>
     <QtMoc Include="sdl_player_widget.h">
       <Filter>ui</Filter>
+    </QtMoc>
+    <QtMoc Include="test\opengl_player_widget.h">
+      <Filter>test</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
