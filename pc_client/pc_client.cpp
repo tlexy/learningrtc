@@ -69,32 +69,32 @@ void PcClient::init()
     _video_com_box = new QComboBox(this);
     _video_com_box->addItem(tr("系统摄像机"));
 
-    _join_btn = new QPushButton(tr("加入房间"), this);
-    _leave_btn = new QPushButton(tr("离开房间"), this);
+    _join_btn = new QPushButton(tr("加入房间"));
+    _leave_btn = new QPushButton(tr("离开房间"));
 
-    _room_id_le = new QLineEdit(this);
-    _uid_le = new QLineEdit(this);
+    _room_id_le = new QLineEdit();
+    _uid_le = new QLineEdit();
 
-    _listen_btn = new QPushButton(tr("监听"), this);
-    _pushlish_btn = new QPushButton(tr("推流"), this);
+    _listen_btn = new QPushButton(tr("监听"));
+    _pushlish_btn = new QPushButton(tr("推流"));
     _ip_le = new QLineEdit(this);
     _ip_le->setText(QString("127.0.0.1"));
     _port_le = new QLineEdit(this);
-    QLabel* ip_lbl = new QLabel(tr("对端IP地址"), this);
-    QLabel* port_lbl = new QLabel(tr("端口"), this);
+    QLabel* ip_lbl = new QLabel(tr("对端IP地址"));
+    QLabel* port_lbl = new QLabel(tr("端口"));
 
-    QLabel* video_lbl = new QLabel(tr("摄像机"), this);
-    QLabel* audio_lbl = new QLabel(tr("录音机"), this);
+    QLabel* video_lbl = new QLabel(tr("摄像机"));
+    QLabel* audio_lbl = new QLabel(tr("录音机"));
 
-    QLabel* room_lbl = new QLabel(tr("房间ID"), this);
-    QLabel* uid_lbl = new QLabel(tr("用户ID"), this);
+    QLabel* room_lbl = new QLabel(tr("房间ID"));
+    QLabel* uid_lbl = new QLabel(tr("用户ID"));
 
     vBodyLeftLayout->addStretch();
     vBodyLeftLayout->addLayout(create_layout({ audio_lbl, _audio_com_box }, new QHBoxLayout));
     vBodyLeftLayout->addLayout(create_layout({ video_lbl, _video_com_box }, new QHBoxLayout));
-    vBodyLeftLayout->addLayout(create_layout({ room_lbl, _room_id_le }, new QHBoxLayout));
+    /*vBodyLeftLayout->addLayout(create_layout({ room_lbl, _room_id_le }, new QHBoxLayout));
     vBodyLeftLayout->addLayout(create_layout({ uid_lbl, _uid_le }, new QHBoxLayout));
-    vBodyLeftLayout->addLayout(create_layout({ _join_btn, _leave_btn }, new QHBoxLayout));
+    vBodyLeftLayout->addLayout(create_layout({ _join_btn, _leave_btn }, new QHBoxLayout));*/
     vBodyLeftLayout->addSpacing(20);
     vBodyLeftLayout->addLayout(create_layout({ ip_lbl, _ip_le }, new QHBoxLayout));
     vBodyLeftLayout->addLayout(create_layout({ port_lbl, _port_le }, new QHBoxLayout));

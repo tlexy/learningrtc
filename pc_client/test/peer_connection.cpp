@@ -82,7 +82,7 @@ namespace tests
 		_local_addr.setPort(local_port);
 		_rtp_receiver = std::make_shared<RtpReceiver>(_local_addr, _receiver_je, _udp_server);
 		_rtp_receiver->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
-		_rtp_receiver->start();
+		_rtp_receiver->start(rtp_base::eAacLcPayLoad);
 		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
 		_stop = false;
 	}

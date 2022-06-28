@@ -25,6 +25,7 @@ namespace rtp_base
 
 	enum rtp_payload_type
 	{
+		ePayloadTypeNull = 0,
 		eH264PayLoad = 96,
 		eAacLcPayLoad = 97,
 		eFecPayLoad = 98,

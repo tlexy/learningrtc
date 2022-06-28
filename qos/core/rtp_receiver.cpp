@@ -8,12 +8,14 @@ RtpReceiver::RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JetterBu
 	std::shared_ptr<uvcore::UdpServer> server)
 	:_addr(addr),
 	_je_entity(entity),
-	_udp_server(server)
+	_udp_server(server),
+	_ptype(rtp_base::ePayloadTypeNull)
 {
 }
 
-void RtpReceiver::start()
+void RtpReceiver::start(uint16_t ptype)
 {
+	_ptype = ptype;
 	using namespace std::placeholders;
 	if (!_udp_server)
 	{
@@ -54,7 +56,7 @@ void RtpReceiver::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 		//2. FEC解码完成后，将丢失（未到达）的包上交到上一层
 		//3. [min_seqno, real_seqno]范围内的包接收到就放弃
 	}
-	else
+	else if (rtp->hdr.paytype == _ptype)
 	{
 		//std::cout << "receiver, receive rtp packet, rsn = " << real_seqno << std::endl;
 		_je_entity->push(rtp);

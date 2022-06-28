@@ -18,13 +18,14 @@ public:
 	RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JetterBufferEntity> entity,
 		std::shared_ptr<uvcore::UdpServer> server);
 	void set_data_cb(ReceiverDataCb cb);
-	void start();
+	void start(uint16_t ptype);
 
 private:
 	void on_rtp_receive(uvcore::Udp*, const struct sockaddr*);
 
 private:
 	uvcore::IpAddress _addr;
+	uint16_t _ptype;
 	ReceiverDataCb _data_cb{nullptr};
 	std::shared_ptr<JetterBufferEntity> _je_entity;
 	std::shared_ptr<uvcore::UdpServer> _udp_server{nullptr};
