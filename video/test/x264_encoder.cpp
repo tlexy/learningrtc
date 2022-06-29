@@ -224,7 +224,7 @@ void X264Encoder::save_nalu(NALU* nalu)
 		std::cout << "IDR slice..." << std::endl;
 	}
 #ifdef SAVEF
-	_rtp_save->write((const char*)nalu->start_code, nalu->_start_code_len);
+	_rtp_save->write((const char*)nalu->start_code, nalu->start_code_len);
 	_rtp_save->write((const char*)nalu->payload, nalu->payload_len);
 #endif
 	free(nalu->payload);
