@@ -164,6 +164,8 @@ int main_main(int argc, char *argv[])
     return ret;
 }
 
+
+//for test, 从h264原始码流中解码得到yuv格式数据并播放
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
