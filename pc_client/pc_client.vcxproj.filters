@@ -63,6 +63,9 @@
     <ClCompile Include="test\opengl_player_widget.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="test\h264_player.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="pc_client.h">
@@ -78,6 +81,9 @@
       <Filter>ui</Filter>
     </QtMoc>
     <QtMoc Include="test\opengl_player_widget.h">
+      <Filter>test</Filter>
+    </QtMoc>
+    <QtMoc Include="test\h264_player.h">
       <Filter>test</Filter>
     </QtMoc>
   </ItemGroup>

@@ -138,7 +138,7 @@ NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&)
 	nalu->start_code[1] = 0x0;
 	nalu->start_code[2] = 0x01;
 	nalu->start_code[3] = 0x01;
-	nalu->_start_code_len = 3;
+	nalu->start_code_len = 3;
 
 	FU_INDICATOR* idc = (FU_INDICATOR*)(_fu_list.front()->arr);
 	FU_HEADER* hdr = (FU_HEADER*)(_fu_list.front()->arr + 1);
@@ -166,12 +166,12 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp)
 	nalu->start_code[1] = 0x0;
 	nalu->start_code[2] = 0x01;
 	nalu->start_code[3] = 0x01;
-	nalu->_start_code_len = 3;
+	nalu->start_code_len = 3;
 	if ((hdr->TYPE & NALU_TYPE_MASK) == NALU_TYPE_SPS
 		|| (hdr->TYPE & NALU_TYPE_MASK) == NALU_TYPE_PPS)
 	{
 		nalu->start_code[2] = 0x00;
-		nalu->_start_code_len = 4;
+		nalu->start_code_len = 4;
 	}
 	std::cout << "decode single..." << std::endl;
 	//假设只有拆分包，没有组合包

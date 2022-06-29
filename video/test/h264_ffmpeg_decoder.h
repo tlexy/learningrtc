@@ -14,12 +14,20 @@ public:
 	bool init();
 	void decode(NALU* nalu);
 
+	/// <summary>
+	/// 返回大于等于0时，可以继续调用，小于0时无可用帧或者出错了
+	/// </summary>
+	/// <param name="out_frame"></param>
+	/// <returns></returns>
+	int receive_frame(struct AVFrame*& out_frame);
+
 private:
-	AVCodec* _ctx{nullptr};
+	AVCodec* _av_codec{nullptr};
 	AVCodecContext* _ctx = nullptr;
-	struct AVPacket _av_packet;
+	struct AVPacket* _av_packet;
 	struct AVFrame* _av_frame = nullptr;
 	struct AVFrame* _yuv_frame = nullptr;
+	int _ret;
 };
 
 #endif

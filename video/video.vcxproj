@@ -203,6 +203,7 @@
     <ClInclude Include="rtp_h264\rtp_h264_def.h" />
     <ClInclude Include="rtp_h264\rtp_h264_encoder.h" />
     <ClInclude Include="test\file_saver.h" />
+    <ClInclude Include="test\h264_helper.h" />
     <ClInclude Include="test\h264_ffmpeg_decoder.h" />
     <ClInclude Include="test\sdl_player.h" />
     <ClInclude Include="test\x264_encoder.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="rtp_h264\rtp_h264_encoder.cpp" />
     <ClCompile Include="test\file_saver.cpp" />
     <ClCompile Include="test\h264_ffmpeg_decoder.cpp" />
+    <ClCompile Include="test\h264_helper.cpp" />
     <ClCompile Include="test\sdl_player.cpp" />
     <ClCompile Include="test\x264_encoder.cpp" />
   </ItemGroup>

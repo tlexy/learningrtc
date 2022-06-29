@@ -146,6 +146,7 @@
     <ClCompile Include="component\comm_thread.cpp" />
     <ClCompile Include="priv\pc_client_priv.cpp" />
     <ClCompile Include="sdl_player_widget.cpp" />
+    <ClCompile Include="test\h264_player.cpp" />
     <ClCompile Include="test\opengl_player_widget.cpp" />
     <ClCompile Include="test\peer_connection.cpp" />
     <QtRcc Include="pc_client.qrc" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <QtMoc Include="sdl_player_widget.h" />
     <QtMoc Include="test\opengl_player_widget.h" />
+    <QtMoc Include="test\h264_player.h" />
     <ClInclude Include="test\peer_connection.h" />
     <QtMoc Include="component\comm_thread.h" />
     <ClInclude Include="common\pc_common_def.h" />

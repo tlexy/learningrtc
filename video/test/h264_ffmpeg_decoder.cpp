@@ -25,7 +25,7 @@ bool H264FFmpegDecoder::init()
         return false;
     }
 
-    av_init_packet(&_av_packet);
+    _av_packet = av_packet_alloc();
     _av_frame = av_frame_alloc();
     _yuv_frame = av_frame_alloc();
     return true;
@@ -41,25 +41,39 @@ bool H264FFmpegDecoder::init()
 
 void H264FFmpegDecoder::decode(NALU* nalu)
 {
-    _av_packet.data = nalu->payload;
-    _av_packet.size = nalu->payload_len;
+    _av_packet->data = nalu->payload;
+    _av_packet->size = nalu->payload_len;
 
-    int ret = avcodec_send_packet(_ctx, &_av_packet);
-    while (ret >= 0)
+    _ret = avcodec_send_packet(_ctx, _av_packet);
+   
+}
+
+int H264FFmpegDecoder::receive_frame(struct AVFrame*& out_frame)
+{
+    if (_ret >= 0)
     {
-        ret = avcodec_receive_frame(_ctx, _av_frame);
-        if (ret == AVERROR_EOF)
+        AVFrame* frame = av_frame_alloc();
+        _ret = avcodec_receive_frame(_ctx, frame);
+        if (_ret == AVERROR_EOF)
         {
-            return;
+            av_frame_free(&frame);
+            return -1;
         }
-        else if (ret == AVERROR(EAGAIN))
+        else if (_ret == AVERROR(EAGAIN))
         {
-            break;
+            av_frame_free(&frame);
+            return 0;
         }
-        else if (ret < 0)
+        else if (_ret < 0)
         {
-            fprintf(stderr, "Error avcodec_receive_frame, ret: %d\n", ret);
-            return;
+            av_frame_free(&frame);
+            fprintf(stderr, "Error avcodec_receive_frame, ret: %d\n", _ret);
+            return -2;
         }
+        else
+        {
+            out_frame = frame;
+        }
+        return 1;
     }
 }

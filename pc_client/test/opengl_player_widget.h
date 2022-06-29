@@ -16,7 +16,7 @@
 #include <webrtc_camera/video_frame/video_frame.h>
 #include <webrtc_camera/video_frame_subscriber.h>
 
-
+#pragma execution_character_set("utf-8")
 
 class OpenGLPlayerWidget : public QOpenGLWidget, protected QOpenGLFunctions, public webrtc::test::VideoFrameSubscriber
 {
