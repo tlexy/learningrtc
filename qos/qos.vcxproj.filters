@@ -23,6 +23,9 @@
     <ClCompile Include="entity\jitter_buffer_entity.cpp">
       <Filter>entity</Filter>
     </ClCompile>
+    <ClCompile Include="entity\streams_jitter_buffer_entity.cpp">
+      <Filter>entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\rtp_cacher.h">
@@ -35,6 +38,9 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="entity\jitter_buffer_entity.h">
+      <Filter>entity</Filter>
+    </ClInclude>
+    <ClInclude Include="entity\streams_jitter_buffer_entity.h">
       <Filter>entity</Filter>
     </ClInclude>
   </ItemGroup>

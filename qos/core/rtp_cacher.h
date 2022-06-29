@@ -21,10 +21,18 @@ public:
 	void push(rtp_packet_t*);
 	void set_p1_cache_size(int mcs);
 	void set_p2_cache_size(int cs);
+
+	/// <summary>
+	/// 将rtp包通过RtpCacherUpdateCb回调输出
+	/// </summary>
+	/// <param name="force"></param>
 	void update(bool force = false);
 	void set_update_cb(RtpCacherUpdateCb);
 
 	rtp_packet_t* front();
+
+	//视频相关
+
 
 private:
 	std::mutex _mutex;

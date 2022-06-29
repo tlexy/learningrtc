@@ -12,17 +12,8 @@ JitterBufferEntity::JitterBufferEntity()
 void JitterBufferEntity::init()
 {
 	_rtp_cacher = std::make_shared<RtpCacher>();
-	_rtp_cacher->set_update_cb(std::bind(&AacJitterBufferEntity::on_rtp_packet, this, std::placeholders::_1));
+	_rtp_cacher->set_update_cb(std::bind(&JitterBufferEntity::on_rtp_packet, this, std::placeholders::_1));
 }
-
-//void JetterBufferEntity::start_recv(const uvcore::IpAddress& addr,
-//	std::shared_ptr<uvcore::UdpServer> server)
-//{
-//	_rtp_receiver = std::make_shared<RtpReceiver>(addr, _rtp_cacher, server);
-//	_rtp_receiver->start();
-//
-//	_rtp_cacher->set_update_cb(std::bind(&JetterBufferEntity::on_rtp_packet, this, std::placeholders::_1));
-//}
 
 void JitterBufferEntity::push(rtp_packet_t* rtp)
 {

@@ -20,14 +20,12 @@ class JitterBufferEntity
 {
 public:
 	JitterBufferEntity();
-	void init();
-	/*void start_recv(const uvcore::IpAddress& addr,
-		std::shared_ptr<uvcore::UdpServer> server);*/
-	void push(rtp_packet_t*);
+	virtual void init();
+	virtual void push(rtp_packet_t*);
 	//设置最小的输出时长，只有jetterbuffer达到这个的最小值时，才开始向外输出
 	void set_output_buffer(int64_t ms);
 
-	void update();
+	virtual void update();
 	void decode();
 
 protected:
@@ -43,8 +41,9 @@ protected:
 	bool _is_init{ false };
 	int64_t _output_ms{0};
 
-private:
-	void on_rtp_packet(rtp_packet_t*);
+protected:
+	//从rtp_cacher中收到可以解码的包
+	virtual void on_rtp_packet(rtp_packet_t*);
 };
 
 //专用于aac音频的

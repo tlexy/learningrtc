@@ -11,7 +11,7 @@ class RtpH264Decoder
 public:
 	RtpH264Decoder();
 	
-	//假设rtp包是排序到达的，只是可能存在丢包
+	//假设rtp包是按序到达的，只是可能存在丢包
 	NALU* decode_rtp(const uint8_t* payload, int len);
 
 private:

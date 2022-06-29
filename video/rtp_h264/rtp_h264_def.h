@@ -46,6 +46,7 @@ typedef struct
     uint8_t* payload;
     int payload_len;
     int max_size;
+    uint32_t timestamp;
 } NALU;
 
 typedef struct
