@@ -3,6 +3,7 @@
 #include <audio/common/audio_common.h>
 #include "common/pc_global.h"
 #include <endec/core/audio_io.h>
+#include "test/h264_player.h"
 
 #pragma comment(lib, "setupapi.lib")
 #pragma comment(lib, "strmiids.lib")
@@ -137,7 +138,7 @@ void aac_cb(const uint8_t*, int len)
     std::cout << "aac callback, len=" << len << std::endl;
 }
 
-int main(int argc, char *argv[])
+int main_main(int argc, char *argv[])
 {
 	AudioCommon::init_device();
 
@@ -161,4 +162,20 @@ int main(int argc, char *argv[])
     w.destroy();
     PcGlobal::get_instance()->destroy();
     return ret;
+}
+
+int main(int argc, char* argv[])
+{
+	QApplication a(argc, argv);
+
+	H264Player* player = new H264Player;
+
+	player->init(640, 480, "h264_i420_1656483188.h264");
+	player->start(33);
+
+	player->resize(640, 480);
+	player->show();
+
+	int ret = a.exec();
+	return ret; 
 }

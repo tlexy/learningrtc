@@ -29,7 +29,7 @@ class H264Player : public QOpenGLWidget, protected QOpenGLFunctions
 public:
 	H264Player();
 
-	bool init(int width, int height, char* h264_file);
+	bool init(int width, int height, const char* h264_file);
 	void start(int interval);
 
 	~H264Player();
@@ -49,7 +49,7 @@ private:
 	FILE* _fp;
 	H264FFmpegDecoder* _decoder = nullptr;
 	NALU* _test_nalu;
-	AVFrame* _frame;
+	AVFrame* _frame = nullptr;
 	bool _is_stop{ true };
 	int _width;
 	int _height;

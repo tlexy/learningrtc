@@ -60,11 +60,11 @@ H264Player::~H264Player()
     doneCurrent();
 }
 
-bool H264Player::init(int width, int height, char* h264_file)
+bool H264Player::init(int width, int height, const char* h264_file)
 {
     _width = width;
     _height = height;
-    _filename = h264_file;
+    _filename = const_cast<char*>(h264_file);
 
     _decoder = new H264FFmpegDecoder();
     _decoder->init();

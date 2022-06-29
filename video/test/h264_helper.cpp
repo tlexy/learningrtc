@@ -140,7 +140,12 @@ int GetAnnexbNALU (NALU *nalu, FILE* fp)
 		if (feof (fp))//判断是否到了文件尾
 		{
 			nalu->payload_len = (pos-1)-nalu->start_code_len;
-			memcpy (nalu->payload, &Buf[nalu->start_code_len], nalu->payload_len);
+			//memcpy (nalu->payload, &Buf[nalu->start_code_len], nalu->payload_len);
+			//nalu->hdr->F = nalu->payload[0] & 0x80;
+			//nalu->hdr->NRI = nalu->payload[0] & 0x60;  // 2 bit
+			//nalu->hdr->TYPE = (nalu->payload[0]) & 0x1f;    // 5 bit
+
+			memcpy(nalu->payload, &Buf[nalu->start_code_len], nalu->payload_len);
 			nalu->hdr->F = nalu->payload[0] & 0x80;
 			nalu->hdr->NRI = nalu->payload[0] & 0x60;  // 2 bit
 			nalu->hdr->TYPE = (nalu->payload[0]) & 0x1f;    // 5 bit
@@ -164,17 +169,18 @@ int GetAnnexbNALU (NALU *nalu, FILE* fp)
 	{
 		free(Buf);
 		printf("GetAnnexbNALU: Cannot fseek in the bit stream file");
+		return  0;
 	}
 
 	// Here the Start code, the complete NALU, and the next start code is in the Buf.  
 	// The size of Buf is pos, pos+rewind are the number of bytes excluding the next
 	// start code, and (pos+rewind)-startcodeprefix_len is the size of the NALU excluding the start code
 
-	nalu->payload_len = (pos+rewind)-nalu->start_code_len;
-	memcpy (nalu->payload, &Buf[nalu->start_code_len], nalu->payload_len);//拷贝一个完整NALU，不拷贝起始前缀0x000001或0x00000001
-	nalu->hdr->F = nalu->payload[0] & 0x80;
-	nalu->hdr->NRI = nalu->payload[0] & 0x60;  // 2 bit
-	nalu->hdr->TYPE = (nalu->payload[0]) & 0x1f;    // 5 bit
+	nalu->payload_len = (pos + rewind);// -nalu->start_code_len;
+	memcpy (nalu->payload, Buf, nalu->payload_len + nalu->start_code_len);//拷贝一个完整NALU
+	nalu->hdr->F = nalu->payload[nalu->start_code_len] & 0x80;
+	nalu->hdr->NRI = nalu->payload[nalu->start_code_len] & 0x60;  // 2 bit
+	nalu->hdr->TYPE = (nalu->payload[nalu->start_code_len]) & 0x1f;    // 5 bit
 	free(Buf);
 
 	return (pos+rewind);//返回两个开始字符之间间隔的字节数，即包含有前缀的NALU的长度
