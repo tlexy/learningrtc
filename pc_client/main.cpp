@@ -138,7 +138,7 @@ void aac_cb(const uint8_t*, int len)
     std::cout << "aac callback, len=" << len << std::endl;
 }
 
-int main_main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	AudioCommon::init_device();
 
@@ -166,7 +166,7 @@ int main_main(int argc, char *argv[])
 
 
 //for test, 从h264原始码流中解码得到yuv格式数据并播放
-int main(int argc, char* argv[])
+int main_test_h264(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 

@@ -10,7 +10,7 @@
 #include <rtp_base/core/rtp.h>
 #include <list>
 
-class JetterBufferEntity;
+class JitterBufferEntity;
 
 using SenderDataCb = std::function<void(uvcore::Udp*, const struct sockaddr*)>;
 
@@ -23,7 +23,7 @@ public:
 		void* buff;
 		int len;
 	};
-	RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JetterBufferEntity> entity, 
+	RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JitterBufferEntity> entity,
 		std::shared_ptr<uvcore::UdpServer> server);
 
 	void set_data_cb(SenderDataCb cb);
@@ -47,7 +47,7 @@ private:
 	uvcore::IpAddress _remote_addr;
 	uvcore::IpAddress _local_addr;
 	SenderDataCb _data_cb{ nullptr };
-	std::shared_ptr<JetterBufferEntity> _je_entity;
+	std::shared_ptr<JitterBufferEntity> _je_entity;
 	std::shared_ptr<uvcore::UdpServer> _udp_server{ nullptr };
 	uvcore::Udp* _rtp_udp{ nullptr };
 

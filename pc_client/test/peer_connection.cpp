@@ -1,6 +1,6 @@
 ﻿#include "peer_connection.h"
 #include <qos/core/rtp_cacher.h>
-#include <qos/entity/jetter_buffer_entity.h>
+#include <qos/entity/jitter_buffer_entity.h>
 #include <chrono>
 #include <endec/core/audio_io.h>
 #include <audio/core/port_recorder.h>
@@ -57,7 +57,7 @@ namespace tests
 		{
 			return;
 		}
-		_sender_je = std::make_shared<AacJetterBufferEntity>();
+		_sender_je = std::make_shared<AacJitterBufferEntity>();
 		_sender_je->init();
 		_sender_je->set_output_buffer(60);
 		_remote_addr = ipaddr;
@@ -75,14 +75,14 @@ namespace tests
 		{
 			return;
 		}
-		_receiver_je = std::make_shared<AacJetterBufferEntity>();
+		_receiver_je = std::make_shared<AacJitterBufferEntity>();
 		_receiver_je->init();
 		_receiver_je->set_output_buffer(60);
 		//uvcore::IpAddress local_addr(local_port);
 		_local_addr.setPort(local_port);
 		_rtp_receiver = std::make_shared<RtpReceiver>(_local_addr, _receiver_je, _udp_server);
 		_rtp_receiver->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
-		_rtp_receiver->start(rtp_base::eAacLcPayLoad);
+		_rtp_receiver->start();
 		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
 		_stop = false;
 	}
@@ -174,7 +174,7 @@ namespace tests
 		memset(output, 0x0, frameCount * 2 * 2);
 		if (_receiver_je)
 		{
-			auto ptr = std::dynamic_pointer_cast<AacJetterBufferEntity>(_receiver_je);
+			auto ptr = std::dynamic_pointer_cast<AacJitterBufferEntity>(_receiver_je);
 			if (ptr)
 			{
 				int bytes = ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
@@ -187,7 +187,7 @@ namespace tests
 		}
 		if (_sender_je)
 		{
-			auto ptr = std::dynamic_pointer_cast<AacJetterBufferEntity>(_sender_je);
+			auto ptr = std::dynamic_pointer_cast<AacJitterBufferEntity>(_sender_je);
 			if (ptr)
 			{
 				ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);

@@ -8,26 +8,25 @@
 #include <rtp_base/core/rtp.h>
 #include <rtp_base/core/rtp_base_common_def.h>
 
-class JetterBufferEntity;
+class JitterBufferEntity;
 
 using ReceiverDataCb = std::function<void(uvcore::Udp*, const struct sockaddr*)>;
 
 class RtpReceiver
 {
 public:
-	RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JetterBufferEntity> entity,
+	RtpReceiver(const uvcore::IpAddress& addr, std::shared_ptr<JitterBufferEntity> entity,
 		std::shared_ptr<uvcore::UdpServer> server);
 	void set_data_cb(ReceiverDataCb cb);
-	void start(uint16_t ptype);
+	void start();
 
 private:
 	void on_rtp_receive(uvcore::Udp*, const struct sockaddr*);
 
 private:
 	uvcore::IpAddress _addr;
-	uint16_t _ptype;
 	ReceiverDataCb _data_cb{nullptr};
-	std::shared_ptr<JetterBufferEntity> _je_entity;
+	std::shared_ptr<JitterBufferEntity> _je_entity;
 	std::shared_ptr<uvcore::UdpServer> _udp_server{nullptr};
 	uvcore::Udp* _rtp_udp{nullptr};
 	bool _is_start{false};

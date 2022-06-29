@@ -1,10 +1,10 @@
 ﻿#include "rtp_sender.h"
 #include <stdlib.h>
 #include <uvnet/core/udp.h>
-#include "../entity/jetter_buffer_entity.h"
+#include "../entity/jitter_buffer_entity.h"
 #include <iostream>
 
-RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JetterBufferEntity> entity, 
+RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JitterBufferEntity> entity,
 	std::shared_ptr<uvcore::UdpServer> server)
 	:_remote_addr(remote_addr),
 	_udp_server(server),

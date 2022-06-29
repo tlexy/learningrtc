@@ -10,7 +10,7 @@
 
 #include <video/test/x264_encoder.h>
 
-class JetterBufferEntity;
+class JitterBufferEntity;
 //class RtpReceiver;
 //class RtpSender;
 class AudioIO;
@@ -69,7 +69,7 @@ namespace tests
 	private:
 		std::shared_ptr<uvcore::UdpServer> _udp_server;
 		std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
-		std::shared_ptr<JetterBufferEntity> _receiver_je;
+		std::shared_ptr<JitterBufferEntity> _receiver_je;
 		uvcore::IpAddress _remote_addr;
 		uvcore::IpAddress _local_addr;//接收端的本地接收端口
 		bool _stop{ true };
@@ -78,7 +78,7 @@ namespace tests
 		//发送端接收对端RTP包的返回处理线程
 		std::shared_ptr<std::thread> _sender_th{ nullptr };
 		std::shared_ptr<RtpSender> _rtp_sender{nullptr};
-		std::shared_ptr<JetterBufferEntity> _sender_je;
+		std::shared_ptr<JitterBufferEntity> _sender_je;
 		std::shared_ptr<AudioIO> _audio_io;
 		uint32_t _aac_timestamp{0};
 		int _audio_device_idx;
