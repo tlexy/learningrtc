@@ -8,6 +8,7 @@
 StreamsJitterBufferEntity::StreamsJitterBufferEntity()
 {
 	_h264_decoder = std::make_shared<H264FFmpegDecoder>();
+	_rtp_h264_decoder = std::make_shared<RtpH264Decoder>();
 }
 
 void StreamsJitterBufferEntity::init()
@@ -251,5 +252,6 @@ void StreamsJitterBufferEntity::do_decode_h264()
 			ret = _h264_decoder->receive_frame(frame);
 		}
 	}
+	_nalus.clear();
 	_nalus_mutex.unlock();
 }
