@@ -14,6 +14,15 @@ class AacHelper;
 class FileSaver;
 class H264FFmpegDecoder;
 
+class PcmBuffer
+{
+public:
+	uint8_t* data = nullptr;
+	uint32_t max_size = 4096;
+	uint32_t write_pos = 0;
+	uint32_t read_pos = 0;
+	uint32_t timestamp = 0;
+};
 
 class StreamsJitterBufferEntity : public JitterBufferEntity
 {
@@ -54,6 +63,8 @@ private:
 	void do_decode_aac();
 	void do_decode_h264();
 
+	int64_t get_video_pts(int64_t audio_pts);
+
 private:
 	std::shared_ptr<RtpCacher> _h264_cacher;
 	std::shared_ptr<RtpH264Decoder> _rtp_h264_decoder;
@@ -72,7 +83,8 @@ private:
 	int64_t _output_len{ 0 };//
 	uint8_t* _decode_buf;
 	int _decode_buf_len;
-	std::shared_ptr<mid_buf> _pcm_buffer;
+	std::list<std::shared_ptr<PcmBuffer>> _pcm_buffers;
+	int _pcm_buffer_count = 0;
 	std::mutex _pcm_buffer_mutex;
 };
 
