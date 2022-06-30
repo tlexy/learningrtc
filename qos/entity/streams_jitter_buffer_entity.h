@@ -12,6 +12,7 @@ extern "C" {
 class RtpCacher;
 class AacHelper;
 class FileSaver;
+class H264FFmpegDecoder;
 
 
 class StreamsJitterBufferEntity : public JitterBufferEntity
@@ -22,9 +23,7 @@ public:
 	void init() override;
 	//UDP接收到一个rtp包
 	void push(rtp_packet_t*) override;
-	void update() override;
-	//从cache中收到rtp包
-	void on_rtp_packet(rtp_packet_t*) override;
+	//void update() override;
 
 	/// <summary>
 	/// 将长度为len的PCM数据写入到data中，并带回audio的pts
@@ -47,10 +46,34 @@ protected:
 	virtual bool force_cache();
 	virtual void do_decode();
 
+	//从cache中收到rtp包
+	void on_rtp_packet(rtp_packet_t*) override;
+
 private:
-	std::shared_ptr<RtpCacher> _aac_cacher;
+	void aac_init();
+	void do_decode_aac();
+	void do_decode_h264();
+
+private:
 	std::shared_ptr<RtpCacher> _h264_cacher;
 	std::shared_ptr<RtpH264Decoder> _rtp_h264_decoder;
+	std::shared_ptr<H264FFmpegDecoder> _h264_decoder;
+	std::list<NALU*> _nalus;
+	std::mutex _nalus_mutex;
+	std::list<AVFrame*> _frames;
+
+	//aac解码相关
+	std::shared_ptr<AacHelper> _aac_helper{ nullptr };
+	int _bit_dep{ 0 };
+	int _channel{ 0 };
+	int _sample_rate{ 0 };
+	bool _output_init{ false };
+	int _frame_size;
+	int64_t _output_len{ 0 };//
+	uint8_t* _decode_buf;
+	int _decode_buf_len;
+	std::shared_ptr<mid_buf> _pcm_buffer;
+	std::mutex _pcm_buffer_mutex;
 };
 
 #endif

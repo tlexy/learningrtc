@@ -34,6 +34,22 @@ NALU* RtpH264Decoder::decode_rtp(const uint8_t* payload, int len)
 	}
 }
 
+NALU* RtpH264Decoder::decode_rtp(rtp_packet_t* rtp)
+{
+	NALU_HEADER* hdr = (NALU_HEADER*)rtp->arr;
+	if (hdr->TYPE != 28)
+	{
+		_last_seqno = rtp->hdr.seq_number;
+		_last_ts = rtp->hdr.timestamp;
+		return decode_single(rtp);
+	}
+	else
+	{
+		std::cout << "decode real fua..." << std::endl;
+		return decode_fua(rtp);
+	}
+}
+
 NALU* RtpH264Decoder::decode_fua(rtp_packet_t* rtp)
 {
 	/*如果和上个包的序号相差为1，正常接收；大于1，那么就要放弃整个帧

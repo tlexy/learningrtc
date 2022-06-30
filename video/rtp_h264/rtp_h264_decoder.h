@@ -13,6 +13,7 @@ public:
 	
 	//假设rtp包是按序到达的，只是可能存在丢包
 	NALU* decode_rtp(const uint8_t* payload, int len);
+	NALU* decode_rtp(rtp_packet_t* rtp);
 
 private:
 	NALU* decode_single(rtp_packet_t*);

@@ -43,6 +43,7 @@ void H264FFmpegDecoder::decode(NALU* nalu)
 {
     _av_packet->data = nalu->payload;
     _av_packet->size = nalu->payload_len;
+    _av_packet->pts = nalu->timestamp;
 
     _ret = avcodec_send_packet(_ctx, _av_packet);
    
