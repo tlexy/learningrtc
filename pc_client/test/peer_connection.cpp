@@ -25,6 +25,7 @@ namespace tests
 		:_udp_server(server)
 	{
 		_remote_addr.setPort(0);
+		_rtc_v_hdr.ext_seq = 0;
 #ifdef SAVE_TEST
 		_aac_saver = new FileSaver(1024 * 1024*5, "test_aac", ".pcm");
 #endif
@@ -129,17 +130,27 @@ namespace tests
 
 		_audio_player = std::make_shared<AudioPlayer>();
 		int ret = _audio_player->init_play();
-		std::cout << "init playe ret: " << ret << std::endl;
+		std::cout << "init player ret: " << ret << std::endl;
 		_audio_player->set_player_cb(std::bind(&PeerConnection::audio_player_cb, this, _1, _2));
 		ret = _audio_player->play();
 	}
 
 	void PeerConnection::h264_enc_cb(uint8_t* payload, int payload_len)
 	{
-		//封闭为rtp格式（载荷类型为h264）并发送出去
+		//封装为rtp格式（载荷类型为h264）并发送出去
 		if (!_rtp_h264_encoder)
 		{
 			_rtp_h264_encoder = std::make_shared<RtpH264Encoder>();
+			rtp_parameter param;
+			memset(&param, 0x0, sizeof(param));
+			param.pt = rtp_base::eH264PayLoad;
+			param.version = 2;
+
+			rtp_session sess;
+			sess.seq_number = 10086;
+			sess.timestamp = 0;
+			sess.ssrc = 80136561l;
+			_rtp_h264_encoder->init(param, sess, 3000);
 		}
 		int off = 3;
 		unsigned char* p = payload;
@@ -154,6 +165,7 @@ namespace tests
 		int rr = _rtp_h264_encoder->get_packet(rtp);
 		while (rr >= 0)
 		{
+			rtp_copy_ext_hdr(rtp, rtp_base::eGroupExt, sizeof(rtp_base::rtc_ext_header), &_rtc_v_hdr);
 			_rtp_sender->send_rtp_packet(rtp);
 			rr = _rtp_h264_encoder->get_packet(rtp);
 		}
