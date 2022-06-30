@@ -21,6 +21,7 @@
 #include <QCloseEvent>
 #include "sdl_player_widget.h"
 #include "test/opengl_player_widget.h"
+#include <QMessageBox>
 
 #pragma execution_character_set("utf-8")
 
@@ -175,6 +176,11 @@ void PcClient::slot_listen()
     log_info("listen button");
     QString sport = _port_le->text();
     int port = std::atoi(sport.toStdString().c_str());
+    if (port > 65535)
+    {
+        QMessageBox::warning(this, tr("´íÎó"), tr("¶Ë¿ÚºÅ¸ñÊ½´íÎó"));
+        return;
+    }
     if (port > 0)
     {
         _d->listen(port);
@@ -189,6 +195,11 @@ void PcClient::slot_connect()
     if (port <= 0)
     {
         log_error("connect error, port");
+        return;
+    }
+    if (port > 65535)
+    {
+        QMessageBox::warning(this, tr("´íÎó"), tr("¶Ë¿ÚºÅ¸ñÊ½´íÎó"));
         return;
     }
     QString ipstr = _ip_le->text();
