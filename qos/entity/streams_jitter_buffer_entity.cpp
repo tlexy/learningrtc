@@ -3,6 +3,7 @@
 #include <endec/core/aac_helper.h>
 #include <common/util/file_saver.h>
 #include <video/test/h264_ffmpeg_decoder.h>
+#include <iostream>
 
 StreamsJitterBufferEntity::StreamsJitterBufferEntity()
 {
@@ -21,13 +22,16 @@ void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 {
 	if (rtp->hdr.paytype == rtp_base::eAacLcPayLoad)
 	{
+		std::cout << "recv aac packet, seq: " << rtp->hdr.seq_number << std::endl;
 		_rtp_cacher->push(rtp);
 	}
 	else if (rtp->hdr.paytype == rtp_base::eH264PayLoad)
 	{
+		std::cout << "recv h264 packet, seq: " << rtp->hdr.seq_number << std::endl;
 		NALU* nalu = _rtp_h264_decoder->decode_rtp(rtp);
 		if (nalu)
 		{
+			std::cout << "decode h264 packet, ts: " << rtp->hdr.timestamp << std::endl;
 			nalu->timestamp = rtp->hdr.timestamp;
 			_nalus_mutex.lock();
 			_nalus.push_back(nalu);

@@ -1,6 +1,7 @@
 ﻿#include "peer_connection.h"
 #include <qos/core/rtp_cacher.h>
 #include <qos/entity/jitter_buffer_entity.h>
+#include <qos/entity/streams_jitter_buffer_entity.h>
 #include <chrono>
 #include <endec/core/audio_io.h>
 #include <audio/core/port_recorder.h>
@@ -75,7 +76,8 @@ namespace tests
 		{
 			return;
 		}
-		_receiver_je = std::make_shared<AacJitterBufferEntity>();
+		//_receiver_je = std::make_shared<AacJitterBufferEntity>();
+		_receiver_je = std::make_shared< StreamsJitterBufferEntity>();
 		_receiver_je->init();
 		_receiver_je->set_output_buffer(60);
 		//uvcore::IpAddress local_addr(local_port);
