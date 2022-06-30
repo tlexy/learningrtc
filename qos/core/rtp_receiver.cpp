@@ -17,8 +17,10 @@ void RtpReceiver::start()
 	using namespace std::placeholders;
 	if (!_udp_server)
 	{
+		std::cout << "bind udp error." << std::endl;
 		return;
 	}
+	std::cout << "bind udp success." << std::endl;
 	_rtp_udp = _udp_server->addBind(_addr, std::bind(&RtpReceiver::on_rtp_receive, this, _1, _2));
 }
 
