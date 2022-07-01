@@ -7,7 +7,7 @@ RtpH264Decoder::RtpH264Decoder()
 {
 }
 
-NALU* RtpH264Decoder::decode_rtp(const uint8_t* payload, int len)
+NALU* RtpH264Decoder::decode_rtp(const uint8_t* payload, int len, bool with_startcode)
 {
 	if (!rtp_unpack_test((void*)payload, len))
 	{
@@ -25,32 +25,32 @@ NALU* RtpH264Decoder::decode_rtp(const uint8_t* payload, int len)
 	{
 		_last_seqno = rtp->hdr.seq_number;
 		_last_ts = rtp->hdr.timestamp;
-		return decode_single(rtp);
+		return decode_single(rtp, with_startcode);
 	}
 	else
 	{
 		std::cout << "decode fua..." << std::endl;
-		return decode_fua(rtp);
+		return decode_fua(rtp, with_startcode);
 	}
 }
 
-NALU* RtpH264Decoder::decode_rtp(rtp_packet_t* rtp)
+NALU* RtpH264Decoder::decode_rtp(rtp_packet_t* rtp, bool with_startcode)
 {
 	NALU_HEADER* hdr = (NALU_HEADER*)rtp->arr;
 	if (hdr->TYPE != 28)
 	{
 		_last_seqno = rtp->hdr.seq_number;
 		_last_ts = rtp->hdr.timestamp;
-		return decode_single(rtp);
+		return decode_single(rtp, with_startcode);
 	}
 	else
 	{
 		std::cout << "decode real fua..." << std::endl;
-		return decode_fua(rtp);
+		return decode_fua(rtp, with_startcode);
 	}
 }
 
-NALU* RtpH264Decoder::decode_fua(rtp_packet_t* rtp)
+NALU* RtpH264Decoder::decode_fua(rtp_packet_t* rtp, bool with_startcode)
 {
 	/*如果和上个包的序号相差为1，正常接收；大于1，那么就要放弃整个帧
 	* 将接收的包放到一个链表中，当接收到最后一个时，进行恢复
@@ -89,7 +89,7 @@ NALU* RtpH264Decoder::decode_fua(rtp_packet_t* rtp)
 		{
 			//std::cout << "seq diff: " << _last_seqno - _start_seqno << std::endl;
 			//输出（重新整合）整个NALU包
-			auto nalu = assembly_nalu(_fu_list);
+			auto nalu = assembly_nalu(_fu_list, with_startcode);
 			std::cout << "fua len: " << nalu->payload_len << std::endl;
 			for (auto it = _fu_list.begin(); it != _fu_list.end(); ++it)
 			{
@@ -131,7 +131,7 @@ bool RtpH264Decoder::is_last_fua(rtp_packet_t* rtp)
 	return false;
 }
 
-NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&)
+NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&, bool with_startcode)
 {
 	if (_fu_list.size() < 2)
 	{
@@ -174,7 +174,7 @@ NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&)
 	return nalu;
 }
 
-NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp)
+NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp, bool with_startcode)
 {
 	NALU_HEADER* hdr = (NALU_HEADER*)rtp->arr;
 	NALU* nalu = new NALU;
@@ -193,10 +193,22 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp)
 	//假设只有拆分包，没有组合包
 	if (hdr->TYPE != 28)
 	{
-		nalu->payload_len = rtp->payload_len;
-		nalu->payload = (uint8_t*)malloc(nalu->payload_len);
-		memcpy(nalu->payload, rtp->arr, nalu->payload_len);
-		nalu->hdr = (NALU_HEADER*)nalu->payload;
+		if (!with_startcode)
+		{
+			nalu->payload_len = rtp->payload_len;
+			nalu->payload = (uint8_t*)malloc(nalu->payload_len);
+			memcpy(nalu->payload, rtp->arr, nalu->payload_len);
+			nalu->hdr = (NALU_HEADER*)nalu->payload;
+		}
+		else
+		{
+			nalu->payload_len = rtp->payload_len + nalu->start_code_len;
+			nalu->payload = (uint8_t*)malloc(nalu->payload_len);
+			memcpy(nalu->payload, nalu->start_code, nalu->start_code_len);
+			memcpy(nalu->payload + nalu->start_code_len, rtp->arr, nalu->payload_len - nalu->start_code_len);
+			nalu->hdr = (NALU_HEADER*)(nalu->payload + nalu->start_code_len);
+		}
+		
 		return nalu;
 	}
 	std::cerr << "decode nalu error." << std::endl;
