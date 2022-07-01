@@ -97,6 +97,7 @@ void RtpSender::send_rtp_packet(rtp_packet_t* rtp)
 		_rtp_udp->sendInLoop2((const char*)rtpc->buff, rtpc->len, _remote_addr);
 		free_rtpcache(rtpc);
 	}
+	rtp_free(rtp);
 }
 
 void RtpSender::send_raw_data(void* data, int len, uint32_t ts)
