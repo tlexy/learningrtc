@@ -59,7 +59,7 @@ namespace tests
 		{
 			return;
 		}
-		_sender_je = std::make_shared<AacJitterBufferEntity>();
+		_sender_je = std::make_shared<StreamsJitterBufferEntity>();
 		_sender_je->init();
 		_sender_je->set_output_buffer(60);
 		_remote_addr = ipaddr;
@@ -188,15 +188,16 @@ namespace tests
 		memset(output, 0x0, frameCount * 2 * 2);
 		if (_receiver_je)
 		{
-			auto ptr = std::dynamic_pointer_cast<AacJitterBufferEntity>(_receiver_je);
+			/*auto ptr = std::dynamic_pointer_cast<StreamsJitterBufferEntity>(_receiver_je);
 			if (ptr)
-			{
-				int bytes = ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
+			{*/
+				int64_t pts = 0;
+				int bytes = _receiver_je->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2, pts);
 				std::cout << "get bytes: " << bytes << "\t need：" << frameCount << std::endl;
 #ifdef SAVE_TEST
 				_aac_saver->write((const char*)output, bytes);
 #endif
-			}
+			//}
 			return;
 		}
 		if (_sender_je)

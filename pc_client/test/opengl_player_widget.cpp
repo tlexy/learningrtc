@@ -66,6 +66,11 @@ void OpenGLPlayerWidget::OnFrame(const webrtc::VideoFrame& frame)
 	_qu.push_back(frame);
 }
 
+void OpenGLPlayerWidget::pushFrame(const AVFrame* frame)
+{
+    _fqu.push_back(const_cast<AVFrame*>(frame));
+}
+
 void OpenGLPlayerWidget::init(int width, int height, int millis)
 {
     _width = width;
@@ -79,6 +84,17 @@ void OpenGLPlayerWidget::timerEvent(QTimerEvent*)
     if (_new_frame)
     {
         _frame = frame;
+        update();
+    }
+
+    AVFrame* av_frame = _fqu.pop(_new_frame, std::chrono::milliseconds(0));
+    if (_new_frame)
+    {
+        if (_av_frame)
+        {
+            av_frame_free(&_av_frame);
+        }
+        _av_frame = av_frame;
         update();
     }
 }
@@ -171,7 +187,7 @@ void OpenGLPlayerWidget::paintGL()
     {
         return;
     }*/
-    if (_frame.width() == 0)
+    if (_frame.width() == 0 && _av_frame == nullptr)
     {
         return;
     }
@@ -179,23 +195,44 @@ void OpenGLPlayerWidget::paintGL()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _texids[0]); //0层绑定到Y材质
     //修改材质内容(复制内存内容)
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _frame.video_frame_buffer()->GetI420()->DataY());
+    if (_frame.width() != 0)
+    {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _frame.video_frame_buffer()->GetI420()->DataY());
+    }
+    else
+    {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[0]);
+    }
     //与shader uni遍历关联
     glUniform1i(_unis[0], 0);
 
 
     glActiveTexture(GL_TEXTURE0 + 1);
     glBindTexture(GL_TEXTURE_2D, _texids[1]); //1层绑定到U材质
-                                           //修改材质内容(复制内存内容)
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width / 2, _height / 2, GL_RED, GL_UNSIGNED_BYTE, _frame.video_frame_buffer()->GetI420()->DataU());
+    //修改材质内容(复制内存内容)
+    if (_frame.width() != 0)
+    {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width / 2, _height / 2, GL_RED, GL_UNSIGNED_BYTE, _frame.video_frame_buffer()->GetI420()->DataU());
+    }
+    else
+    {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[1]);
+    }
     //与shader uni遍历关联
     glUniform1i(_unis[1], 1);
 
 
     glActiveTexture(GL_TEXTURE0 + 2);
     glBindTexture(GL_TEXTURE_2D, _texids[2]); //2层绑定到V材质
-                                           //修改材质内容(复制内存内容)
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width / 2, _height / 2, GL_RED, GL_UNSIGNED_BYTE, _frame.video_frame_buffer()->GetI420()->DataV());
+    //修改材质内容(复制内存内容)                                   
+    if (_frame.width() != 0)
+    {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width / 2, _height / 2, GL_RED, GL_UNSIGNED_BYTE, _frame.video_frame_buffer()->GetI420()->DataV());
+    }
+    else
+    {
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[2]);
+    }
     //与shader uni遍历关联
     glUniform1i(_unis[2], 2);
 
