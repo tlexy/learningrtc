@@ -11,7 +11,9 @@
 #define TEST_VCM_VIDEO_FRAME_SUBSCRIBER_H_
 
 #include "video_frame/video_frame.h"
-
+extern "C" {
+#include <libavformat/avformat.h>
+}
 
 #pragma execution_character_set("utf-8")
 
@@ -24,6 +26,7 @@ namespace webrtc {
 			VideoFrameSubscriber();
 			int SubsId() const;
 			virtual void OnFrame(const VideoFrame&) = 0;
+			virtual void pushFrame(const AVFrame*);
 
 		private:
 			static int global_subs_id;

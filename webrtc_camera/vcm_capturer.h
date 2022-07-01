@@ -21,6 +21,9 @@
 #include <thread>
 #include <memory>
 #include <vector>
+extern "C" {
+#include <libavformat/avformat.h>
+}
 
 #pragma execution_character_set("utf-8")
 
@@ -42,6 +45,7 @@ class VcmCapturer : public rtc::VideoSinkInterface<VideoFrame> {
   void DelSubscriber(std::shared_ptr<VideoFrameSubscriber>);
 
   void OnFrame(const VideoFrame& frame) override;
+  void PushFrame(const AVFrame*);
 
   int RealWidth();
   int RealHeight();
@@ -59,6 +63,7 @@ class VcmCapturer : public rtc::VideoSinkInterface<VideoFrame> {
   rtc::scoped_refptr<VideoCaptureModule> vcm_;
   VideoCaptureCapability capability_;
   ThreadQueue<VideoFrame> _qu;
+  ThreadQueue<AVFrame*> _fqu;
   std::shared_ptr<std::thread> _th{nullptr};
   bool _is_stop{ true };
   /////////////////////NOTICE: 这里对_subs的操作并没有加锁

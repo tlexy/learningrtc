@@ -138,6 +138,16 @@ void VcmCapturer::broadcaster_thread()
                 _subs[i]->OnFrame(frame);
             }
         }
+
+        AVFrame* av_frame = _fqu.pop(flag, std::chrono::milliseconds(1000));
+        if (flag)
+        {
+            //std::cout << "broadcaster_thread..." << std::endl;
+            for (int i = 0; i < _subs.size(); ++i)
+            {
+                _subs[i]->pushFrame(av_frame);
+            }
+        }
     }
 }
 
@@ -162,6 +172,11 @@ void VcmCapturer::OnFrame(const VideoFrame& frame) {
   //TestVideoCapturer::OnFrame(frame);
     int a = 1;
     _qu.push_back(frame);
+}
+
+void VcmCapturer::PushFrame(const AVFrame* av_frame)
+{
+    _fqu.push_back(const_cast<AVFrame*>(av_frame));
 }
 
 }  // namespace test

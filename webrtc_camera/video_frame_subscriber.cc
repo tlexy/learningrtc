@@ -24,5 +24,9 @@ namespace test {
 	{
 		return _subs_id;
 	}
+
+	void VideoFrameSubscriber::pushFrame(const AVFrame*)
+	{}
+
 }  // namespace test
 }  // namespace webrtc

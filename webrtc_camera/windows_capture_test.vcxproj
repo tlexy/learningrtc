@@ -168,7 +168,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;WEBRTC_WIN;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;HAVE_JPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..;..\3rd\libyuv\include;..\3rd\libjpeg-turbo-2.1.3;..\3rd\libjpeg-turbo-2.1.3\build;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\3rd\libyuv\include;..\3rd\libjpeg-turbo-2.1.3;..\3rd\libjpeg-turbo-2.1.3\build;.;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
