@@ -36,3 +36,5 @@ learninglive/x64/
 learninglive/bin/
 common/x64/
 netrate/x64/
+.vscode
+bin/webrtc_camera_test.exe
