@@ -65,7 +65,13 @@ int H264FFmpegDecoder::receive_frame(struct AVFrame*& out_frame)
             av_frame_free(&frame);
             return 0;
         }
-        else if (_ret < 0)
+       /* else if (_ret == AVERROR_INPUT_CHANGED)
+        {
+            av_frame_free(&frame);
+            fprintf(stderr, "Error avcodec_receive_frame, ret: %d\n", _ret);
+            return 0;
+        }*/
+        else if (_ret == AVERROR(EINVAL))
         {
             av_frame_free(&frame);
             fprintf(stderr, "Error avcodec_receive_frame, ret: %d\n", _ret);
@@ -77,4 +83,5 @@ int H264FFmpegDecoder::receive_frame(struct AVFrame*& out_frame)
         }
         return 1;
     }
+    return 0;
 }
