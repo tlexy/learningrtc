@@ -148,25 +148,48 @@ NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&, bool with_s
 	{
 		return nullptr;
 	}
-	nalu->payload_len = total_len + 1;
-	nalu->payload = (uint8_t*)malloc(nalu->payload_len);
+
 	nalu->start_code[0] = 0x0;
 	nalu->start_code[1] = 0x0;
 	nalu->start_code[2] = 0x01;
 	nalu->start_code[3] = 0x01;
 	nalu->start_code_len = 3;
-
+	if (!with_startcode)
+	{
+		nalu->payload_len = total_len + 1;
+	}
+	else
+	{
+		nalu->payload_len = total_len + 1 + nalu->start_code_len;
+	}
+	nalu->payload = (uint8_t*)malloc(nalu->payload_len);
+	if (!nalu->payload)
+	{
+		return nullptr;
+	}
 	FU_INDICATOR* idc = (FU_INDICATOR*)(_fu_list.front()->arr);
 	FU_HEADER* hdr = (FU_HEADER*)(_fu_list.front()->arr + 1);
 	
 	int off = 1;
+	if (with_startcode)
+	{
+		memcpy(nalu->payload, nalu->start_code, nalu->start_code_len);
+		off += nalu->start_code_len;
+	}
 	for (auto it = _fu_list.begin(); it != _fu_list.end(); ++it)
 	{
 		memcpy(nalu->payload + off, (*it)->arr + 2, (*it)->payload_len - 2);
 		off += ((*it)->payload_len - 2);
 	}
 
-	nalu->hdr = (NALU_HEADER*)nalu->payload;
+	if (!with_startcode)
+	{
+		nalu->hdr = (NALU_HEADER*)nalu->payload;
+	}
+	else
+	{
+		nalu->hdr = (NALU_HEADER*)(nalu->payload + nalu->start_code_len);
+	}
 	nalu->hdr->F = 0;
 	nalu->hdr->NRI = idc->NRI;
 	nalu->hdr->TYPE = hdr->TYPE;

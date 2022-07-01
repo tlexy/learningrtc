@@ -29,7 +29,7 @@ void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 	else if (rtp->hdr.paytype == rtp_base::eH264PayLoad)
 	{
 		std::cout << "recv h264 packet, seq: " << rtp->hdr.seq_number << std::endl;
-		NALU* nalu = _rtp_h264_decoder->decode_rtp(rtp);
+		NALU* nalu = _rtp_h264_decoder->decode_rtp(rtp, true);
 		if (nalu)
 		{
 			std::cout << "decode h264 packet, ts: " << rtp->hdr.timestamp << std::endl;
@@ -243,6 +243,7 @@ void StreamsJitterBufferEntity::do_decode_h264()
 		int ret = _h264_decoder->receive_frame(frame);
 		while (ret > 0)
 		{
+			std::cout << "got frame, pts=" << frame->pts << std::endl;
 			//有效帧
 			_frames.push_back(frame);
 			frame = nullptr;
