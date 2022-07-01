@@ -65,7 +65,7 @@ void PcClient::init()
     QHBoxLayout* hBodyLayout = new QHBoxLayout;
 
     _audio_com_box = new QComboBox(this);
-    _audio_com_box->addItem(tr("系统录音机"));
+    //_audio_com_box->addItem(tr("系统录音机"));
 
     _video_com_box = new QComboBox(this);
     _video_com_box->addItem(tr("系统摄像机"));
@@ -142,6 +142,7 @@ void PcClient::init()
 
     CONN_COMM(sig_join_resp, slot_joinresp);
     CONN_COMM(sig_video_ready, slot_video_ready);
+    CONN_COMM(sig_video_frame, slot_video_frame);
     //connect(this, SIGNAL(close()), this, SLOT(slot_close()));
     
     //startTimer(200);
@@ -150,6 +151,12 @@ void PcClient::init()
     int video_height = 480;
     //_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
     _vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 0);
+    if (!_vcm_capturer)
+    {
+        //QMessageBox::warning(this, tr("错误"), tr("摄像头可能被其他程序使用，无法打开摄像头"));
+        qDebug() << "tr(\"摄像头可能被其他程序使用，无法打开摄像头\")";
+        return;
+    }
     _vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
 
     _d->vcm_capturer = _vcm_capturer;
@@ -170,6 +177,11 @@ void PcClient::slot_video_ready(const VideoParameter& param)
         _body_layout->addWidget(_gl_player.get());
         _holder_widget->hide();
     }
+}
+
+void PcClient::slot_video_frame(const VideoFrame& vf)
+{
+    //_gl_player->pushFrame(vf.frame);
 }
 
 void PcClient::closeEvent(QCloseEvent* event)

@@ -13,6 +13,11 @@ using SignalFunc = std::function<void(const std::any&)>;
 
 //Q_DECLARE_METATYPE(VideoParameter);
 
+#define PUSH_SIG(signo, par, T) SignalHub sig; \
+	sig.first = signo; \
+	sig.t = std::make_any<T>(par); \
+	PcGlobal::get_instance()->comm_thread()->push(sig)
+
 //UI与逻辑通讯线程
 class CommThread : public QThread
 {
@@ -24,8 +29,10 @@ public:
 	void stop();
 
 signals:
-	int sig_join_resp(int);
-	int sig_video_ready(const VideoParameter&);
+	void sig_join_resp(int);
+	void sig_video_ready(const VideoParameter&);
+	void sig_video_frame(const VideoFrame&);
+	
 
 protected:
 	void run();
@@ -33,6 +40,7 @@ protected:
 private:
 	void do_sig_join_resp(const std::any&);
 	void do_sig_video_ready(const std::any&);
+	void do_sig_video_frame(const std::any&);
 
 private:
 	ThreadQueue<SignalHub> _fr_queue;

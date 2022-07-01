@@ -4,6 +4,7 @@
 #include <common/util/file_saver.h>
 #include <video/test/h264_ffmpeg_decoder.h>
 #include <iostream>
+#include <stdio.h>
 
 StreamsJitterBufferEntity::StreamsJitterBufferEntity()
 {
@@ -38,11 +39,12 @@ void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 	else if (rtp->hdr.paytype == rtp_base::eH264PayLoad)
 	{
 		std::cout << "recv h264 packet, seq: " << rtp->hdr.seq_number << ",ts=" << rtp->hdr.timestamp << std::endl;
+		fprintf(stderr, "recv h264 packet, seq: %u, ts: %u", rtp->hdr.seq_number, rtp->hdr.timestamp);
 		NALU* nalu = _rtp_h264_decoder->decode_rtp(rtp, true);
 		if (nalu)
 		{
 			std::cout << "decode h264 packet, ts: " << rtp->hdr.timestamp << std::endl;
-			nalu->timestamp = rtp->hdr.timestamp;
+			//nalu->timestamp = rtp->hdr.timestamp;
 			_nalus_mutex.lock();
 			_nalus.push_back(nalu);
 			_nalus_mutex.unlock();

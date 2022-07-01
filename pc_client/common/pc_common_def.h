@@ -2,6 +2,9 @@
 #define LEARNING_RTC_PC_COMMON_DEF_H
 
 #include <any>
+extern "C" {
+#include <libavformat/avformat.h>
+}
 
 struct SignalHub
 {
@@ -13,6 +16,7 @@ enum FirstSigType
 {
 	eSigJoinResp = 1,
 	eSigVideoReady = 2,
+	eSigVideoFrame = 3,
 	eSigFirstTypeEnd
 };
 
@@ -22,6 +26,12 @@ public:
 	int width;
 	int height;
 	int fps;
+};
+
+class VideoFrame
+{
+public:
+	AVFrame* frame;
 };
 
 #endif

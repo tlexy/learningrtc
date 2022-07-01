@@ -41,6 +41,7 @@ public slots:
     void slot_connect();
 
     void slot_video_ready(const VideoParameter&);
+    void slot_video_frame(const VideoFrame&);
 
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);

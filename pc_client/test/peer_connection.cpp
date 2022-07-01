@@ -130,7 +130,14 @@ namespace tests
 		}
 		_x264_encoder->start();
 
-		_vcm_capturer->StartCapture();
+		if (_vcm_capturer)
+		{
+			_vcm_capturer->StartCapture();
+		}
+		else
+		{
+			qDebug() << "vcm capture is nullptr";
+		}
 		//音频接收？
 		_sender_th = std::make_shared<std::thread>(&PeerConnection::sender_worker, this);
 		_stop = false;
@@ -236,7 +243,10 @@ namespace tests
 				int ret = _receiver_je->get_video_frame_front(av_frame);
 				if (ret == 1 && av_frame)
 				{
-					_vcm_capturer->PushFrame(av_frame);
+					//_vcm_capturer->PushFrame(av_frame);
+					VideoFrame vf;
+					vf.frame = av_frame;
+					PUSH_SIG(eSigVideoFrame, vf, VideoFrame);
 					if (!_video_ready)
 					{
 						VideoParameter vp;

@@ -42,7 +42,9 @@ NALU* RtpH264Decoder::decode_rtp(rtp_packet_t* rtp, bool with_startcode)
 	{
 		_last_seqno = rtp->hdr.seq_number;
 		_last_ts = rtp->hdr.timestamp;
-		return decode_single(rtp, with_startcode);
+		NALU* nalu = decode_single(rtp, with_startcode);
+		rtp_free(rtp);
+		return nalu;
 	}
 	else
 	{
@@ -91,6 +93,7 @@ NALU* RtpH264Decoder::decode_fua(rtp_packet_t* rtp, bool with_startcode)
 			//std::cout << "seq diff: " << _last_seqno - _start_seqno << std::endl;
 			//输出（重新整合）整个NALU包
 			auto nalu = assembly_nalu(_fu_list, with_startcode);
+			nalu->timestamp = rtp->hdr.timestamp;
 			std::cout << "fua len: " << nalu->payload_len << std::endl;
 			for (auto it = _fu_list.begin(); it != _fu_list.end(); ++it)
 			{
@@ -194,7 +197,7 @@ NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&, bool with_s
 	nalu->hdr->F = 0;
 	nalu->hdr->NRI = idc->NRI;
 	nalu->hdr->TYPE = hdr->TYPE;
-	nalu->timestamp = _last_ts;
+	//nalu->timestamp = _last_ts;
 
 	return nalu;
 }
@@ -246,7 +249,7 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp, bool with_startcode)
 			memcpy(nalu->payload + nalu->start_code_len, rtp->arr, nalu->payload_len - nalu->start_code_len);
 			nalu->hdr = (NALU_HEADER*)(nalu->payload + nalu->start_code_len);
 		}
-		
+		nalu->timestamp = rtp->hdr.timestamp;
 		return nalu;
 	}
 	std::cerr << "decode nalu error." << std::endl;
