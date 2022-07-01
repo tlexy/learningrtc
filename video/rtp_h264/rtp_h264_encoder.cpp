@@ -57,6 +57,8 @@ int RtpH264Encoder::get_packet(rtp_packet_t*& rtp)
 		std::cout << "SPS PACK" << std::endl;
 		rtp = pack_single(nalu->payload, nalu->len, false);
 		_unpack_list.pop_front();
+		free(nalu->payload);
+		delete nalu;
 		return _unpack_list.size();
 	}
 	else if ((hdr->TYPE & NALU_TYPE_MASK) == NALU_TYPE_PPS)
@@ -64,6 +66,8 @@ int RtpH264Encoder::get_packet(rtp_packet_t*& rtp)
 		std::cout << "PPS PACK" << std::endl;
 		rtp = pack_single(nalu->payload, nalu->len, false);
 		_unpack_list.pop_front();
+		free(nalu->payload);
+		delete nalu;
 		return _unpack_list.size();
 	}
 	else
@@ -192,6 +196,8 @@ void RtpH264Encoder::pack(rtp_packet_t*& rtp)
 		_pack_rtp.pop_front();
 	}
 	
+	free(nalu->payload);
+	delete nalu;
 }
 
 void RtpH264Encoder::pack_FuA(rtp_packet_t*& rtp, FU_INDICATOR* idc, FU_HEADER* hdr, 

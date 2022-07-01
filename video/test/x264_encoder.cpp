@@ -178,6 +178,7 @@ void X264Encoder::encode_thread()
 					if (_cb)
 					{
 						_cb(pNals[i].p_payload, pNals[i].i_payload);
+						//free(
 					}
 				}
 			}

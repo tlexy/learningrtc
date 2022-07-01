@@ -156,6 +156,7 @@ namespace tests
 
 	void PeerConnection::h264_enc_cb(uint8_t* payload, int payload_len)
 	{
+		//return;
 		//封装为rtp格式（载荷类型为h264）并发送出去
 		if (!_rtp_h264_encoder)
 		{
