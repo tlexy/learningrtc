@@ -241,13 +241,10 @@ void StreamsJitterBufferEntity::do_decode_h264()
 		free((*it)->payload);
 		AVFrame* frame = nullptr;
 		int ret = _h264_decoder->receive_frame(frame);
-		while (ret >= 0)
+		while (ret > 0)
 		{
-			if (ret > 0)
-			{
-				//有效帧
-				_frames.push_back(frame);
-			}
+			//有效帧
+			_frames.push_back(frame);
 			frame = nullptr;
 			ret = _h264_decoder->receive_frame(frame);
 		}
