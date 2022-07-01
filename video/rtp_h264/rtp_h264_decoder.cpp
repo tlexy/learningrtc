@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <iostream>
+#include <video/test/h264_helper.h>
 
 RtpH264Decoder::RtpH264Decoder()
 {
@@ -148,7 +149,7 @@ NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&, bool with_s
 	{
 		return nullptr;
 	}
-
+	memset(nalu, 0x0, sizeof(NALU));
 	nalu->start_code[0] = 0x0;
 	nalu->start_code[1] = 0x0;
 	nalu->start_code[2] = 0x01;
@@ -201,6 +202,11 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp, bool with_startcode)
 {
 	NALU_HEADER* hdr = (NALU_HEADER*)rtp->arr;
 	NALU* nalu = new NALU;
+	if (!nalu)
+	{
+		return nullptr;
+	}
+	memset(nalu, 0x0, sizeof(NALU));
 	nalu->start_code[0] = 0x0;
 	nalu->start_code[1] = 0x0;
 	nalu->start_code[2] = 0x01;
@@ -211,6 +217,14 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp, bool with_startcode)
 	{
 		nalu->start_code[2] = 0x00;
 		nalu->start_code_len = 4;
+	}
+	if ((hdr->TYPE & NALU_TYPE_MASK) == NALU_TYPE_SPS)
+	{
+		int width = 0, height = 0, fps = 0;
+		h264_decode_sps(rtp->arr, rtp->payload_len, width, height, fps);
+		nalu->width = width;
+		nalu->height = height;
+		nalu->fps = fps;
 	}
 	std::cout << "decode single..." << std::endl;
 	//假设只有拆分包，没有组合包

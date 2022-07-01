@@ -47,6 +47,9 @@ typedef struct
     int payload_len;
     int max_size;
     uint32_t timestamp;
+    int width;
+    int height;
+    int fps;
 } NALU;
 
 typedef struct

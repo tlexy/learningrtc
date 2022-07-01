@@ -19,6 +19,13 @@ void StreamsJitterBufferEntity::init()
 	_h264_decoder->init();
 }
 
+void StreamsJitterBufferEntity::get_video_info(int& width, int& height, int& fps)
+{
+	width = _vw;
+	height = _vh;
+	fps = _fps;
+}
+
 void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 {
 	if (rtp->hdr.paytype == rtp_base::eAacLcPayLoad)
@@ -37,6 +44,12 @@ void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 			_nalus_mutex.lock();
 			_nalus.push_back(nalu);
 			_nalus_mutex.unlock();
+			if (_vw == 0 && nalu->width != 0)
+			{
+				_vw = nalu->width;
+				_vh = nalu->height;
+				_fps = nalu->fps;
+			}
 		}
 	}
 }

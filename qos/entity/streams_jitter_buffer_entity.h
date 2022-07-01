@@ -51,6 +51,8 @@ public:
 	/// <returns></returns>
 	int get_video_frame(AVFrame*, int64_t audio_pts);
 
+	void get_video_info(int& width, int& height, int& fps);
+
 protected:
 	virtual bool force_cache();
 	virtual void do_decode();
@@ -72,6 +74,9 @@ private:
 	std::list<NALU*> _nalus;
 	std::mutex _nalus_mutex;
 	std::list<AVFrame*> _frames;
+	int _vw = 0;//视频的宽
+	int _vh = 0;//视频的高
+	int _fps = 0;
 
 	//aac解码相关
 	std::shared_ptr<AacHelper> _aac_helper{ nullptr };

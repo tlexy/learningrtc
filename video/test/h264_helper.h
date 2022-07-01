@@ -25,4 +25,6 @@ void FreeNALU(NALU* n);
 //并且返回两个开始字符之间间隔的字节数，即包含有前缀的NALU的长度
 int GetAnnexbNALU(NALU* nalu, FILE* fp);
 
+int h264_decode_sps(uint8_t* buf, unsigned int len, int& width, int& height, int& fps);
+
 #endif
