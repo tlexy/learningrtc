@@ -181,7 +181,7 @@ void OpenGLPlayerWidget::initializeGL()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     //创建材质显卡空间
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, _width / 2, _height / 2, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
-
+    _is_init = true;
 }
 
 void OpenGLPlayerWidget::paintGL()
@@ -191,6 +191,10 @@ void OpenGLPlayerWidget::paintGL()
     {
         return;
     }*/
+    if (!_is_init)
+    {
+        return;
+    }
     if (_frame.width() == 0 && _av_frame == nullptr)
     {
         return;
@@ -220,7 +224,7 @@ void OpenGLPlayerWidget::paintGL()
     }
     else
     {
-        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[1]);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width / 2, _height / 2, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[1]);
     }
     //与shader uni遍历关联
     glUniform1i(_unis[1], 1);
@@ -235,7 +239,7 @@ void OpenGLPlayerWidget::paintGL()
     }
     else
     {
-        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[2]);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width / 2, _height / 2, GL_RED, GL_UNSIGNED_BYTE, _av_frame->data[2]);
     }
     //与shader uni遍历关联
     glUniform1i(_unis[2], 2);

@@ -33,17 +33,17 @@ void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 {
 	if (rtp->hdr.paytype == rtp_base::eAacLcPayLoad)
 	{
-		std::cout << "recv aac packet, seq: " << rtp->hdr.seq_number << std::endl;
+		std::cerr << "recv aac packet, seq: " << rtp->hdr.seq_number << std::endl;
 		_rtp_cacher->push(rtp);
 	}
 	else if (rtp->hdr.paytype == rtp_base::eH264PayLoad)
 	{
-		std::cout << "recv h264 packet, seq: " << rtp->hdr.seq_number << ",ts=" << rtp->hdr.timestamp << std::endl;
-		fprintf(stderr, "recv h264 packet, seq: %u, ts: %u", rtp->hdr.seq_number, rtp->hdr.timestamp);
+		std::cerr << "recv h264 packet, seq: " << rtp->hdr.seq_number << ",ts=" << rtp->hdr.timestamp << std::endl;
+		fprintf(stderr, "recv h264 packet, seq: %u, ts: %u\n", rtp->hdr.seq_number, rtp->hdr.timestamp);
 		NALU* nalu = _rtp_h264_decoder->decode_rtp(rtp, true);
 		if (nalu)
 		{
-			std::cout << "decode h264 packet, ts: " << rtp->hdr.timestamp << std::endl;
+			std::cerr << "decode h264 packet, ts: " << nalu->timestamp << std::endl;
 			//nalu->timestamp = rtp->hdr.timestamp;
 			_nalus_mutex.lock();
 			_nalus.push_back(nalu);

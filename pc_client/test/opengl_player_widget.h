@@ -57,6 +57,7 @@ private:
 	AVFrame* _av_frame = nullptr;
 	bool _new_frame{ false };
 
+	bool _is_init = false;
 	GLuint _unis[3] = { 0 };
 	GLuint _texids[3] = {0};
 	GLuint _ebo;

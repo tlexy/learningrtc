@@ -154,7 +154,7 @@ void PcClient::init()
     if (!_vcm_capturer)
     {
         //QMessageBox::warning(this, tr("错误"), tr("摄像头可能被其他程序使用，无法打开摄像头"));
-        qDebug() << "tr(\"摄像头可能被其他程序使用，无法打开摄像头\")";
+        qDebug() << tr("摄像头可能被其他程序使用，无法打开摄像头");
         return;
     }
     _vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
@@ -181,7 +181,7 @@ void PcClient::slot_video_ready(const VideoParameter& param)
 
 void PcClient::slot_video_frame(const VideoFrame& vf)
 {
-    //_gl_player->pushFrame(vf.frame);
+    _gl_player->pushFrame(vf.frame);
 }
 
 void PcClient::closeEvent(QCloseEvent* event)
