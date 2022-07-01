@@ -11,6 +11,8 @@
 
 using SignalFunc = std::function<void(const std::any&)>;
 
+//Q_DECLARE_METATYPE(VideoParameter);
+
 //UI与逻辑通讯线程
 class CommThread : public QThread
 {
@@ -23,13 +25,14 @@ public:
 
 signals:
 	int sig_join_resp(int);
+	int sig_video_ready(const VideoParameter&);
 
 protected:
 	void run();
 
 private:
 	void do_sig_join_resp(const std::any&);
-
+	void do_sig_video_ready(const std::any&);
 
 private:
 	ThreadQueue<SignalHub> _fr_queue;

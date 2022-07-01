@@ -16,6 +16,8 @@
 #include <webrtc_camera/core/video_capture_factory.h>
 #include <webrtc_camera/vcm_capturer.h>
 #include <QDebug>
+#include "../common/pc_global.h"
+#include "../component/comm_thread.h"
 
 #define SAVE_TEST
 
@@ -219,6 +221,19 @@ namespace tests
 			{
 				_receiver_je->update();
 				_receiver_je->decode();
+				//尝试获得视频及其参数，通过信号通知UI界面
+				if (!_video_ready)
+				{
+					VideoParameter vp;
+					vp.width = 640;
+					vp.height = 480;
+					vp.fps = 30;
+					SignalHub sig;
+					sig.first = eSigVideoReady;
+					sig.t = std::make_any<VideoParameter>(vp);
+					PcGlobal::get_instance()->comm_thread()->push(sig);
+					_video_ready = true;
+				}
 			}
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}

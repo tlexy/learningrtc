@@ -51,6 +51,12 @@ public:
 	/// <returns></returns>
 	int get_video_frame(AVFrame*, int64_t audio_pts);
 
+	/// <summary>
+	/// 返回获得帧的数量，最大值为1,0表示没有可获取的帧
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	int get_video_frame_front(AVFrame*&);
 	void get_video_info(int& width, int& height, int& fps);
 
 protected:

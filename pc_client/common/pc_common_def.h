@@ -12,7 +12,16 @@ struct SignalHub
 enum FirstSigType
 {
 	eSigJoinResp = 1,
+	eSigVideoReady = 2,
 	eSigFirstTypeEnd
+};
+
+class VideoParameter
+{
+public:
+	int width;
+	int height;
+	int fps;
 };
 
 #endif

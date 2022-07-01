@@ -137,8 +137,9 @@ void PcClient::init()
         });
 
     CONN_COMM(sig_join_resp, slot_joinresp);
-    connect(this, SIGNAL(close()), this, SLOT(slot_close()));
-
+    CONN_COMM(sig_video_ready, slot_video_ready);
+    //connect(this, SIGNAL(close()), this, SLOT(slot_close()));
+    
     //startTimer(200);
 
     int video_width = 640;
@@ -154,6 +155,11 @@ void PcClient::init()
     _gl_player->init(video_width, video_height, 2);
     //_vcm_capturer->StartCapture();
     //_sdl_player->start(640, 480);
+}
+
+void PcClient::slot_video_ready(const VideoParameter& param)
+{
+    qDebug() << param.width << ":" << param.height << ":" << param.fps;
 }
 
 void PcClient::closeEvent(QCloseEvent* event)
@@ -176,7 +182,7 @@ void PcClient::slot_listen()
     log_info("listen button");
     QString sport = _port_le->text();
     int port = std::atoi(sport.toStdString().c_str());
-    if (port > 65535)
+    if (port > 65535 || port <= 0)
     {
         QMessageBox::warning(this, tr("´íÎó"), tr("¶Ë¿ÚºÅ¸ñÊ½´íÎó"));
         return;

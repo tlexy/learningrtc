@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <vector>
 #include <memory>
+#include "common/pc_common_def.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -37,6 +38,8 @@ public slots:
     void slot_joinresp(int status);
     void slot_listen();
     void slot_connect();
+
+    void slot_video_ready(const VideoParameter&);
 
 private:
     QBoxLayout* create_layout(const std::vector<QWidget*> widgets, QBoxLayout*);

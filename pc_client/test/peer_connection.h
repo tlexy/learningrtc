@@ -92,6 +92,7 @@ namespace tests
 		std::shared_ptr<RtpH264Decoder> _rtp_h264_decoder;
 		webrtc::test::VcmCapturer* _vcm_capturer{nullptr};
 		rtp_base::rtc_ext_header _rtc_v_hdr;
+		bool _video_ready = false;
 
 		///for test
 		FileSaver* _aac_saver{nullptr};

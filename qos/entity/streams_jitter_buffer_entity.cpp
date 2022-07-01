@@ -174,6 +174,17 @@ int StreamsJitterBufferEntity::get_video_frame(AVFrame* frame, int64_t audio_pts
 	return 0;
 }
 
+int StreamsJitterBufferEntity::get_video_frame_front(AVFrame*& frame)
+{
+	if (!_frames.empty())
+	{
+		frame = _frames.front();
+		_frames.pop_front();
+		return 1;
+	}
+	return 0;
+}
+
 int64_t StreamsJitterBufferEntity::get_video_pts(int64_t audio_pts)
 {
 	//这里当audio_pts超出uint32_t时，要做重置处理

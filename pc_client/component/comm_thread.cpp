@@ -11,12 +11,20 @@ void CommThread::init()
 {
 	using namespace std::placeholders;
 
+	qRegisterMetaType<VideoParameter>("VideoParameter");
+
 	_signal_hubs[eSigJoinResp] = std::bind(&CommThread::do_sig_join_resp, this, _1);
+	_signal_hubs[eSigVideoReady] = std::bind(&CommThread::do_sig_video_ready, this, _1);
 }
 
 void CommThread::do_sig_join_resp(const std::any& sig)
 {
 	emit sig_join_resp(std::any_cast<int>(sig));
+}
+
+void CommThread::do_sig_video_ready(const std::any& sig)
+{
+	emit sig_video_ready(std::any_cast<VideoParameter>(sig));
 }
 
 void CommThread::push(const SignalHub& sig)
