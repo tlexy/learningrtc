@@ -194,6 +194,7 @@ NALU* RtpH264Decoder::assembly_nalu(const std::list<rtp_packet_t*>&, bool with_s
 	nalu->hdr->F = 0;
 	nalu->hdr->NRI = idc->NRI;
 	nalu->hdr->TYPE = hdr->TYPE;
+	nalu->timestamp = _last_ts;
 
 	return nalu;
 }

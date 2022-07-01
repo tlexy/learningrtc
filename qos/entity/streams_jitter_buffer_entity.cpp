@@ -9,6 +9,8 @@ StreamsJitterBufferEntity::StreamsJitterBufferEntity()
 {
 	_h264_decoder = std::make_shared<H264FFmpegDecoder>();
 	_rtp_h264_decoder = std::make_shared<RtpH264Decoder>();
+
+	_aac_helper = std::make_shared<AacHelper>();
 }
 
 void StreamsJitterBufferEntity::init()
@@ -35,7 +37,7 @@ void StreamsJitterBufferEntity::push(rtp_packet_t* rtp)
 	}
 	else if (rtp->hdr.paytype == rtp_base::eH264PayLoad)
 	{
-		std::cout << "recv h264 packet, seq: " << rtp->hdr.seq_number << std::endl;
+		std::cout << "recv h264 packet, seq: " << rtp->hdr.seq_number << ",ts=" << rtp->hdr.timestamp << std::endl;
 		NALU* nalu = _rtp_h264_decoder->decode_rtp(rtp, true);
 		if (nalu)
 		{

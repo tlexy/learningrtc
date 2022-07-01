@@ -129,7 +129,7 @@ void VcmCapturer::broadcaster_thread()
     bool flag = false;
     while (!_is_stop)
     {
-        VideoFrame frame = _qu.pop(flag, std::chrono::milliseconds(1000));
+        VideoFrame frame = _qu.pop(flag, std::chrono::milliseconds(0));
         if (flag)
         {
             //std::cout << "broadcaster_thread..." << std::endl;
@@ -139,7 +139,7 @@ void VcmCapturer::broadcaster_thread()
             }
         }
 
-        AVFrame* av_frame = _fqu.pop(flag, std::chrono::milliseconds(1000));
+        AVFrame* av_frame = _fqu.pop(flag, std::chrono::milliseconds(1));
         if (flag)
         {
             //std::cout << "broadcaster_thread..." << std::endl;

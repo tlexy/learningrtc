@@ -111,6 +111,16 @@ namespace tests
 		//视频相关
 		_video_width = width;
 		_video_height = height;
+		{
+			VideoParameter vp;
+			vp.width = width;
+			vp.height = height;
+			vp.fps = 30;
+			SignalHub sig;
+			sig.first = eSigVideoReady;
+			sig.t = std::make_any<VideoParameter>(vp);
+			PcGlobal::get_instance()->comm_thread()->push(sig);
+		}
 		_x264_encoder = std::make_shared<X264Encoder>();
 		_x264_encoder->init(_video_width, _video_height, 30);
 		_x264_encoder->set_enc_cb(std::bind(&PeerConnection::h264_enc_cb, this, _1, _2));
@@ -222,17 +232,21 @@ namespace tests
 				_receiver_je->update();
 				_receiver_je->decode();
 				//尝试获得视频及其参数，通过信号通知UI界面
-				if (!_video_ready)
+				AVFrame* av_frame = nullptr;
+				int ret = _receiver_je->get_video_frame_front(av_frame);
+				if (ret == 1 && av_frame)
 				{
-					VideoParameter vp;
-					vp.width = 640;
-					vp.height = 480;
-					vp.fps = 30;
-					SignalHub sig;
-					sig.first = eSigVideoReady;
-					sig.t = std::make_any<VideoParameter>(vp);
-					PcGlobal::get_instance()->comm_thread()->push(sig);
-					_video_ready = true;
+					_vcm_capturer->PushFrame(av_frame);
+					if (!_video_ready)
+					{
+						VideoParameter vp;
+						_receiver_je->get_video_info(vp.width, vp.height, vp.fps);
+						SignalHub sig;
+						sig.first = eSigVideoReady;
+						sig.t = std::make_any<VideoParameter>(vp);
+						PcGlobal::get_instance()->comm_thread()->push(sig);
+						_video_ready = true;
+					}
 				}
 			}
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));

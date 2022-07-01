@@ -102,6 +102,8 @@ void PcClient::init()
     vBodyLeftLayout->addLayout(create_layout({ _listen_btn, _pushlish_btn }, new QHBoxLayout));
     vBodyLeftLayout->addStretch();
 
+    _holder_widget = new QWidget();
+
     _gl_player = std::make_shared<OpenGLPlayerWidget>();//new SdlPlayerWidget()
     _gl_player->setFixedSize(QSize(640, 480));
     /*QWidget* sdlWidgetContainer = new QWidget();
@@ -109,10 +111,12 @@ void PcClient::init()
     gridLayout->addWidget(_sdl_player.get());
     sdlWidgetContainer->setLayout(gridLayout);
     sdlWidgetContainer->setFixedSize(740, 520);*/
-    hBodyLayout->addWidget(_gl_player.get());//sdlWidgetContainer
+    hBodyLayout->addWidget(_holder_widget);//_holder_widget; sdlWidgetContainer
 
     hMainLayout->addLayout(vBodyLeftLayout, 2);
     hMainLayout->addLayout(hBodyLayout, 7);
+
+    _body_layout = hBodyLayout;
 
     hMainLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(hMainLayout);
@@ -152,7 +156,7 @@ void PcClient::init()
     _d->video_height = video_height;
     _d->video_width = video_width;
 
-    _gl_player->init(video_width, video_height, 2);
+    //_gl_player->init(video_width, video_height, 2);
     //_vcm_capturer->StartCapture();
     //_sdl_player->start(640, 480);
 }
@@ -160,6 +164,12 @@ void PcClient::init()
 void PcClient::slot_video_ready(const VideoParameter& param)
 {
     qDebug() << param.width << ":" << param.height << ":" << param.fps;
+    if (param.width > 0)
+    {
+        _gl_player->init(param.width, param.height, 2);
+        _body_layout->addWidget(_gl_player.get());
+        _holder_widget->hide();
+    }
 }
 
 void PcClient::closeEvent(QCloseEvent* event)

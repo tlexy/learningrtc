@@ -64,6 +64,8 @@ void PcClientPrivate::join_room(const std::string& roomid, int64_t uid)
 void PcClientPrivate::listen(int port)
 {
     pc = std::make_shared<tests::PeerConnection>(udp_server);
+
+    pc->set_video_capturer(vcm_capturer);
     pc->listen(port);
     pc->start_play();
 }

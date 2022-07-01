@@ -80,6 +80,10 @@ void OpenGLPlayerWidget::init(int width, int height, int millis)
 
 void OpenGLPlayerWidget::timerEvent(QTimerEvent*)
 {
+    if (_width <= 0)
+    {
+        return;
+    }
     webrtc::VideoFrame frame = _qu.pop(_new_frame, std::chrono::milliseconds(0));
     if (_new_frame)
     {

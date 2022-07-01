@@ -16,6 +16,7 @@ class QBoxLayout;
 class PcClientPrivate;
 class SdlPlayerWidget;
 class OpenGLPlayerWidget;
+class QHBoxLayout;
 
 namespace webrtc::test
 {
@@ -62,9 +63,11 @@ private:
     QPushButton* _pushlish_btn;
     int _audio_device_idx{-1};
 
-    std::shared_ptr <OpenGLPlayerWidget> _gl_player;
+    std::shared_ptr<OpenGLPlayerWidget> _gl_player;
+    QWidget* _holder_widget = nullptr;
     //std::shared_ptr<webrtc::test::VcmCapturer> _vcm_capturer;
     webrtc::test::VcmCapturer* _vcm_capturer;
+    QHBoxLayout* _body_layout;
 
     std::shared_ptr<PcClientPrivate> _d;
 

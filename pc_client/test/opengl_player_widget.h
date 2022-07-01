@@ -50,7 +50,7 @@ private:
 	ThreadQueue<webrtc::VideoFrame> _qu;
 	ThreadQueue<AVFrame*> _fqu;
 	bool _is_stop{ true };
-	int _width;
+	int _width = 0;
 	int _height;
 
 	webrtc::VideoFrame _frame;
