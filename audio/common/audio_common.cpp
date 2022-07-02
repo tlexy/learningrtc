@@ -81,7 +81,7 @@ void AudioCommon::init_device()
 			{
 				continue;
 			}
-			printf_device_info(deviceNum, dinfo);
+			//printf_device_info(deviceNum, dinfo);
 			if (dinfo->maxInputChannels > 0)
 			{
 				std::cout << "input device, deviceNum: " << deviceNum << "\tname: " << dinfo->name << std::endl;

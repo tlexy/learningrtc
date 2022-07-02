@@ -12,6 +12,8 @@ StreamsJitterBufferEntity::StreamsJitterBufferEntity()
 	_rtp_h264_decoder = std::make_shared<RtpH264Decoder>();
 
 	_aac_helper = std::make_shared<AacHelper>();
+
+	_file_saver = new FileSaver(1024 * 1024*5, "receiver", ".pcm");
 }
 
 void StreamsJitterBufferEntity::init()
@@ -121,6 +123,7 @@ int StreamsJitterBufferEntity::get_pcm_buffer(int8_t* data, int len, int64_t& au
 			memcpy(data, ptr->data + ptr->read_pos, ptr->write_pos - ptr->read_pos);
 			need_len = need_len - (ptr->write_pos - ptr->read_pos);
 			_pcm_buffers.pop_front();
+			free(ptr->data);
 			if (audio_pts == 0)
 			{
 				audio_pts = ptr->timestamp;
@@ -130,8 +133,8 @@ int StreamsJitterBufferEntity::get_pcm_buffer(int8_t* data, int len, int64_t& au
 		{
 			//copy part of buffer
 			memcpy(data, ptr->data + ptr->read_pos, need_len);
-			need_len = 0;
 			ptr->read_pos += need_len;
+			need_len = 0;
 			if (audio_pts == 0)
 			{
 				audio_pts = ptr->timestamp;
@@ -225,16 +228,17 @@ void StreamsJitterBufferEntity::do_decode_aac()
 	unsigned out_len = 0;
 	///to do... 这里还要设置丢包隐藏。。。
 	auto flag = _aac_helper->decode(rtp->arr, rtp->payload_len, _decode_buf, out_len);
-	if (flag)
+	if (flag && out_len > 0)
 	{
+		_file_saver->write((const char*)_decode_buf, out_len);
 		auto ptr = std::make_shared<PcmBuffer>();
-		ptr->data = (uint8_t*)malloc(_decode_buf_len);
-		memcpy(ptr->data, _decode_buf, _decode_buf_len);
+		ptr->data = (uint8_t*)malloc(out_len);
+		memcpy(ptr->data, _decode_buf, out_len);
 		/// Attention: 因为AAC解码器有比较大的解码延时，所以这个时间并不准确
 		ptr->timestamp = rtp->hdr.timestamp;
-		ptr->max_size = _decode_buf_len;
-		ptr->write_pos = _decode_buf_len;
-		_pcm_buffer_count += _decode_buf_len;
+		ptr->max_size = out_len;
+		ptr->write_pos = out_len;
+		_pcm_buffer_count += out_len;
 		_pcm_buffer_mutex.lock();
 		//_pcm_buffer->push(_decode_buf, out_len);
 		_pcm_buffers.push_back(ptr);
@@ -281,4 +285,12 @@ void StreamsJitterBufferEntity::do_decode_h264()
 	}
 	_nalus.clear();
 	_nalus_mutex.unlock();
+}
+
+void StreamsJitterBufferEntity::destory()
+{
+	if (_file_saver)
+	{
+		_file_saver->save();
+	}
 }

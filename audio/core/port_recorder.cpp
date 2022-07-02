@@ -211,7 +211,7 @@ void PortRecorder::thread_record(int index)
 		}
 	}
 	
-	if (inputParam.sampleFormat == paFloat32 && src_rate == dst_rate)
+	if (inputParam.sampleFormat == paInt16 && src_rate == dst_rate)
 	{
 		swr_ctx = NULL;
 	}

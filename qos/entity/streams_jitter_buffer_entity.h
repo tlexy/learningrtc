@@ -59,6 +59,8 @@ public:
 	int get_video_frame_front(AVFrame*&);
 	void get_video_info(int& width, int& height, int& fps);
 
+	void destory();
+
 protected:
 	virtual bool force_cache();
 	virtual void do_decode();
@@ -97,6 +99,8 @@ private:
 	std::list<std::shared_ptr<PcmBuffer>> _pcm_buffers;
 	int _pcm_buffer_count = 0;
 	std::mutex _pcm_buffer_mutex;
+
+	FileSaver* _file_saver = nullptr;
 };
 
 #endif

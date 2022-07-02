@@ -132,7 +132,7 @@ namespace tests
 
 		if (_vcm_capturer)
 		{
-			_vcm_capturer->StartCapture();
+			//_vcm_capturer->StartCapture();
 		}
 		else
 		{
@@ -284,6 +284,10 @@ namespace tests
 			delete _vcm_capturer;
 			_vcm_capturer = nullptr;
 		}*/
+		if (_receiver_je)
+		{
+			_receiver_je->destory();
+		}
 		if (_x264_encoder)
 		{
 			_x264_encoder->stop();

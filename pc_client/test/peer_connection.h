@@ -70,7 +70,7 @@ namespace tests
 	private:
 		std::shared_ptr<uvcore::UdpServer> _udp_server;
 		std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
-		std::shared_ptr<StreamsJitterBufferEntity> _receiver_je;
+		std::shared_ptr<StreamsJitterBufferEntity> _receiver_je = nullptr;
 		uvcore::IpAddress _remote_addr;
 		uvcore::IpAddress _local_addr;//接收端的本地接收端口
 		bool _stop{ true };
