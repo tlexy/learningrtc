@@ -132,7 +132,7 @@ namespace tests
 
 		if (_vcm_capturer)
 		{
-			//_vcm_capturer->StartCapture();
+			_vcm_capturer->StartCapture();
 		}
 		else
 		{

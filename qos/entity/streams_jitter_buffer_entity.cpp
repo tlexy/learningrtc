@@ -120,7 +120,7 @@ int StreamsJitterBufferEntity::get_pcm_buffer(int8_t* data, int len, int64_t& au
 		if (need_len >= ptr->write_pos - ptr->read_pos)
 		{
 			//copy entire buffer
-			memcpy(data, ptr->data + ptr->read_pos, ptr->write_pos - ptr->read_pos);
+			memcpy(data + (len - need_len), ptr->data + ptr->read_pos, ptr->write_pos - ptr->read_pos);
 			need_len = need_len - (ptr->write_pos - ptr->read_pos);
 			_pcm_buffers.pop_front();
 			free(ptr->data);
@@ -132,7 +132,7 @@ int StreamsJitterBufferEntity::get_pcm_buffer(int8_t* data, int len, int64_t& au
 		else
 		{
 			//copy part of buffer
-			memcpy(data, ptr->data + ptr->read_pos, need_len);
+			memcpy(data + (len - need_len), ptr->data + ptr->read_pos, need_len);
 			ptr->read_pos += need_len;
 			need_len = 0;
 			if (audio_pts == 0)
