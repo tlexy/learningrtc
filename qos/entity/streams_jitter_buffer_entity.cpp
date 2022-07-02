@@ -267,6 +267,7 @@ void StreamsJitterBufferEntity::do_decode_h264()
 	{
 		_h264_decoder->decode(*it);
 		free((*it)->payload);
+		delete *it;
 		AVFrame* frame = nullptr;
 		int ret = _h264_decoder->receive_frame(frame);
 		while (ret > 0)
