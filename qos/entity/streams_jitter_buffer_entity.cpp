@@ -13,7 +13,8 @@ StreamsJitterBufferEntity::StreamsJitterBufferEntity()
 
 	_aac_helper = std::make_shared<AacHelper>();
 
-	_file_saver = new FileSaver(1024 * 1024*5, "receiver", ".pcm");
+	//_file_saver = new FileSaver(1024 * 1024*5, "receiver", ".pcm");
+	//_file_saver_h264 = new FileSaver(1024 * 1024 * 5, "receiver", ".h264");
 }
 
 void StreamsJitterBufferEntity::init()
@@ -230,7 +231,10 @@ void StreamsJitterBufferEntity::do_decode_aac()
 	auto flag = _aac_helper->decode(rtp->arr, rtp->payload_len, _decode_buf, out_len);
 	if (flag && out_len > 0)
 	{
-		_file_saver->write((const char*)_decode_buf, out_len);
+		if (_file_saver)
+		{
+			_file_saver->write((const char*)_decode_buf, out_len);
+		}
 		auto ptr = std::make_shared<PcmBuffer>();
 		ptr->data = (uint8_t*)malloc(out_len);
 		memcpy(ptr->data, _decode_buf, out_len);
@@ -270,6 +274,10 @@ void StreamsJitterBufferEntity::do_decode_h264()
 	for (auto it = _nalus.begin(); it != _nalus.end(); ++it)
 	{
 		_h264_decoder->decode(*it);
+		if (_file_saver_h264)
+		{
+			_file_saver_h264->write((const char*)(*it)->payload, (*it)->payload_len);
+		}
 		free((*it)->payload);
 		delete *it;
 		AVFrame* frame = nullptr;
@@ -292,5 +300,9 @@ void StreamsJitterBufferEntity::destory()
 	if (_file_saver)
 	{
 		_file_saver->save();
+	}
+	if (_file_saver_h264)
+	{
+		_file_saver_h264->save();
 	}
 }

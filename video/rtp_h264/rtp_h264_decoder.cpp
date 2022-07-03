@@ -222,14 +222,6 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp, bool with_startcode)
 		nalu->start_code[2] = 0x00;
 		nalu->start_code_len = 4;
 	}
-	if ((hdr->TYPE & NALU_TYPE_MASK) == NALU_TYPE_SPS)
-	{
-		int width = 0, height = 0, fps = 0;
-		h264_decode_sps(rtp->arr, rtp->payload_len, width, height, fps);
-		nalu->width = width;
-		nalu->height = height;
-		nalu->fps = fps;
-	}
 	std::cout << "decode single..." << std::endl;
 	//假设只有拆分包，没有组合包
 	if (hdr->TYPE != 28)
@@ -250,6 +242,17 @@ NALU* RtpH264Decoder::decode_single(rtp_packet_t* rtp, bool with_startcode)
 			nalu->hdr = (NALU_HEADER*)(nalu->payload + nalu->start_code_len);
 		}
 		nalu->timestamp = rtp->hdr.timestamp;
+
+		//下面的操作会修改h264的内容，要放在最后
+		if ((hdr->TYPE & NALU_TYPE_MASK) == NALU_TYPE_SPS)
+		{
+			int width = 0, height = 0, fps = 0;
+			h264_decode_sps(rtp->arr, rtp->payload_len, width, height, fps);
+			nalu->width = width;
+			nalu->height = height;
+			nalu->fps = fps;
+		}
+
 		return nalu;
 	}
 	std::cerr << "decode nalu error." << std::endl;

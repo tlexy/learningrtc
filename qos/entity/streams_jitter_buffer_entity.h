@@ -101,6 +101,7 @@ private:
 	std::mutex _pcm_buffer_mutex;
 
 	FileSaver* _file_saver = nullptr;
+	FileSaver* _file_saver_h264 = nullptr;
 };
 
 #endif
