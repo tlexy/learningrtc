@@ -1,0 +1,64 @@
+audio:
+	..\3rd\portaudio-master\include
+	..\3rd\log4u
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include
+	..\
+common:
+	..\3rd
+yuv:
+	..\include
+	..\..\libjpeg-turbo-2.1.3
+	..\..\libjpeg-turbo-2.1.3\build
+endec:
+	..\
+	..\3rd\fdk-aac-2.0.1\win32
+	..\3rd\fdk-aac-2.0.1\libSYS\include
+	..\3rd\fdk-aac-2.0.1\libSRBenc\include
+	..\3rd\fdk-aac-2.0.1\libSACenc\include
+	..\3rd\fdk-aac-2.0.1\libPCMutils\include
+	..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include
+	..\3rd\fdk-aac-2.0.1\libFDK\include
+	..\3rd\fdk-aac-2.0.1\libArithCoding\include
+	..\3rd\fdk-aac-2.0.1\libAACenc\include
+	..\3rd\fdk-aac-2.0.1\libAACdec\include
+	..\3rd\portaudio-master\include
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include
+qos:
+	..\3rd\uvnet\3rd\libuv-v1.44.1\include
+	..\3rd
+	..
+	[fdkaac]
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include
+rtp_base:
+	..\3rd\uvnet\3rd\libuv-v1.44.1\include
+	..\3rd
+	..
+video:
+	..
+	..\3rd\libyuv\include
+	..\3rd\libjpeg-turbo-2.1.3
+	..\3rd\libjpeg-turbo-2.1.3\build
+	..\webrtc_camera
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include
+windows_capture_test:
+	..
+	..\3rd\libyuv\include
+	..\3rd\libjpeg-turbo-2.1.3
+	..\3rd\libjpeg-turbo-2.1.3\build
+	.
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include
+pc_client:
+	..
+	..\3rd
+	..\3rd\portaudio-master\include
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include
+	..\3rd\uvnet\3rd\libuv-v1.44.1\include
+	[fdkaac]
+	..\webrtc_camera
+
+	..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib
+	..\3rd\fdk-aac-2.0.1\lib\Debug64
+	..\3rd\uvnet\3rd\libuv-v1.44.1\build\Debug
+	..\3rd\jsoncpp\lib\Debug
+	..\3rd\portaudiov19\x64\debug
+	..\bin
