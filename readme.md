@@ -9,25 +9,41 @@
 
 ### 项目结构
 --- 
+* common 基础工具的定义
 * audio 音频相关，包含音频采集与播放等
-* pc_client 客户端相关，windows客户端，使用Qt+SDL实现
-* learnsvr 服务器
-* net_base 封装的跨平台网络接口
+* endec 音频编解码相关
+* pc_client 客户端相关，windows客户端，使用Qt+opengl实现
 * netrate 带宽预测、拥塞控制相关
-* qos Qos相关
+* qos 接收与解析流媒体，实现jitter buffer功能等
 * rtp_base rtp底层实现
-* video windows平台的视频采集
+* video 视频解码相关（rtp解包及h264解码）
+* windows_capture_test windows平台的视频采集
 * endec 音视频编解码相关
 
-### 开发及进度
-项目将会是从零开始开发，欢迎大家参与。
+### 开发计划
+0. 实现流媒体的发送与接收【已经完成】
+1. 实现网络带宽预测+码控功能
+2. 抗抖动及弱网优化
 
 ### 目标
 打造一个足够简单，功能刚刚够用的音视频直播项目，一个新手也能轻易运行，并且也能看懂代码的项目。
 
 ## 功能设计
-1. p2p功能，假设两个对端是无条件可连通的，因此，客户端可以直接将直播数据发送到对端；发送音视频数据之前并没有信令的交互；
-2. 本地录制功能，将发送或者接收到的音视频保存为mp4格式并保存到本地；
+1. p2p功能，假设两个对端是无条件可连通的(接收端必须是可连通的)，因此，客户端可以直接将直播数据发送到对端；发送音视频数据之前并没有信令的交互；
 
 ## 编译相关
 ### portaudio [链接](http://portaudio.com/docs/v19-doxydocs/compile_windows.html)
+
+### 单独编译的模块
+1. portaudio(portaudio-master.zip)
+2. libjpeg-turbo-2.1.3(libjpeg-turbo-2.1.3.zip)
+3. jsoncpp(jsoncpp-1.9.5.zip)
+4. libyuv(libyuv.zip)
+5. uvnet(https://github.com/tlexy/uvnet)
+
+### 编译与运行环境
+vs2019
+
+### cmake
+1. 在相应项目建立build目录
+2. 进入build目录，运行cmake -G "Visual Studio 16 2019" ..
