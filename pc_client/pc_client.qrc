@@ -1,4 +1,7 @@
 <RCC>
-    <qresource prefix="pc_client">
+    <qresource prefix="/pc_client"/>
+    <qresource prefix="/glsl">
+        <file>res/fragment_showyuv.glsl</file>
+        <file>res/vertex_showyuv.glsl</file>
     </qresource>
 </RCC>

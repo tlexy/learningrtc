@@ -1,0 +1,66 @@
+#ifndef X264_ENCODER_H
+#define X264_ENCODER_H
+
+#include <stdio.h>
+#include <3rd/SDL2-2.0.14/include/SDL.h>
+#include <memory>
+#include <thread>
+#include <common/util/threadqueue.hpp>
+#include <webrtc_camera/video_frame/video_frame.h>
+#include <webrtc_camera/video_frame_subscriber.h>
+#include "../rtp_h264/rtp_h264_encoder.h"
+#include "../rtp_h264/rtp_h264_decoder.h"
+#include <functional>
+extern "C"
+{
+#include <3rd/x264-master/x264.h>
+#include <3rd/x264-master/x264_config.h>
+}
+
+class FileSaver;
+
+//#define SAVEF
+
+using X264VideoEncCb = std::function<void(uint8_t*, int)>;
+
+class X264Encoder : public webrtc::test::VideoFrameSubscriber
+{
+public:
+	X264Encoder();
+	virtual void OnFrame(const webrtc::VideoFrame&) override;
+
+	void set_enc_cb(X264VideoEncCb cb);
+
+	void start();
+	void stop();
+
+	void init(int width, int height, int fps);
+
+private:
+	void encode_thread();
+
+	void send_rtp(rtp_packet_t*, int fd, const char* ipstr, int port);
+
+	void save_nalu(NALU*);
+
+private:
+	std::shared_ptr<std::thread> _th{nullptr};
+	ThreadQueue<webrtc::VideoFrame> _qu;
+	int _width;
+	int _height;
+	int _fps;
+	bool _is_stop{true};
+	x264_t* _handle;
+	x264_param_t* _param;
+
+	X264VideoEncCb _cb{nullptr};
+
+	RtpH264Decoder* _rhd;
+
+#ifdef SAVEF
+	FileSaver* _h264_file{nullptr};
+	FileSaver* _rtp_save{nullptr};
+#endif
+};
+
+#endif

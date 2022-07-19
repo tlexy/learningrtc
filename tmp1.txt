@@ -1,0 +1,12 @@
+春逝
+
+..\3rd\fdk-aac-2.0.1\win32
+..\3rd\fdk-aac-2.0.1\libSYS\include
+..\3rd\fdk-aac-2.0.1\libSRBenc\include
+..\3rd\fdk-aac-2.0.1\libSACenc\include
+..\3rd\fdk-aac-2.0.1\libPCMutils\include
+..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include
+..\3rd\fdk-aac-2.0.1\libFDK\include
+..\3rd\fdk-aac-2.0.1\libArithCoding\include
+..\3rd\fdk-aac-2.0.1\libAACenc\include
+..\3rd\fdk-aac-2.0.1\libAACdec\include

@@ -1,0 +1,9 @@
+一、Linux下编译请使用fdk-aac-0.1.5原始版本，命令如下：
+
+touch configure.ac aclocal.m4 configure Makefile.am Makefile.in
+./configure --disable-shared --enable-static  --prefix=/var/MediaServer/fdk-aac-0.1.5/build/
+make
+make install
+
+
+二、Windows下编译请使用fak-aac-win目录下的vs2010工程文件

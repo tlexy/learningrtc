@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="portaudio|x64">
+      <Configuration>portaudio</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
@@ -13,13 +17,17 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0909FEFF-51D6-4730-9B33-708C300638C1}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.22000.0</WindowsTargetPlatformVersion>
-    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')"
-      >$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'">8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -33,23 +41,29 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.14.2_msvc2017_64</QtInstall>
+    <QtModules>core;opengl;gui;widgets;openglextensions</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'" Label="QtSettings">
+    <QtInstall>QT599_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>5.14.2_msvc2017_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtInstall>QT5.15.2_MSVC2019_64</QtInstall>
+    <QtModules>core;opengl;gui;widgets;openglextensions</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
-  <Target Name="QtMsBuildNotFound"
-    BeforeTargets="CustomBuild;ClCompile"
-    Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
-    <Message Importance="High"
-      Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
   </Target>
   <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(QtMsBuild)\Qt.props" />
   </ImportGroup>
@@ -59,9 +73,46 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\Release</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'">
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\webrtc_camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;SAVE_TEST_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;portaudio.lib;turbojpeg-static.lib;yuv.lib;windows_capture_test.lib;SDL2.lib;video.lib;libx264.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\learninglive\x64\Debug;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib;..\3rd\fdk-aac-2.0.1\lib\Debug64;..\3rd\uvnet\3rd\libuv-v1.44.1\build\Debug;..\3rd\jsoncpp\lib\Debug;..\3rd\portaudiov19\x64\debug;..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WIN32;SAVE_TEST_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;libfdkaac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;portaudio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\learninglive\x64\portaudio;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib;..\3rd\fdk-aac-2.0.1\lib\Debug64;..\3rd\uvnet\3rd\libuv-v1.44.1\build\Debug;..\3rd\jsoncpp\lib\Debug;..\3rd\portaudiov19\x64\Debug;..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <AdditionalDependencies>common.lib;audio.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;log4u.lib;endec.lib;fdk-aac.lib;uv_a.lib;uvnet.lib;jsoncpp_static.lib;qos.lib;rtp_base.lib;portaudio.lib;turbojpeg-static.lib;yuv.lib;windows_capture_test.lib;SDL2.lib;video.lib;libx264.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\lib;..\3rd\uvnet\3rd\libuv-v1.44.1\build\Release;..\3rd\jsoncpp\lib\Release;..\Release;..\3rd\uvnet\x64\Release;..\3rd\libjpeg-turbo-2.1.3\Release;..\3rd\SDL2-2.0.14\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;.\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\webrtc_camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -71,7 +122,20 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'" Label="Configuration">
+    <ClCompile>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -89,12 +153,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="pc_client.qrc"/>
-    <QtUic Include="pc_client.ui"/>
-    <QtMoc Include="pc_client.h"/>
-    <ClCompile Include="pc_client.cpp"/>
-    <ClCompile Include="main.cpp"/>
-
+    <ClCompile Include="common\pc_global.cpp" />
+    <ClCompile Include="component\comm_thread.cpp" />
+    <ClCompile Include="priv\pc_client_priv.cpp" />
+    <ClCompile Include="sdl_player_widget.cpp" />
+    <ClCompile Include="test\h264_player.cpp" />
+    <ClCompile Include="test\opengl_player_widget.cpp" />
+    <ClCompile Include="test\peer_connection.cpp" />
+    <QtRcc Include="pc_client.qrc" />
+    <QtMoc Include="pc_client.h" />
+    <ClCompile Include="net\net_client.cpp" />
+    <ClCompile Include="pc_client.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="sdl_player_widget.h" />
+    <QtMoc Include="test\opengl_player_widget.h" />
+    <QtMoc Include="test\h264_player.h" />
+    <ClInclude Include="test\peer_connection.h" />
+    <QtMoc Include="component\comm_thread.h" />
+    <ClInclude Include="common\pc_common_def.h" />
+    <ClInclude Include="common\pc_global.h" />
+    <ClInclude Include="net\net_client.h" />
+    <QtMoc Include="priv\pc_client_priv.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

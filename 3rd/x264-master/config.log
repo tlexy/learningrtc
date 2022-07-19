@@ -1,0 +1,242 @@
+checking for -Werror=unknown-warning-option... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L   -Werror=unknown-warning-option   -Wl,--output-def=libx264.def -o conftest
+cc1.exe: error: '-Werror=unknown-warning-option': no option '-Wunknown-warning-option'
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+int main (void) {  return 0; }
+--------------------------------------------------
+checking for -Werror=unknown-attributes... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L   -Werror=unknown-attributes   -Wl,--output-def=libx264.def -o conftest
+cc1.exe: error: '-Werror=unknown-attributes': no option '-Wunknown-attributes'; did you mean '-Wno-attributes'?
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+int main (void) {  return 0; }
+--------------------------------------------------
+checking for -Werror=attributes... yes
+checking for -Werror=ignored-attributes... yes
+checking for -lshell32... yes
+checking for -S... yes
+checking for -Wl,--high-entropy-va... yes
+checking whether windres works... yes
+checking whether !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP) is true... no
+--------------------------------------------------
+conftest.c:3:2: error: #error 
+    3 | #error
+      |  ^~~~~
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <winapifamily.h>
+#if !(!WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)) 
+#error  
+#endif 
+--------------------------------------------------
+x264 configure script
+Command line options: "--enable-shared" "--extra-ldflags=-Wl,--output-def=libx264.def"
+
+checking whether gcc works... yes
+checking whether gcc supports for( int i = 0; i < 9; i++ ); with -std=gnu99... yes
+checking whether gcc supports __attribute__((force_align_arg_pointer))... yes
+checking for -mpreferred-stack-boundary=6... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes -mpreferred-stack-boundary=6  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+cc1.exe: error: '-mpreferred-stack-boundary=6' is not between 3 and 4
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+int main (void) {  return 0; }
+--------------------------------------------------
+checking for -mstack-alignment=64... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes -mstack-alignment=64  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+gcc.exe: error: unrecognized command-line option '-mstack-alignment=64'
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+int main (void) {  return 0; }
+--------------------------------------------------
+checking whether nasm supports vmovdqa32 [eax]{k1}{z}, zmm0... yes
+checking whether gcc supports __asm__("pabsw %xmm0, %xmm0");... yes
+checking for volatile float x = 2; return log2f(x); in math.h... yes
+checking for strtok_r(0, 0, 0); in string.h... yes
+checking for clock_gettime(CLOCK_MONOTONIC, 0); in time.h... yes
+checking for packages: libswscale libavutil... no
+Failed commandline was:
+--------------------------------------------------
+pkg-config --exists libswscale libavutil
+--------------------------------------------------
+checking for sws_init_context(0,0,0); in libswscale/swscale.h... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes  -lswscale -lavutil  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+conftest.c:1:10: fatal error: libswscale/swscale.h: No such file or directory
+    1 | #include <libswscale/swscale.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <libswscale/swscale.h>
+int main (void) { sws_init_context(0,0,0); return 0; }
+--------------------------------------------------
+checking for packages: libavformat libavcodec libavutil... no
+Failed commandline was:
+--------------------------------------------------
+pkg-config --exists libavformat libavcodec libavutil
+--------------------------------------------------
+checking for -lavformat... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes -lavformat  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+G:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -lavformat: No such file or directory
+collect2.exe: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+int main (void) {  return 0; }
+--------------------------------------------------
+checking for av_demuxer_iterate(0); in libavformat/avformat.h... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes    -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+conftest.c:1:10: fatal error: libavformat/avformat.h: No such file or directory
+    1 | #include <libavformat/avformat.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <libavformat/avformat.h>
+int main (void) { av_demuxer_iterate(0); return 0; }
+--------------------------------------------------
+checking for packages: ffms2... no
+Failed commandline was:
+--------------------------------------------------
+pkg-config --exists ffms2
+--------------------------------------------------
+checking for FFMS_DestroyVideoSource(0); in ffms.h... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes  -lffms2  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+conftest.c:1:10: fatal error: ffms.h: No such file or directory
+    1 | #include <ffms.h>
+      |          ^~~~~~~~
+compilation terminated.
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <ffms.h>
+int main (void) { FFMS_DestroyVideoSource(0); return 0; }
+--------------------------------------------------
+checking for FFMS_DestroyVideoSource(0); in ffms.h... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes  -lffms2 -lstdc++   -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+conftest.c:1:10: fatal error: ffms.h: No such file or directory
+    1 | #include <ffms.h>
+      |          ^~~~~~~~
+compilation terminated.
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <ffms.h>
+int main (void) { FFMS_DestroyVideoSource(0); return 0; }
+--------------------------------------------------
+checking for packages: liblsmash... no
+Failed commandline was:
+--------------------------------------------------
+pkg-config --exists liblsmash
+--------------------------------------------------
+checking for lsmash_destroy_root(0); in lsmash.h... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes  -llsmash  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+conftest.c:1:10: fatal error: lsmash.h: No such file or directory
+    1 | #include <lsmash.h>
+      |          ^~~~~~~~~~
+compilation terminated.
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <lsmash.h>
+int main (void) { lsmash_destroy_root(0); return 0; }
+--------------------------------------------------
+checking for packages: gpac... no
+Failed commandline was:
+--------------------------------------------------
+pkg-config --exists gpac
+--------------------------------------------------
+checking for -lz... yes
+checking for -ldl... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes -ldl  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+G:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.1.0/../../../../x86_64-w64-mingw32/bin/ld.exe: cannot find -ldl: No such file or directory
+collect2.exe: error: ld returned 1 exit status
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+int main (void) {  return 0; }
+--------------------------------------------------
+checking for -lws2_32... yes
+checking for -lwinmm... yes
+checking for gf_isom_close(0); in gpac/isomedia.h... no
+Failed commandline was:
+--------------------------------------------------
+gcc conftest.c -m64  -Wall -I. -I$(SRCPATH) -D_POSIX_C_SOURCE=200112L -std=gnu99 -D_GNU_SOURCE   -Werror=attributes -Werror=ignored-attributes  -lgpac_static -lz -lws2_32 -lwinmm  -lshell32 -Wl,--image-base,0x140000000 -m64  -Wl,--output-def=libx264.def  -Wl,--high-entropy-va -Wl,--dynamicbase,--nxcompat,--tsaware -o conftest
+conftest.c:1:10: fatal error: gpac/isomedia.h: No such file or directory
+    1 | #include <gpac/isomedia.h>
+      |          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+--------------------------------------------------
+Failed program was:
+--------------------------------------------------
+#include <gpac/isomedia.h>
+int main (void) { gf_isom_close(0); return 0; }
+--------------------------------------------------
+checking for uint32_t test_vec __attribute__ ((vector_size (16))) = {0,1,2,3}; in stdint.h... yes
+checking for stdio.h... yes
+checking for -fno-tree-vectorize... yes
+checking for fseeko(stdin,0,0); in stdio.h... yes
+checking for -Wshadow... yes
+checking for -Wmaybe-uninitialized... yes
+checking for -fvisibility=hidden... yes
+checking for packages: bash-completion... no
+Failed commandline was:
+--------------------------------------------------
+pkg-config --exists bash-completion
+--------------------------------------------------
+
+platform:       X86_64
+byte order:     little-endian
+system:         WINDOWS
+cli:            yes
+libx264:        internal
+shared:         yes
+static:         no
+bashcompletion: no
+asm:            yes
+interlaced:     yes
+avs:            yes
+lavf:           no
+ffms:           no
+mp4:            no
+gpl:            yes
+thread:         win32
+opencl:         yes
+filters:        crop select_every
+lto:            no
+debug:          no
+gprof:          no
+strip:          no
+PIC:            yes
+bit depth:      all
+chroma format:  all

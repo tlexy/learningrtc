@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="audio">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{9ab0652a-52d1-4876-b178-ef76a881ecde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="def">
+      <UniqueIdentifier>{4c729e47-31f8-4e32-9d80-2327795d462b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="audio\audio_internal_mixer.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="audio\loop_pcm_buffer.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="audio\mid_buf.cpp">
+      <Filter>audio</Filter>
+    </ClCompile>
+    <ClCompile Include="util\file_saver.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\sutil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="audio\audio_internal_mixer.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\loop_pcm_buffer.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\mid_buf.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\mixer_interface.h">
+      <Filter>audio</Filter>
+    </ClInclude>
+    <ClInclude Include="util\file_saver.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\threadqueue.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\sutil.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="def\rtc_common_def.h">
+      <Filter>def</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
