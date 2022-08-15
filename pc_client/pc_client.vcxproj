@@ -40,7 +40,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.14.2_msvc2017_64</QtInstall>
+    <QtInstall>QT5.15.2_MSVC2019_64</QtInstall>
     <QtModules>core;opengl;gui;widgets;openglextensions</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -74,7 +74,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\Release</OutDir>
+    <OutDir>$(SolutionDir)..\bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -83,7 +83,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\webrtc_camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;..\3rd;..\3rd\portaudio-master\include;..\3rd\ffmpeg-n5.0-latest-win64-gpl-shared-5.0\include;..\3rd\uvnet\3rd\libuv-v1.44.1\include;..\3rd\uvnet;..\3rd\fdk-aac-2.0.1\win32;..\3rd\fdk-aac-2.0.1\libSYS\include;..\3rd\fdk-aac-2.0.1\libSRBenc\include;..\3rd\fdk-aac-2.0.1\libSACenc\include;..\3rd\fdk-aac-2.0.1\libPCMutils\include;..\3rd\fdk-aac-2.0.1\libMpegTPEnc\include;..\3rd\fdk-aac-2.0.1\libFDK\include;..\3rd\fdk-aac-2.0.1\libArithCoding\include;..\3rd\fdk-aac-2.0.1\libAACenc\include;..\3rd\fdk-aac-2.0.1\libAACdec\include;..\webrtc_camera;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;SAVE_TEST_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
