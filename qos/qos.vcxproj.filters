@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="emulator">
+      <UniqueIdentifier>{773fd260-6465-41af-a326-8434b3673c57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\rtp_cacher.cpp">
@@ -26,6 +29,9 @@
     <ClCompile Include="entity\streams_jitter_buffer_entity.cpp">
       <Filter>entity</Filter>
     </ClCompile>
+    <ClCompile Include="emulator\net_random_emulator.cpp">
+      <Filter>emulator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\rtp_cacher.h">
@@ -42,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="entity\streams_jitter_buffer_entity.h">
       <Filter>entity</Filter>
+    </ClInclude>
+    <ClInclude Include="emulator\net_random_emulator.h">
+      <Filter>emulator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
