@@ -7,6 +7,7 @@
 #include <thread>
 #include <qos/core/rtp_receiver.h>
 #include <qos/core/rtp_sender.h>
+#include <qos/core/rtp_channel.h>
 
 #include <video/test/x264_encoder.h>
 
@@ -58,7 +59,6 @@ namespace tests
 
 	private:
 		void receiver_worker();
-		void sender_worker();
 
 		void recorder_enc_cb(const uint8_t*, int len);
 		void audio_player_cb(void* output, unsigned long frameCount);
@@ -69,17 +69,13 @@ namespace tests
 
 	private:
 		std::shared_ptr<uvcore::UdpServer> _udp_server;
-		std::shared_ptr<RtpReceiver> _rtp_receiver{nullptr};
-		std::shared_ptr<StreamsJitterBufferEntity> _receiver_je = nullptr;
+		std::shared_ptr<StreamsJitterBufferEntity> _receiver_jb = nullptr;
 		uvcore::IpAddress _remote_addr;
 		uvcore::IpAddress _local_addr;//接收端的本地接收端口
+		std::shared_ptr<RtpChannel> _rtp_channel;
 		bool _stop{ true };
 		//接收端接收对端发过来的RTP包的处理线程
 		std::shared_ptr<std::thread> _receiver_th{nullptr};
-		//发送端接收对端RTP包的返回处理线程
-		std::shared_ptr<std::thread> _sender_th{ nullptr };
-		std::shared_ptr<RtpSender> _rtp_sender{nullptr};
-		std::shared_ptr<StreamsJitterBufferEntity> _sender_je;
 		std::shared_ptr<AudioIO> _audio_io;
 		uint32_t _aac_timestamp{0};
 		int _audio_device_idx;

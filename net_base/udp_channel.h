@@ -46,7 +46,7 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns></returns>
-	int set_remote_addr(const uvcore::IpAddress&);
+	void set_remote_addr(const uvcore::IpAddress&);
 	
 	int send(const char* data, int len);
 

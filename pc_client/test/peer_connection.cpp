@@ -31,6 +31,9 @@ namespace tests
 #ifdef SAVE_TEST
 		_aac_saver = new FileSaver(1024 * 1024*5, "test_aac", ".pcm");
 #endif
+		_receiver_jb = std::make_shared<StreamsJitterBufferEntity>();
+		_receiver_jb->init();
+		_receiver_jb->set_output_buffer(60);
 	}
 
 	void PeerConnection::set_recorder_device(int device_idx)
@@ -55,39 +58,24 @@ namespace tests
 
 	void PeerConnection::connect(const uvcore::IpAddress& ipaddr)
 	{
-		using namespace std::placeholders;
-
-		if (_rtp_receiver)
-		{
-			return;
-		}
-		_sender_je = std::make_shared<StreamsJitterBufferEntity>();
-		_sender_je->init();
-		_sender_je->set_output_buffer(60);
 		_remote_addr = ipaddr;
-		_rtp_sender = std::make_shared<RtpSender>(_remote_addr, _sender_je, _udp_server);
-		_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
-		_rtp_sender->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
-		_rtp_sender->bind_local_addr();
+		_rtp_channel = std::make_shared<RtpChannel>(_udp_server, _receiver_jb);
+		_rtp_channel->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
+		//绑定一个任意端口
+		_rtp_channel->bind();
+		_rtp_channel->set_remote_addr(ipaddr);
+
+		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
 	}
 
 	void PeerConnection::listen(int local_port)
 	{
-		using namespace std::placeholders;
-
-		if (_rtp_sender)
-		{
-			return;
-		}
-		//_receiver_je = std::make_shared<AacJitterBufferEntity>();
-		_receiver_je = std::make_shared< StreamsJitterBufferEntity>();
-		_receiver_je->init();
-		_receiver_je->set_output_buffer(60);
-		//uvcore::IpAddress local_addr(local_port);
 		_local_addr.setPort(local_port);
-		_rtp_receiver = std::make_shared<RtpReceiver>(_local_addr, _receiver_je, _udp_server);
-		_rtp_receiver->set_data_cb(std::bind(&PeerConnection::remote_data_cb, this, _1, _2));
-		_rtp_receiver->start();
+
+		_rtp_channel = std::make_shared<RtpChannel>(_udp_server, _receiver_jb);
+		_rtp_channel->set_rtp_param(rtp_base::eAacLcPayLoad, 8765213);
+		_rtp_channel->bind(_local_addr);
+
 		_receiver_th = std::make_shared<std::thread>(&PeerConnection::receiver_worker, this);
 		_stop = false;
 	}
@@ -97,12 +85,9 @@ namespace tests
 		using namespace std::placeholders;
 
 		//作为调用listen等待对端首先发送数据过来的一方，在收到数据之前，_rtp_sender一定是一个nullptr
-		if (!_rtp_sender)
+		if (!_rtp_channel)
 		{
-			//不需要从对方接收RTP数据，所以jetter buffer参数传入nullptr
-			_rtp_sender = std::make_shared<RtpSender>(_remote_addr, nullptr, _udp_server);
-			_rtp_sender->set_rtp_param(rtp_base::eAacLcPayLoad, 8765215);
-			_rtp_sender->bind_local_addr(_local_addr);
+			std::cerr << "rtp channel is nullptr" << std::endl;
 		}
 		//音频相关
 		_audio_io = std::make_shared<AudioIO>(128000);
@@ -138,8 +123,6 @@ namespace tests
 		{
 			qDebug() << "vcm capture is nullptr";
 		}
-		//音频接收？
-		_sender_th = std::make_shared<std::thread>(&PeerConnection::sender_worker, this);
 		_stop = false;
 	}
 
@@ -186,7 +169,7 @@ namespace tests
 		while (rr >= 0)
 		{
 			rtp_copy_ext_hdr(rtp, rtp_base::eGroupExt, sizeof(rtp_base::rtc_ext_header), &_rtc_v_hdr);
-			_rtp_sender->send_rtp_packet(rtp);
+			_rtp_channel->send_rtp_packet(rtp);
 			rr = _rtp_h264_encoder->get_packet(rtp);
 		}
 	}
@@ -194,9 +177,9 @@ namespace tests
 	void PeerConnection::recorder_enc_cb(const uint8_t* data, int len)
 	{
 		_aac_timestamp += 1024;
-		if (_rtp_sender)
+		if (_rtp_channel)
 		{
-			_rtp_sender->send_raw_data((void*)data, len, _aac_timestamp);
+			_rtp_channel->send_raw_data((void*)data, len, _aac_timestamp);
 		}
 //#ifdef SAVE_TEST
 //		_aac_saver->write((const char*)data, len);
@@ -206,27 +189,18 @@ namespace tests
 	void PeerConnection::audio_player_cb(void* output, unsigned long frameCount)
 	{
 		memset(output, 0x0, frameCount * 2 * 2);
-		if (_receiver_je)
+		if (_receiver_jb)
 		{
 			/*auto ptr = std::dynamic_pointer_cast<StreamsJitterBufferEntity>(_receiver_je);
 			if (ptr)
 			{*/
 				int64_t pts = 0;
-				int bytes = _receiver_je->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2, pts);
+				int bytes = _receiver_jb->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2, pts);
 				std::cout << "get bytes: " << bytes << "\t need：" << frameCount << std::endl;
 #ifdef SAVE_TEST
 				_aac_saver->write((const char*)output, bytes);
 #endif
 			//}
-			return;
-		}
-		if (_sender_je)
-		{
-			auto ptr = std::dynamic_pointer_cast<AacJitterBufferEntity>(_sender_je);
-			if (ptr)
-			{
-				ptr->get_pcm_buffer((int8_t*)output, frameCount * 2 * 2);
-			}
 			return;
 		}
 	}
@@ -235,13 +209,13 @@ namespace tests
 	{
 		while (!_stop)
 		{
-			if (_receiver_je)
+			if (_receiver_jb)
 			{
-				_receiver_je->update();
-				_receiver_je->decode();
+				_receiver_jb->update();
+				_receiver_jb->decode();
 				//尝试获得视频及其参数，通过信号通知UI界面
 				AVFrame* av_frame = nullptr;
-				int ret = _receiver_je->get_video_frame_front(av_frame);
+				int ret = _receiver_jb->get_video_frame_front(av_frame);
 				if (ret == 1 && av_frame)
 				{
 					//_vcm_capturer->PushFrame(av_frame);
@@ -251,7 +225,7 @@ namespace tests
 					if (!_video_ready)
 					{
 						VideoParameter vp;
-						_receiver_je->get_video_info(vp.width, vp.height, vp.fps);
+						_receiver_jb->get_video_info(vp.width, vp.height, vp.fps);
 						SignalHub sig;
 						sig.first = eSigVideoReady;
 						sig.t = std::make_any<VideoParameter>(vp);
@@ -264,19 +238,6 @@ namespace tests
 		}
 	}
 
-	void PeerConnection::sender_worker()
-	{
-		while (!_stop)
-		{
-			if (_sender_je)
-			{
-				_sender_je->update();
-				_sender_je->decode();
-			}
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		}
-	}
-
 	void PeerConnection::destory()
 	{
 		/*if (_vcm_capturer)
@@ -284,9 +245,9 @@ namespace tests
 			delete _vcm_capturer;
 			_vcm_capturer = nullptr;
 		}*/
-		if (_receiver_je)
+		if (_receiver_jb)
 		{
-			_receiver_je->destory();
+			_receiver_jb->destory();
 		}
 		if (_x264_encoder)
 		{
@@ -300,11 +261,6 @@ namespace tests
 			_receiver_th = nullptr;
 		}
 
-		if (_sender_th && _sender_th->joinable())
-		{
-			_sender_th->join();
-			_sender_th = nullptr;
-		}
 		if (_audio_io)
 		{
 			_audio_io->stop();

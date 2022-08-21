@@ -19,9 +19,9 @@ int RtpChannel::bind(const uvcore::IpAddress& ip)
 	return _udp_channel->bind(_udp_server, std::bind(&RtpReceiver::on_rtp_receive, _receiver.get(), _1, _2), ip);
 }
 
-int RtpChannel::set_remote_addr(const uvcore::IpAddress& raddr)
+void RtpChannel::set_remote_addr(const uvcore::IpAddress& raddr)
 {
-	return _udp_channel->set_remote_addr(raddr);
+	_udp_channel->set_remote_addr(raddr);
 }
 
 int RtpChannel::send(const char* data, int len)

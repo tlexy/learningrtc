@@ -17,7 +17,7 @@ public:
 	RtpChannel(std::shared_ptr<uvcore::UdpServer> server, std::shared_ptr<JitterBufferEntity> entity);
 
 	int bind(const uvcore::IpAddress& ip = uvcore::IpAddress());
-	int set_remote_addr(const uvcore::IpAddress&);
+	void set_remote_addr(const uvcore::IpAddress&);
 
 	int send(const char* data, int len);
 

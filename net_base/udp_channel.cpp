@@ -55,7 +55,7 @@ void UdpChannel::on_data_receive(uvcore::Udp* udp, const struct sockaddr* addr)
 	}
 }
 
-int UdpChannel::set_remote_addr(const uvcore::IpAddress& raddr)
+void UdpChannel::set_remote_addr(const uvcore::IpAddress& raddr)
 {
 	_remote_addr = raddr;
 }
