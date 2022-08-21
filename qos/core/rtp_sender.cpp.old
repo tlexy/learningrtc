@@ -1,12 +1,17 @@
 ﻿#include "rtp_sender.h"
 #include <stdlib.h>
 #include <uvnet/core/udp.h>
+#include "../entity/jitter_buffer_entity.h"
 #include <iostream>
-#include <net_base/udp_channel.h>
 
-RtpSender::RtpSender(std::shared_ptr<UdpChannel> channel)
-	:_channel(channel)
+RtpSender::RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JitterBufferEntity> entity,
+	std::shared_ptr<uvcore::UdpServer> server)
+	:_remote_addr(remote_addr),
+	_udp_server(server),
+	_je_entity(entity)
 {
+	_local_addr.setIp("0.0.0.0");
+	_local_addr.setPort(0);
 
 	_sess.seq_number = rand();
 	_sess.timestamp = 0;// rand();
@@ -19,6 +24,24 @@ RtpSender::RtpSender(std::shared_ptr<UdpChannel> channel)
 
 	_rtc_header.ext_seq = 0;
 	_rtc_header.group_seq = 0;
+}
+
+void RtpSender::bind_local_addr(const uvcore::IpAddress& addr)
+{
+	using namespace std::placeholders;
+	if (addr())
+	{
+		_local_addr = addr;
+	}
+	if (!_rtp_udp)
+	{
+		_rtp_udp = _udp_server->addBind(_local_addr, std::bind(&RtpSender::on_rtp_receive, this, _1, _2));
+	}
+}
+
+void RtpSender::set_data_cb(SenderDataCb cb)
+{
+	_data_cb = cb;
 }
 
 void RtpSender::enable_fec(uint8_t group_size, int redrate)
@@ -35,6 +58,24 @@ void RtpSender::set_rtp_param(uint8_t pt, uint32_t ssrc, uint32_t time_inter)
 	_param.pt = pt;
 }
 
+void RtpSender::on_rtp_receive(uvcore::Udp* udp, const struct sockaddr* addr)
+{
+	if (_data_cb)
+	{
+		_data_cb(udp, addr);
+	}
+	auto rtp = rtp_unpack(udp->get_inner_buffer()->read_ptr(), udp->get_inner_buffer()->readable_size());
+	if (rtp)
+	{
+		rtp_base::rtc_ext_header* rtc_header = (rtp_base::rtc_ext_header*)rtp->ext_body;
+		uint32_t real_seqno = (rtc_header->ext_seq * 65535) + rtp->hdr.seq_number;
+		std::cout << "receiver, receive rtp packet, rsn = " << real_seqno << std::endl;
+
+		_je_entity->push(rtp);
+	}
+	udp->get_inner_buffer()->reset();
+}
+
 void RtpSender::enable_retrans(bool flag)
 {
 	_retrans = flag;
@@ -42,7 +83,7 @@ void RtpSender::enable_retrans(bool flag)
 
 void RtpSender::send_rtp_packet(rtp_packet_t* rtp)
 {
-	if (!_channel)
+	if (!_rtp_udp)
 	{
 		return;
 	}
@@ -53,7 +94,7 @@ void RtpSender::send_rtp_packet(rtp_packet_t* rtp)
 	{
 		//发送了的包要缓存一断时间
 		//_cache_list.push_back(rtpc);
-		_channel->send((const char*)rtpc->buff, rtpc->len);
+		_rtp_udp->sendInLoop2((const char*)rtpc->buff, rtpc->len, _remote_addr);
 		free_rtpcache(rtpc);
 	}
 	rtp_free(rtp);
@@ -66,7 +107,7 @@ void RtpSender::send_raw_data(void* data, int len, uint32_t ts)
 	{
 		_rtp_udp = _udp_server->addBind(_local_addr, std::bind(&RtpSender::on_rtp_receive, this, _1, _2));
 	}*/
-	if (!_channel)
+	if (!_rtp_udp)
 	{
 		return;
 	}
@@ -109,7 +150,7 @@ void RtpSender::send_raw_data(void* data, int len, uint32_t ts)
 	{
 		//发送了的包要缓存一断时间
 		//_cache_list.push_back(rtpc);
-		_channel->send((const char*)rtpc->buff, rtpc->len);
+		_rtp_udp->sendInLoop2((const char*)rtpc->buff, rtpc->len, _remote_addr);
 		free_rtpcache(rtpc);
 	}
 	//编码与发送冗余包

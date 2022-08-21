@@ -10,7 +10,9 @@
 #include <rtp_base/core/rtp.h>
 #include <list>
 
-class UdpChannel;
+class JitterBufferEntity;
+
+using SenderDataCb = std::function<void(uvcore::Udp*, const struct sockaddr*)>;
 
 class RtpSender
 {
@@ -21,11 +23,15 @@ public:
 		void* buff;
 		int len;
 	};
-	RtpSender(std::shared_ptr<UdpChannel> channel);
+	RtpSender(const uvcore::IpAddress& remote_addr, std::shared_ptr<JitterBufferEntity> entity,
+		std::shared_ptr<uvcore::UdpServer> server);
+
+	void set_data_cb(SenderDataCb cb);
 	
 	void enable_fec(uint8_t group_size, int redrate);
 	//是否允许超时重发
 	void enable_retrans(bool flag);
+	void bind_local_addr(const uvcore::IpAddress& addr = uvcore::IpAddress());
 	void set_rtp_param(uint8_t pt, uint32_t ssrc, uint32_t time_inter = 0);
 
 	void send_rtp_packet(rtp_packet_t*);
@@ -35,9 +41,16 @@ private:
 	RtpCachePacket* _pack_rtp(void* data, int len);
 	RtpCachePacket* _pack_rtp(rtp_packet_t*);
 	void free_rtpcache(RtpCachePacket*);
+	void on_rtp_receive(uvcore::Udp*, const struct sockaddr*);
 
 private:
-	std::shared_ptr<UdpChannel> _channel{nullptr};
+	uvcore::IpAddress _remote_addr;
+	uvcore::IpAddress _local_addr;
+	SenderDataCb _data_cb{ nullptr };
+	std::shared_ptr<JitterBufferEntity> _je_entity;
+	std::shared_ptr<uvcore::UdpServer> _udp_server{ nullptr };
+	uvcore::Udp* _rtp_udp{ nullptr };
+
 	bool _retrans;
 
 	rtp_session_t _sess;

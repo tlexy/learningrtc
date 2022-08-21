@@ -32,6 +32,9 @@
     <ClCompile Include="emulator\net_random_emulator.cpp">
       <Filter>emulator</Filter>
     </ClCompile>
+    <ClCompile Include="core\rtp_channel.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\rtp_cacher.h">
@@ -51,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="emulator\net_random_emulator.h">
       <Filter>emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="core\rtp_channel.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

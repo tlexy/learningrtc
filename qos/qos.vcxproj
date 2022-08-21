@@ -201,6 +201,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\rtp_cacher.cpp" />
+    <ClCompile Include="core\rtp_channel.cpp" />
     <ClCompile Include="core\rtp_receiver.cpp" />
     <ClCompile Include="core\rtp_sender.cpp" />
     <ClCompile Include="emulator\net_random_emulator.cpp" />
@@ -209,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\rtp_cacher.h" />
+    <ClInclude Include="core\rtp_channel.h" />
     <ClInclude Include="core\rtp_receiver.h" />
     <ClInclude Include="core\rtp_sender.h" />
     <ClInclude Include="emulator\net_random_emulator.h" />
