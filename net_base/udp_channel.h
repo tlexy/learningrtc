@@ -50,6 +50,8 @@ public:
 	
 	int send(const char* data, int len);
 
+	uvcore::EventLoop* get_loop() const;
+
 private:
 	void on_data_receive(uvcore::Udp*, const struct sockaddr*);
 

@@ -60,6 +60,15 @@ void UdpChannel::set_remote_addr(const uvcore::IpAddress& raddr)
 	_remote_addr = raddr;
 }
 
+uvcore::EventLoop* UdpChannel::get_loop() const
+{
+	if (_udp)
+	{
+		return _udp->getLoop();
+	}
+	return nullptr;
+}
+
 int UdpChannel::send(const char* data, int len)
 {
 	if (!_remote_addr())
