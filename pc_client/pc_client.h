@@ -33,6 +33,8 @@ public:
     void init();
     void destroy();
 
+    void set_role(int role);
+
 public slots:
     void slot_audio_device_change(int index);
     void slot_join();

@@ -43,7 +43,7 @@ int play_cb(const void* input, void* output,
 	void* userData)
 {
 	AudioPlayer* player = (AudioPlayer*)userData;
-	player->read_data(output, frameCount);
+	//player->read_data(output, frameCount);
 	return paContinue;
 }
 

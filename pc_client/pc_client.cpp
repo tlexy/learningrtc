@@ -57,6 +57,32 @@ void PcClient::destroy()
     _d->destroy();
 }
 
+void PcClient::set_role(int role)
+{
+    if (role == 0) 
+    {
+        qDebug() << "listen role";
+    }
+    else if (role == 1)
+    {
+        int video_width = 640;
+        int video_height = 480;
+        //_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
+        _vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 1);
+        if (!_vcm_capturer)
+        {
+            //QMessageBox::warning(this, tr("错误"), tr("摄像头可能被其他程序使用，无法打开摄像头"));
+            qDebug() << tr("摄像头可能被其他程序使用，无法打开摄像头");
+            return;
+        }
+        _vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
+
+        _d->vcm_capturer = _vcm_capturer;
+        _d->video_height = video_height;
+        _d->video_width = video_width;
+    }
+}
+
 void PcClient::init()
 {
     QHBoxLayout* hMainLayout = new QHBoxLayout;
@@ -147,21 +173,21 @@ void PcClient::init()
     
     //startTimer(200);
 
-    int video_width = 640;
-    int video_height = 480;
-    //_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
-    _vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 0);
-    if (!_vcm_capturer)
-    {
-        //QMessageBox::warning(this, tr("错误"), tr("摄像头可能被其他程序使用，无法打开摄像头"));
-        qDebug() << tr("摄像头可能被其他程序使用，无法打开摄像头");
-        return;
-    }
-    _vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
+    //int video_width = 640;
+    //int video_height = 480;
+    ////_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
+    //_vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 0);
+    //if (!_vcm_capturer)
+    //{
+    //    //QMessageBox::warning(this, tr("错误"), tr("摄像头可能被其他程序使用，无法打开摄像头"));
+    //    qDebug() << tr("摄像头可能被其他程序使用，无法打开摄像头");
+    //    return;
+    //}
+    //_vcm_capturer->AddSubscriber(_gl_player);//std::dynamic_pointer_cast<webrtc::test::VideoFrameSubscriber>(
 
-    _d->vcm_capturer = _vcm_capturer;
-    _d->video_height = video_height;
-    _d->video_width = video_width;
+    //_d->vcm_capturer = _vcm_capturer;
+    //_d->video_height = video_height;
+    //_d->video_width = video_width;
 
     //_gl_player->init(video_width, video_height, 2);
     //_vcm_capturer->StartCapture();
@@ -213,6 +239,7 @@ void PcClient::slot_listen()
     {
         _d->listen(port);
     }
+    set_role(0);
 }
 
 void PcClient::slot_connect()
@@ -230,6 +257,7 @@ void PcClient::slot_connect()
         QMessageBox::warning(this, tr("错误"), tr("端口号格式错误"));
         return;
     }
+    set_role(1);
     QString ipstr = _ip_le->text();
     _d->connect_to_peer(ipstr.toStdString(), port, _audio_device_idx);
 }

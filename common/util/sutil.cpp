@@ -1,4 +1,4 @@
-#include "sutil.h"
+﻿#include "sutil.h"
 #include <cstdlib>
 #include <time.h>
 #include <chrono>
@@ -47,7 +47,6 @@ namespace SUtil
 		return str.substr(i, j + 1);
 	}
 
-	//去掉空格和换行
 	std::string toCompactString(const std::string &str)
 	{
 		bool in_string = false;
