@@ -5,12 +5,12 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QtLastBackgroundBuild>2022-08-22T02:27:25.5691513Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2024-09-23T15:39:42.1096882Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='portaudio|x64'" Label="QtSettings">
-    <QtLastBackgroundBuild>2022-06-01T06:48:28.4528222Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2024-09-23T15:38:20.6011204Z</QtLastBackgroundBuild>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QtLastBackgroundBuild>2022-07-04T04:22:51.0258241Z</QtLastBackgroundBuild>
+    <QtLastBackgroundBuild>2024-09-23T15:38:20.4575652Z</QtLastBackgroundBuild>
   </PropertyGroup>
 </Project>

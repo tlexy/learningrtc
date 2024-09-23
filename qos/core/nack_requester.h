@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <rtc_base/numerics/sequence_number_util.h>
 #include <atomic>
+#include <vector>
 
 namespace uvcore
 {

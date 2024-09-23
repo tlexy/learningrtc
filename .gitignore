@@ -39,3 +39,7 @@ netrate/x64/
 .vscode
 bin/webrtc_camera_test.exe
 bin
+net_base/x64
+learninglive/learninglive.VC.db
+Release/
+docs/

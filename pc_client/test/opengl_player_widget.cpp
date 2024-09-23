@@ -75,7 +75,8 @@ void OpenGLPlayerWidget::init(int width, int height, int millis)
 {
     _width = width;
     _height = height;
-	startTimer(std::chrono::milliseconds(millis));
+	//startTimer(std::chrono::milliseconds(millis));
+    startTimer(millis);
 }
 
 void OpenGLPlayerWidget::timerEvent(QTimerEvent*)
