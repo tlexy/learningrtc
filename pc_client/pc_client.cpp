@@ -68,7 +68,7 @@ void PcClient::set_role(int role)
         int video_width = 640;
         int video_height = 480;
         //_vcm_capturer = std::make_shared<webrtc::test::VcmCapturer>(webrtc::test::VcmCapturer::Create(640, 480, 30, 0));
-        _vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 1);
+        _vcm_capturer = webrtc::test::VcmCapturer::Create(video_width, video_height, 30, 0);
         if (!_vcm_capturer)
         {
             //QMessageBox::warning(this, tr("错误"), tr("摄像头可能被其他程序使用，无法打开摄像头"));
